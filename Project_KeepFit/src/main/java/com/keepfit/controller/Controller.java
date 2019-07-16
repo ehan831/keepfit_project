@@ -78,7 +78,7 @@ public class Controller {
 		return mv;
 	}
 
-	@RequestMapping(value = "idCheck.fit", produces = "application/text; charset=UTF-8")
+	@RequestMapping(value = "idCheck.do", produces = "application/text; charset=UTF-8")
 	@ResponseBody // ajax인 경우 반드시 @ResponseBody를 추가해줘야 비동기 통신 가능
 	public String idCheck(MemberVO vo) {
 		// String userId를 인자로 받아도 됨

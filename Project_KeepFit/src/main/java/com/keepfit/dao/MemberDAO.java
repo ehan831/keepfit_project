@@ -23,7 +23,7 @@ public interface MemberDAO {
 	public List<MemberVO> getMemberList(MemberVO vo);
 
 	// 회원가입 및 로그인시 id체크	
-	MemberVO idCheck(MemberVO vo);
+	public MemberVO idCheck(MemberVO vo);
 	
 	public MemberVO loginMember(MemberVO vo);
 	

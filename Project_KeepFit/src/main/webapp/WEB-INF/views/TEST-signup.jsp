@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%
-     String email = (String)request.getParameter("email");
-     String pass = (String)request.getParameter("pass");
+     String email = request.getParameter("member_email");
+     String pass = request.getParameter("member_pass");
+     
   %>
 
 <!DOCTYPE html>
@@ -15,8 +16,8 @@
 
 <form action="signup.do">
 
-<input type="hidden" name="member_email" value=<%=email%>>
-<input type="hidden" name="member_pass" value=<%=pass%>>
+<input type="hidden" name="member_email" value='<%=email%>'>
+<input type="hidden" name="member_pass" value='<%=pass%>'>
 
 <ul>
 <li>nickname: <input type="text" name="member_nick">

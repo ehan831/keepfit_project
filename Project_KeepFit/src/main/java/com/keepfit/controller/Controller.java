@@ -2,6 +2,10 @@ package com.keepfit.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,7 +48,7 @@ public class Controller {
 	 * [로그인] HANDLERS
 	 *************************************************************************************************/
 	@RequestMapping(value = { "login.do" })
-	public ModelAndView login(MemberVO vo) {
+	public ModelAndView login(MemberVO vo, HttpServletRequest request) {
 		// [MEMBER DB] 에서 [email]과 [password] 확인
 		MemberVO logUser = memberService.loginMember(vo);
 
@@ -174,6 +178,9 @@ public class Controller {
 		
 		return mv;
 	}
+	
+	
+
 	
 
 } // END OF Controller CLASS

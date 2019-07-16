@@ -47,7 +47,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberVO idCheck_Login(MemberVO vo) {
 		// TODO Auto-generated method stub
-		return null;
+		return memberDAO.idCheck(vo);
 	}
 
 	@Override

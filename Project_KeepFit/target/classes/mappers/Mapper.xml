@@ -24,8 +24,7 @@
 		]]>
 	</insert>
 
-	<select id="getCommentCnt" parameterType="comment"
-		resultType="int">
+	<select id="getCommentCnt" parameterType="comment"	resultType="int">
 	<![CDATA[
 	SELECT count(*) FROM cmt
 	WHERE post_id = #{post_id}
@@ -118,6 +117,16 @@
   		]]>
 	</select>
 
+	<!-- 회원가입 시 ID(이메일) 사용가능여부 체크하는 쿼리 -->
+	<select id="idCheck" parameterType="member" resultType="member">
+		SELECT * FROM member
+		WHERE member_email = #{member_email}
+		<if test="member_pass != null">
+			AND member_pass = #{member_pass}
+		</if>
+	</select>		
+
+
 
 	<!-- <select id="getMemberList" parameterType="member" resultMap="member"> -->
 	<!-- <![CDATA[ -->
@@ -154,6 +163,7 @@
 	(post_id, post_writer, selected_date, post_date, post_mood, 
 	member_tag, sport_name, place_tag, place_dest_tag, pic_count, 
 	privacy, content, total_calories, distante)
+	
 	VALUES (#{post_id}, #{post_writer}, #{selected_date}, sysdate, #{post_mood}, 
 	#{member_tag}, #{sport_name}, #{place_tag}, #{place_dest_tag}, #{pic_count}, 
 	#{privacy}, #{content}, #{total_calories}, #{distance})

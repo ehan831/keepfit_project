@@ -24,8 +24,7 @@
 		]]>
 	</insert>
 
-	<select id="getCommentCnt" parameterType="comment"
-		resultType="int">
+	<select id="getCommentCnt" parameterType="comment"	resultType="int">
 	<![CDATA[
 	SELECT count(*) FROM cmt
 	WHERE post_id = #{post_id}
@@ -154,6 +153,7 @@
 	(post_id, post_writer, selected_date, post_date, post_mood, 
 	member_tag, sport_name, place_tag, place_dest_tag, pic_count, 
 	privacy, content, total_calories, distante)
+	
 	VALUES (#{post_id}, #{post_writer}, #{selected_date}, sysdate, #{post_mood}, 
 	#{member_tag}, #{sport_name}, #{place_tag}, #{place_dest_tag}, #{pic_count}, 
 	#{privacy}, #{content}, #{total_calories}, #{distance})

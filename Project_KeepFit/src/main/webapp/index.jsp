@@ -6,11 +6,10 @@
 <title>Home | Keep Fit</title>
 </head>
 <body>
-	<h3>
-		Let's Keep Fit!
-		</h1>
-		<h5>just be you
-	</h3>
+	<h3>Let's Keep Fit!</h3>
+		
+		<h5>just be you</h5>
+	
 
 	<hr />
 	<hr />

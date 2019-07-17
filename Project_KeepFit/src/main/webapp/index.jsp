@@ -85,7 +85,7 @@ function signOut() {
 		<a href="http://developers.kakao.com/logout"></a>
 		
 		<script type='text/javascript'>
-		  //<![CDATA[
+		  
 			// 사용할 앱의 JavaScript 키를 설정해 주세요.
 			Kakao.init('36d740d660cec30564912475ed6d3109');
 			
@@ -126,7 +126,7 @@ function signOut() {
 					alert('로그아웃 되었습니다.');
 				});
 			}
-		  //]]>
+		  
 		</script>
 		<input type='button' value="카카오 로그아웃" onclick="kakaoLogout();">
 

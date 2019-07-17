@@ -12,9 +12,57 @@
             crossorigin="anonymous">
     </script>
 
+<meta name="google-signin-client_id" content="772327138445-78pbueovgk0989d6mbrfeu2plpks2t96.apps.googleusercontent.com">
+
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
     <!-- Bootstrap -->
     <link href="resources/css/bootstrap.css" rel="stylesheet">
     <script src="resources/js/bootstrap.js"></script>
+    
+<script>
+	function onSignIn(googleUser) {
+	  var profile = googleUser.getBasicProfile();
+	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+	  console.log('Name: ' + profile.getName());
+	  console.log('Image URL: ' + profile.getImageUrl());
+	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+	}
+</script>    
+<script type='text/javascript'>
+			
+		window.onload = function() {
+			// 사용할 앱의 JavaScript 키를 설정해 주세요.
+			Kakao.init('36d740d660cec30564912475ed6d3109');
+			
+			// 카카오 로그인 버튼을 생성합니다.
+			Kakao.Auth.createLoginButton({
+			  container: '#kakao-login-btn',
+			  success: function(authObj) {
+				// 로그인 성공시, API를 호출합니다.
+					Kakao.API.request({
+						url: '/v1/user/me',
+						success: function(res) {
+							console.log(res);
+							
+							var userID = res.id;						//유저의 카카오톡 고유 id
+							var userEmail = res.kaccount_email;			//유저의 이메일
+							var userNickName = res.properties.nickname;	//유저가 등록한 별명
+							
+							},
+							fail: function(err) {
+								 alert(JSON.stringify(err));							
+							}
+						});
+					  },
+					  fail: function(err) {
+						 alert(JSON.stringify(err));
+					  }
+				});
+		};
+</script>
+
 </head>
 <body>
 
@@ -37,67 +85,19 @@
             <input class="btn btn-lg btn-primary" type="submit" name="submit" value="로그인"><br>
         </div>
     </form>
-    <div style="height: 300px"></div>
+    
+    		<!-- ******************************[ kakao 로그인 ] ******************************-->
+<hr/>
+<a id="kakao-login-btn"></a>
+		
+<!-- ******************************[ google 로그인 ] ******************************-->
+<!-- 구글계정 로그인 API -->
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+    
+<div style="height: 50px"></div>
 
     <input type="button" class="btn btn-lg btn-danger" value="회원가입하러 가기" onclick="location.href='signUp.html'">
 </div>
-
-		<!-- ******************************[ kakao 로그인 ] ******************************-->
-<hr/>
-<a id="kakao-login-btn"></a>
-		<a href="http://developers.kakao.com/logout"></a>
-		
-		<script type='text/javascript'>
-			// 사용할 앱의 JavaScript 키를 설정해 주세요.
-			Kakao.init('36d740d660cec30564912475ed6d3109');
-			
-			// 카카오 로그인 버튼을 생성합니다.
-			Kakao.Auth.createLoginButton({
-			  container: '#kakao-login-btn',
-			  success: function(authObj) {
-				// 로그인 성공시, API를 호출합니다.
-					Kakao.API.request({
-						url: '/v1/user/me',
-						success: function(res) {
-							console.log(res);
-							
-							var userID = res.id;						//유저의 카카오톡 고유 id
-							var userEmail = res.kaccount_email;			//유저의 이메일
-							var userNickName = res.properties.nickname;	//유저가 등록한 별명
-							
-														
-							
-							
-							},
-							fail: function(err) {
-								 alert(JSON.stringify(err));							
-							}
-						});
-					  },
-					  fail: function(err) {
-						 alert(JSON.stringify(err));
-					  }
-				});
-		  //]]>
-		</script>
-
-<!-- 구글계정 로그인 API -->
-<div class="g-signin2" data-onsuccess="onSignIn"></div>
-
-<script>
-	function onSignIn(googleUser) {
-	  var profile = googleUser.getBasicProfile();
-	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-	  console.log('Name: ' + profile.getName());
-	  console.log('Image URL: ' + profile.getImageUrl());
-	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-	}
-</script>
-		
-		
-		
-		<!-- ******************************[ google 로그인 ] ******************************-->
-
 
 </body>
 </html>

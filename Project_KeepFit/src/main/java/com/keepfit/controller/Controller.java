@@ -265,7 +265,7 @@ public class Controller {
 			break;
 
 		case "1":
-			// [COMMENT DB]에 %[post_writer]%의 관련된 모든 댓글 조회
+			// [COMMENT DB]에 %[post_writer]% 관련된 모든 댓글 조회
 			List<CommentVO> commentList = commentService.getCommentList(comment);
 
 			if (commentList != null) {

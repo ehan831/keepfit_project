@@ -17,12 +17,38 @@
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 
+<script type="text/javascript">
+
+function onSignIn(googleUser) {
+	  var profile = googleUser.getBasicProfile();
+	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+	  console.log('Name: ' + profile.getName());
+	  console.log('Image URL: ' + profile.getImageUrl());
+	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+	
+	  alert(profile.getName() + '님 환영합니다.');	  
+	  location.href="TEST-signup.do?member_email="+ profile.getEmail() + "&member_pass=" + profile.getId();
+	}
+/* 구글계정 로그아웃 */
+function signOut() {
+	var auth2 = gapi.auth2.getAuthInstance();
+	auth2.signOut().then(function() {
+		setTimeout(function(){
+			location.href="http://localhost:8080/Project_KeepFit/index.jsp"
+		},1000);
+		console.log('로그아웃 되었습니다.');
+		alert('로그아웃 되었습니다.');
+	});
+	auth2.disconnect();
+}
+</script>
+
+
 </head>
 <body>
 	<h3>Let's Keep Fit!</h3>
 		
-		<h5>just be you</h5>
-	
+		<h5>just be you</h5>	
 
 	<hr />
 	<hr />
@@ -35,9 +61,11 @@
 			<li><input type="submit" value="TEST : login">
 		</ul>
 	</form>
+<a id="kakao-login-btn"></a>
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
 
-	<hr />
-	<hr />
+<hr/>
+<hr/>
 	<h1 align="center">TEST : 회원가입</h1>
 <form method="get" action="TEST-signup.do" name="userInsert" id="userInsert">
 <ul>
@@ -46,13 +74,12 @@
 <span id="idCheckResult" style="width:150px; color:red"></span>
 <li>비밀번호 : <input type="password" name="member_pass" id="member_pass" placeholder="비밀번호 4자리 입력" required>
 <li>비밀번호확인 : <input type="password" id="passCheck" placeholder="한번 더 입력" required>
-
-
 <li><input type="submit" id="confirm" value="TEST : signup" >
 </ul>
 </form>
-<hr/><hr/>
 
+
+<!-- <form method="get" action="TEST-signupSimple.do" name="simpleLogin" id="simpleLogin"> -->
 <!-- 카카오계정 로그인 API -->
 <a id="kakao-login-btn"></a>
 		<a href="http://developers.kakao.com/logout"></a>
@@ -75,36 +102,39 @@
 							var userID = res.id;						//유저의 카카오톡 고유 id
 							var userEmail = res.kaccount_email;			//유저의 이메일
 							var userNickName = res.properties.nickname;	//유저가 등록한 별명
+												
+							alert(userNickName + '님 환영합니다.');													
+							location.href="TEST-signup.do?member_email="+ userEmail + "&member_pass=" + userID;							
+						},
 							
-														
-							
-							
-							},
-							fail: function(err) {
-								 alert(JSON.stringify(err));							
-							}
-						});
-					  },
-					  fail: function(err) {
+						fail: function(err) {
+							 alert(JSON.stringify(err));							
+						}
+					});
+				  },
+				  fail: function(err) {
 						 alert(JSON.stringify(err));
-					  }
+			  }
+		});
+			/* 카카오계정 로그아웃 */
+			function kakaoLogout() {
+				Kakao.Auth.logout(function(){
+					setTimeout(function(){
+						location.href="http://localhost:8080/Project_KeepFit/index.jsp"
+					},1000);
+					console.log('로그아웃 되었습니다.');
+					alert('로그아웃 되었습니다.');
 				});
+			}
 		  //]]>
 		</script>
+		<input type='button' value="카카오 로그아웃" onclick="kakaoLogout();">
 
 <!-- 구글계정 로그인 API -->
 <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
-<script>
-	function onSignIn(googleUser) {
-	  var profile = googleUser.getBasicProfile();
-	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-	  console.log('Name: ' + profile.getName());
-	  console.log('Image URL: ' + profile.getImageUrl());
-	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-	}
-</script>
-
+<a href='#' onclick="signOut();">구글 로그아웃</a>
+<hr/>
+<hr/>
 	<h1 align="center">TEST : 댓글</h1>
 	<form action="insertComment.do" method="get">
 		<ul>

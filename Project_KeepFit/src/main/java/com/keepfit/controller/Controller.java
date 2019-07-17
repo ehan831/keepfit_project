@@ -56,14 +56,17 @@ public class Controller {
 			if (vo.getMember_email().equals(logUser.getMember_email())
 					&& vo.getMember_pass().equals(logUser.getMember_pass())) {
 				mv.addObject("logged", "1"); // ****TEAM-FRONT: view url 수정가능
+				mv.addObject("member", logUser); // ****TEAM-FRONT: view url 수정가능
 				System.out.println("성공 ");
+				mv.setViewName("loginOk");
 			}
 		} else {
 			mv.addObject("logged", "0"); // ****TEAM-FRONT: view url 수정가능
 			System.out.println("실패 ");
+			mv.setViewName("signUpExtra");
 		}
 		mv.addObject("member", vo); // 사용자 입력 값이 들어있음 : EMAIL / PW
-		mv.setViewName("TEST-login"); // ****TEAM-FRONT: view url 수정가능
+
 		return mv;
 	}
 
@@ -78,7 +81,7 @@ public class Controller {
 		// (1) Model
 		// (2) ModelAndView
 		// (3) 함수위에 @ModelAttribute
-		mv.setViewName("home");
+		mv.setViewName("feed");
 		return mv;
 	}
 
@@ -132,7 +135,7 @@ public class Controller {
 			System.out.println("댓글 작성!");
 		} else {
 			mv.addObject("commentStatus", "insert0"); // ****FRONT: parameter 수정가능
-			mv.setViewName("index");
+			mv.setViewName("feed");
 			System.out.println("댓글 실패!");
 		}
 
@@ -184,7 +187,7 @@ public class Controller {
 			mv.addObject("postList", postList); // ****FRONT: parameter 수정가능
 			mv.addObject("postStatus", "1"); // ****FRONT: parameter 수정가능
 			System.out.println("댓글 조회");
-			mv.setViewName("index"); // ****FRONT: view url 수정가능
+			mv.setViewName("feed"); // ****FRONT: view url 수정가능
 			return mv;
 		} else {
 			mv.addObject("postStatus", "0"); // ****FRONT: parameter 수정가능
@@ -197,7 +200,7 @@ public class Controller {
 	// 인자 (PostVO)
 	public ModelAndView insertPost(PostVO vo) {
 		postService.insertPost(vo);
-		mv.setViewName("index"); // ****TEAM-FRONT: view url 수정가능
+		mv.setViewName("feed"); // ****TEAM-FRONT: view url 수정가능
 
 		return mv;
 	}
@@ -227,7 +230,7 @@ public class Controller {
 	@RequestMapping(value = { "deletePost.do" })
 	public ModelAndView deletePost(PostVO vo) {
 		postService.deletePost(vo);
-		mv.setViewName("index"); // ****TEAM-FRONT: view url 수정가능
+		mv.setViewName("feed"); // ****TEAM-FRONT: view url 수정가능
 
 		return mv;
 	}

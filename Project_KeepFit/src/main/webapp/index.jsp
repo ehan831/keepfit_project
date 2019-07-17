@@ -76,9 +76,8 @@
 							var userEmail = res.kaccount_email;			//유저의 이메일
 							var userNickName = res.properties.nickname;	//유저가 등록한 별명
 							
-							console.log(userID);
-							console.log(userEmail);
-							console.log(userNickName);							
+														
+							
 							
 							},
 							fail: function(err) {

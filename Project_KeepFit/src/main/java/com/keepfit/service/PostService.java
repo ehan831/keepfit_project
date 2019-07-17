@@ -22,6 +22,6 @@ public interface PostService {
 	// 게시물 상세 조회
 	PostVO getPost(PostVO vo);
 
-	// id별 총 게시물 조회
+	// 총 게시물 조회
 	List<PostVO> getPostList(PostVO vo);
 }

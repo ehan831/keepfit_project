@@ -120,6 +120,7 @@ public class MemberVO {
 				+"\n id="+ member_id
 				+"\n email=" + member_email 
 				+"\n pw=" + member_pass
+				+"\n channel=" + member_channel
 				+"\n nick=" + member_nick
 				+"\n bio=" + member_bio
 				+"\n 현재 몸무게=" + now_weight

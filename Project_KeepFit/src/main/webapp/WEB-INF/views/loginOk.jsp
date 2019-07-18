@@ -21,7 +21,7 @@
 <body>
 
 <hr/><hr/>
-<h1 align="center">안녕하세요 <b>${member.member_nick}</b>님 로그인에 성공하셨습니다.</h1><br/>
+<h1 align="center">안녕하세요 <b>${member.member_email}</b>님 로그인에 성공하셨습니다.</h1><br/>
 <hr/><hr/>
 <h5 align="center">메인 화면으로 이동합니다..<div id="counter">5</div></h5>
 

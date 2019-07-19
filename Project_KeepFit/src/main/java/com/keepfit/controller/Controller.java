@@ -3,6 +3,7 @@ package com.keepfit.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -45,16 +46,29 @@ public class Controller {
 	}
 
 	/**************************************************************************************************
+	 * [ANDROID] HANDLERS
+	 * @return 
+	 *************************************************************************************************/
+	@RequestMapping (value = {"picUpload.do"})
+	public ModelAndView picUpload() {
+		PostVO post = postService.getPostId();
+		mv.addObject("postId", post.getPost_id());
+		mv.setViewName("posting");
+		return mv;
+	}
+	
+	/**************************************************************************************************
 	 * [로그인] HANDLERS
 	 *************************************************************************************************/
 	@RequestMapping(value = { "login.do" })
-	public ModelAndView login(MemberVO vo, HttpServletRequest request) {
+	public ModelAndView login(MemberVO vo, HttpServletRequest request, HttpSession session) {
 		// [MEMBER DB] 에서 [email]과 [password] 확인
 		MemberVO logUser = memberService.loginMember(vo);
 
 		if (logUser != null) {
 			if (vo.getMember_email().equals(logUser.getMember_email())
 					&& vo.getMember_pass().equals(logUser.getMember_pass())) {
+				session.setAttribute("logUser",logUser.getMember_nick());
 				mv.addObject("logged", "1"); // ****TEAM-FRONT: view url 수정가능
 				mv.addObject("member", logUser); // ****TEAM-FRONT: view url 수정가능
 				System.out.println("성공 ");
@@ -175,11 +189,19 @@ public class Controller {
 	/**************************************************************************************************
 	 * [글쓰기] HANDLERS
 	 *************************************************************************************************/
-
+	
 	// NEWS FEED > 전체 게시글 내용 조회 핸들러
 	// 인자: (PostVO)
-	@RequestMapping(value = { "getPostList.do" })
-	public ModelAndView post(PostVO vo, WebRequest request) {
+	@RequestMapping(value =  "getPostList.do" )
+	public ModelAndView post(PostVO vo, String posting) { // , WebRequest request
+//		System.out.println(posting);
+//		// 새 게시물 작성
+//		// 인자 (PostVO)
+//		if (posting.equals("1")) {
+//			System.out.println(postService.toString());
+//			postService.insertPost(vo);
+//		}
+		
 		// [POST DB]에서 게시글 모두 조회
 		List<PostVO> postList = postService.getPostList(vo);
 
@@ -196,14 +218,15 @@ public class Controller {
 		}
 	}
 
-	// 새 게시물 작성
-	// 인자 (PostVO)
-	public ModelAndView insertPost(PostVO vo) {
-		postService.insertPost(vo);
-		mv.setViewName("feed"); // ****TEAM-FRONT: view url 수정가능
-
-		return mv;
-	}
+	
+//	@RequestMapping(value = {"insertPost.do"})
+//	public ModelAndView insertPost(PostVO vo) {
+//		System.out.println(postService.toString());
+//		postService.insertPost(vo);
+//		mv.setViewName("feed"); // ****TEAM-FRONT: view url 수정가능
+//
+//		return mv;
+//	}
 
 	// 기존 게시물 상세 조회 핸들러 (작성자일때만 접근 가능)
 	// 인자: (CommentVO : post_id, comment_writer)

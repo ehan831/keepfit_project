@@ -24,4 +24,7 @@ public interface PostService {
 
 	// 총 게시물 조회
 	List<PostVO> getPostList(PostVO vo);
+	
+	// 현재 게시물 번호 조회 (currval)
+	PostVO getPostId();
 }

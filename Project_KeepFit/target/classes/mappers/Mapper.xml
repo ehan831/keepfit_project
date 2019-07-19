@@ -3,14 +3,14 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="db">
 
-	<!-- <resultMap id="member" type="board"> -->
-	<!-- <id property="seq" column="SEQ" /> -->
-	<!-- <result property="title" column="TITLE" /> -->
-	<!-- <result property="writer" column="WRITER" /> -->
-	<!-- <result property="content" column="CONTENT" /> -->
-	<!-- <result property="regDate" column="REGDATE" /> -->
-	<!-- <result property="cnt" column="CNT" /> -->
-	<!-- </resultMap> -->
+	<resultMap id="member" type="board">
+	<id property="seq" column="SEQ" />
+	<result property="title" column="TITLE" />
+	<result property="writer" column="WRITER" />
+	<result property="content" column="CONTENT" />
+	<result property="regDate" column="REGDATE" />
+	<result property="cnt" column="CNT" />
+	</resultMap>
 
 
 
@@ -160,12 +160,12 @@
 	<![CDATA[
 	INSERT INTO post
 	(post_id, post_writer, selected_date, post_date, post_mood, 
-	member_tag, sport_name, place_tag, place_dest_tag, pic_count, 
-	privacy, content, total_calories, distante)
+	member_tag, sport_name, place_tag, pic_count, 
+	privacy, content, total_calories, path_pic)
 	
 	VALUES (#{post_id}, #{post_writer}, #{selected_date}, sysdate, #{post_mood}, 
-	#{member_tag}, #{sport_name}, #{place_tag}, #{place_dest_tag}, #{pic_count}, 
-	#{privacy}, #{content}, #{total_calories}, #{distance})
+	#{member_tag}, #{sport_name}, #{place_tag}, #{pic_count}, 
+	#{privacy}, #{content}, #{total_calories}, #{path_pic})
 	]]>
 	</insert>
 
@@ -195,11 +195,11 @@
 	</select>
 
 
-	<!-- <select id="getPostList" parameterType="post" resultMap="post"> -->
-	<!-- <![CDATA[ -->
-	<!-- *************{{{{ QUERY }}}}**************** -->
-	<!-- ]]> -->
-	<!-- </select> -->
+	<select id="getPostList" parameterType="post" resultMap="hashmap">
+	<![CDATA[
+	SELECT * FROM post
+	]]>
+	</select>
 
 	<!-- *********************************** END OF [ POST DB ] *********************************** -->
 

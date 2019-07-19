@@ -54,5 +54,11 @@ public class PostDAOImpl implements PostDAO{
 		return mybatis.selectList("db.getPostList", vo);
 	}
 
+	@Override
+	public PostVO getPostId() {
+		System.out.println("===> Mybatis getPostId() 호출");
+		return mybatis.selectOne("db.getPostId");
+	}
+
 
 }	// end of PostDAOImpl

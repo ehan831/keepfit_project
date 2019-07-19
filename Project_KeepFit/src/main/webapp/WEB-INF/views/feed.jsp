@@ -41,6 +41,9 @@
 </head>
 <body>
 
+${postList }
+<!-- 1 -->
+${postStatus } 
 
 <!-- app bar -->
 <div class="container text-left"

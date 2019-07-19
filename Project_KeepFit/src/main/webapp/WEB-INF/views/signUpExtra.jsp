@@ -46,7 +46,7 @@
 		</div>
 		<div style="text-align: center">
 			<input class="input-lg " name="sport3" type="text"
-				placeholder="운동 선택 3" width="100%">
+				placeholder="운동 선택 3" width="100%">				
 		</div>
 		<div style="text-align: center">
 			<input class="btn btn-lg btn-primary" type="submit" name="submit"

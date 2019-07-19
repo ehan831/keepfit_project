@@ -43,7 +43,6 @@ function signOut() {
 }
 </script>
 
-
 </head>
 <body>
 	<h3>Let's Keep Fit!</h3>

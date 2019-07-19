@@ -46,5 +46,4 @@ public class CommentServiceImpl implements CommentService {
 		return commentDAO.getCommentList(vo);
 	}
 	
-	
 }	// end of CommentServiceImpl

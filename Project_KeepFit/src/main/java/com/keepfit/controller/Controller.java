@@ -208,7 +208,7 @@ public class Controller {
 		if (postList != null) {
 			mv.addObject("postList", postList); // ****FRONT: parameter 수정가능
 			mv.addObject("postStatus", "1"); // ****FRONT: parameter 수정가능
-			System.out.println("댓글 조회");
+			System.out.println("게시글 조회");
 			mv.setViewName("feed"); // ****FRONT: view url 수정가능
 			return mv;
 		} else {

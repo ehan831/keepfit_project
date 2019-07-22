@@ -193,11 +193,11 @@
 	</select>
 
 
-	<!-- <select id="getPostList" parameterType="post" resultMap="hashmap">
+	<select id="getPostList" parameterType="post" resultType="hashmap">
 	<![CDATA[
-	SELECT * FROM post
-	]]>
-	</select> -->
+ 	SELECT * FROM post
+	]]> 
+	</select>
 
 	<!-- *********************************** END OF [ POST DB ] *********************************** -->
 

@@ -10,7 +10,7 @@
             var count = div.textContent * 1 - 1;
             div.textContent = count;
             if (count <= 0) {
-                window.location.replace("feed.do");
+                window.location.replace("getPostList.do");
             }
         }, 1000);
     </script>

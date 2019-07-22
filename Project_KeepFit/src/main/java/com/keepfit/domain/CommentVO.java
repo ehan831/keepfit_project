@@ -1,7 +1,5 @@
 package com.keepfit.domain;
 
-import java.util.Date;
-
 
 // 댓글 관련 VO (Value Object)
 public class CommentVO {

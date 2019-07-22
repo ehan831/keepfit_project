@@ -3,14 +3,14 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="db">
 
-	<resultMap id="member" type="board">
+<!-- 	<resultMap id="member" type="board">
 	<id property="seq" column="SEQ" />
 	<result property="title" column="TITLE" />
 	<result property="writer" column="WRITER" />
 	<result property="content" column="CONTENT" />
 	<result property="regDate" column="REGDATE" />
 	<result property="cnt" column="CNT" />
-	</resultMap>
+	</resultMap> -->
 
 
 
@@ -195,11 +195,11 @@
 	</select>
 
 
-	<select id="getPostList" parameterType="post" resultMap="hashmap">
+<!-- 	<select id="getPostList" parameterType="post" resultMap="hashmap">
 	<![CDATA[
 	SELECT * FROM post
 	]]>
-	</select>
+	</select> -->
 
 	<!-- *********************************** END OF [ POST DB ] *********************************** -->
 

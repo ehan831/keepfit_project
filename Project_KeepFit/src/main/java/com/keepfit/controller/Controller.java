@@ -349,4 +349,16 @@ public class Controller {
 		
 	} // end of search()
 
+	/**************************************************************************************************
+	 * [글쓰기] test - han
+	 *************************************************************************************************/
+	@RequestMapping(value =  "posting_test.do" )
+	public ModelAndView posting(String post_id, String post_writer) { // , WebRequest request
+		// 두 개의 변수를 가지고 글쓰기 페이지 진입
+		System.out.println( "글쓰기 진입" );
+		mv.addObject( "post_id", post_id );
+		mv.addObject( "post_writer", post_writer );
+		mv.setViewName( "posting_test" ); // ****FRONT: view url 수정가능
+		return mv;
+	}
 } // END OF Controller CLASS

@@ -19,13 +19,8 @@ public class LikeServiceImpl implements LikeService {
 
 
 	@Override
-	public void insertLike(LikeVO vo) {
-		likeDAO.insertLike(vo);		
-	}
-
-	@Override
-	public void deleteLike(LikeVO vo) {
-		likeDAO.deleteLike(vo);		
+	public void like(LikeVO vo) {
+		likeDAO.like(vo);		
 	}
 
 	@Override

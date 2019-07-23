@@ -17,9 +17,11 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.keepfit.domain.CommentVO;
+import com.keepfit.domain.LikeVO;
 import com.keepfit.domain.MemberVO;
 import com.keepfit.domain.PostVO;
 import com.keepfit.service.CommentService;
+import com.keepfit.service.LikeService;
 import com.keepfit.service.MemberService;
 import com.keepfit.service.PostService;
 
@@ -29,6 +31,8 @@ public class Controller {
 	// Service 객체생성
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private LikeService likeService;
 	@Autowired
 	private CommentService commentService;
 	@Autowired
@@ -119,6 +123,27 @@ public class Controller {
 
 		return result;
 	}
+	
+	/**************************************************************************************************
+	 * [좋아요] HANDLERS
+	 *************************************************************************************************/
+	// post_id 에 좋아요 버튼 핸들러
+	// [LIKE DB] : IF EXISTS > DELETE, IF NOT EXISTS > INSERT 
+	// 인자: (LikeVO)
+	@RequestMapping(value = { "like.do" })
+	public ModelAndView like(LikeVO vo) {
+		likeService.like(vo);
+		return mv;		
+	}
+	
+	// member_nick 관련 좋아요 조회
+	// 인자: (LikeVO)
+	@RequestMapping(value = { "getLikeList.do" })
+	public ModelAndView getLikeList(LikeVO vo) {
+		likeService.getLike(vo);
+		return mv;
+	}	
+	
 
 	/**************************************************************************************************
 	 * [댓글] HANDLERS
@@ -202,14 +227,7 @@ public class Controller {
 	// NEWS FEED > 전체 게시글 내용 조회 핸들러
 	// 인자: (PostVO)
 	@RequestMapping(value =  "getPostList.do" )
-	public ModelAndView post(PostVO vo, String posting) { // , WebRequest request
-//		System.out.println(posting);
-//		// 새 게시물 작성
-//		// 인자 (PostVO)
-//		if (posting.equals("1")) {
-//			System.out.println(postService.toString());
-//			postService.insertPost(vo);
-//		}
+	public ModelAndView post(PostVO vo) { // , WebRequest request
 		
 		// [POST DB]에서 게시글 모두 조회
 		List<PostVO> postList = postService.getPostList(vo);

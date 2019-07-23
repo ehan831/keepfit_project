@@ -63,17 +63,26 @@
 
 
 	<!-- *********************************** [ LIKE DB ] *********************************** -->
-	<!-- <insert id="insertLike" parameterType="like"> -->
-	<!-- <![CDATA[ -->
-	<!-- *************{{{{ QUERY }}}}**************** -->
-	<!-- ]]> -->
-	<!-- </insert> -->
+	<select id="getLike" parameterType="like" resultType="like">
+	<![CDATA[
+	SELECT * FROM lk WHERE lk_user = #{like_user} AND post_id = #{post_id}
+	]]>
+	</select>
+	
+	<insert id="insertLike" parameterType="like">
+	<![CDATA[
+	INSERT INTO lk 
+  		(like_id, like_user, post_id) 
+  		VALUES (	seq.NEXTVAL, #{like_user}, #{post_id})
+	]]>
+	</insert>
 
-	<!-- <delete id="deleteLike" parameterType="like"> -->
-	<!-- <![CDATA[ -->
-	<!-- *************{{{{ QUERY }}}}**************** -->
-	<!-- ]]> -->
-	<!-- </delete> -->
+	<delete id="deleteLike" parameterType="like">
+	<![CDATA[
+	DELETE FROM lk 
+	WHERE post_id = #{post_id} AND lk_user = #{like_user}
+	]]>
+	</delete>
 
 	<!-- <select id="getLike" parameterType="like" resultType="like"> -->
 	<!-- <![CDATA[ -->

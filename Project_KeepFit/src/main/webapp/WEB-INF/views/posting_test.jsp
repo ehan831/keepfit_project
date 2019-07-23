@@ -2,6 +2,10 @@
          pageEncoding="UTF-8" %>
 <% request.setCharacterEncoding( "utf-8" );%>
 
+<%
+    String post_id = request.getParameter( "post_id" );
+    String post_writer = request.getParameter( "post_writer" );
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -144,6 +148,8 @@
         </div>
 
         <div>
+            <input type="hidden" name="post_id" value="<%=post_id%>">
+            <input type="hidden" name="post_writer" value="<%=post_writer%>">
             <input id="submit" class="btn btn-lg btn-primary" type="submit" value="글쓰기">
             <label class="checkbox-inline" style="float: right">
                 <span>공유 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>

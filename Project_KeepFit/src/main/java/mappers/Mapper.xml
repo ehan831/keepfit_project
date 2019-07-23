@@ -187,9 +187,7 @@
 	
 	<select id="getPostId" resultType="post">
 	<![CDATA[
-	SELECT last_number as post_id 
-	FROM user_sequences
-	WHERE sequence_name = 'SEQ_POST_ID'
+	SELECT SEQ_POST_ID.nextval AS post_id FROM dual
 	]]>
 	</select>
 

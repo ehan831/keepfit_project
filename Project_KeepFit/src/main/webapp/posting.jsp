@@ -9,7 +9,8 @@
 
 <%
 	// 생성될 post_id = [post_id] sequence.currval + 1
-	int postId = (Integer) request.getAttribute("postId") + 1;
+	// path > project 안에
+	int postId = (Integer) request.getAttribute("postId");
 	System.out.println(postId);
 	// 	int postId = Integer.valueOf(request.getParameter("postId")) +1;
 
@@ -17,6 +18,7 @@
 	String path = "C:/KeepPost/" + postId; //폴더 경로
 	File folder = new File(path);
 
+	
 	// 해당 디렉토리가 존재할 경우 해당 디렉토리 내용을 정리하여 삭제합니다.
 	if (folder.exists()) {
 		
@@ -38,14 +40,18 @@
 	String name = new String();
 	String fileName = new String();
 	int sizeLimit = 5 * 1024 * 1024; // 5메가까지 제한 넘어서면 예외발생
+	int nameSeq = 0;
 	try {
 		// 생성된 폴더를 업로드 경로로 지정
-		MultipartRequest multi = new MultipartRequest(request, path, sizeLimit, new DefaultFileRenamePolicy());
+		MultipartRequest multi = new MultipartRequest(request, path, sizeLimit, "utf-8", new DefaultFileRenamePolicy());
 		Enumeration files = multi.getFileNames();
 
 		//파일 정보가 있다면
 		if (files.hasMoreElements()) {
 			name = (String) files.nextElement();
+			nameSeq++;
+			name = String.valueOf(nameSeq);
+			
 			fileName = multi.getFilesystemName(name);
 
 		}

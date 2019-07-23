@@ -61,7 +61,6 @@ public class Controller {
 			mv.setViewName("posting");
 		} else {
 			System.out.println("picUpload() 호출 실패!");
-			mv.setViewName("feed");
 		}		
 		return mv;
 	}

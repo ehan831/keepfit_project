@@ -92,8 +92,7 @@ window.onload = function() {
 					placeholder="비밀번호">
 			</div>
 			<div class="checkbox">
-				<input type="checkbox" name="rm" value="Remember-me">Remember
-				me
+				<input type="checkbox" name="rm" value="Remember-me">Remember me
 			</div>
 			<div>
 				<input class="btn btn-lg btn-primary" type="submit" name="submit" value="로그인"><br> <br>

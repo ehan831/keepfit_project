@@ -201,9 +201,13 @@
 	
 	<select id="getPostId" resultType="post">
 	<![CDATA[
+<<<<<<< HEAD
 	SELECT last_number as post_id 
 	FROM user_sequences
 	WHERE sequence_name = 'SEQ_POST_ID'
+=======
+	SELECT SEQ_POST_ID.nextval AS post_id FROM dual
+>>>>>>> 3563ce4fda2884822ef20edc1f85094db8fca377
 	]]>
 	</select>
 

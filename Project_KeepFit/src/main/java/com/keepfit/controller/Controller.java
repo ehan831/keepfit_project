@@ -44,7 +44,7 @@ public class Controller {
 	/**************************************************************************************************
 	 * BASIC REQUEST HANDLERS
 	 *************************************************************************************************/
-	// DB 갖다오지 않는 함수 일괄 처리하는 (request = response)
+	// DB 갔다오지 않는 함수 일괄 처리하는 (request = response)
 	@RequestMapping(value = "{url}.do")
 	public String common(@PathVariable String url) {
 		System.out.println("common 호출!");
@@ -150,24 +150,33 @@ public class Controller {
 	 *************************************************************************************************/
 	// post_id 관련 전체 댓글 내용 조회 핸들러
 	// 인자: (CommentVO : post_id)
-	@RequestMapping(value = { "getCommentList.do" })
-	public ModelAndView comment(CommentVO vo, WebRequest request) {
-		// [COMMENT DB]에 [post_id]의 댓글을 모두 조회
-		List<CommentVO> commentList = commentService.getCommentList(vo);
+//	@RequestMapping(value = { "getCommentList.do" })
+//	public ModelAndView comment(CommentVO vo, WebRequest request) {
+//		// [COMMENT DB]에 [post_id]의 댓글을 모두 조회
+//		List<CommentVO> commentList = commentService.getCommentList(vo);
+//
+//		if (commentList != null) {
+//			mv.addObject("commentList", commentList); // ****FRONT: parameter 수정가능
+//			mv.addObject("commentStatus", "1"); // ****FRONT: parameter 수정가능
+//			System.out.println("댓글 조회");
+//			mv.setViewName("TEST-comment"); // ****FRONT: view url 수정가능
+//			return mv;
+//		} else {
+//			mv.addObject("commentStatus", "0"); // ****FRONT: parameter 수정가능
+//			System.out.println("댓글 없음");
+//			return mv;
+//		}
+//	}
 
-		if (commentList != null) {
-			mv.addObject("commentList", commentList); // ****FRONT: parameter 수정가능
-			mv.addObject("commentStatus", "1"); // ****FRONT: parameter 수정가능
-			System.out.println("댓글 조회");
-			mv.setViewName("TEST-comment"); // ****FRONT: view url 수정가능
-			return mv;
-		} else {
-			mv.addObject("commentStatus", "0"); // ****FRONT: parameter 수정가능
-			System.out.println("댓글 없음");
-			return mv;
-		}
+	@RequestMapping(value = { "comment.do" })
+	public ModelAndView getCommentList(CommentVO vo) {	// 현재는 필요없음
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("commentList", commentService.getCommentList(vo));
+		System.out.println("댓글 조회");
+		mv.setViewName("comment");
+		return mv;
 	}
-
+	
 	// post_id 에 댓글 작성 버튼 핸들러
 	// 인자: (CommentVO : comment_content, comment_writer, post_id)
 	@RequestMapping(value = { "insertComment.do" })
@@ -205,7 +214,7 @@ public class Controller {
 	@RequestMapping(value = { "deleteComment.do" })
 	public ModelAndView deleteComment(CommentVO vo) {
 		commentService.deleteComment(vo);
-		mv.setViewName("TEST-comment"); // ****TEAM-FRONT: view url 수정가능
+		mv.setViewName("comment"); // ****TEAM-FRONT: view url 수정가능
 
 		return mv;
 	}
@@ -215,7 +224,7 @@ public class Controller {
 	@RequestMapping(value = { "updateComment.do" })
 	public ModelAndView updateComment(CommentVO vo) {
 		commentService.updateComment(vo);
-		mv.setViewName("TEST-comment"); // ****TEAM-FRONT: view url 수정가능
+		mv.setViewName("comment"); // ****TEAM-FRONT: view url 수정가능
 
 		return mv;
 	}

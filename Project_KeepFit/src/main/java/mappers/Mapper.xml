@@ -12,15 +12,22 @@
 	<result property="cnt" column="CNT" />
 	</resultMap> -->
 
-
+	<resultMap id="commentResult" type="comment">
+		<result property="comment_id" column="CMT_ID" />
+		<result property="comment_writer" column="CMT_WRITER" />
+		<result property="comment_content" column="CMT_CONTENT" />
+		<result property="post_id" column="POST_ID" />
+		<result property="regDate" column="REGDATE" />
+	</resultMap>
+	
 
 
 	<!-- *********************************** [ COMMENT DB ] *********************************** -->
 	<insert id="insertComment" parameterType="comment">
 		<![CDATA[
   		INSERT INTO cmt 
-  		(cmt_id, cmt_writer, cmt_content, post_id) 
-  		VALUES (#{comment_id}, #{comment_writer}, #{comment_content}, #{post_id}) 
+  		(cmt_id, cmt_writer, cmt_content, post_id, regdate) 
+  		VALUES (#{comment_id}, #{comment_writer}, #{comment_content}, #{post_id}, sysdate) 
 		]]>
 	</insert>
 
@@ -52,6 +59,13 @@
 	WHERE post_id = #{post_id} AND comment_writer = #{comment_writer}
  		]]>
 	</delete>
+
+	<select id="getCommentList" resultType="comment" resultMap="commentResult">
+	<![CDATA[
+	SELECT *
+	FROM cmt ORDER BY post_id ASC, cmt_id
+	]]>
+	</select>
 
 	<!-- <select id="getCommentList" parameterType="comment" resultMap="comment"> -->
 	<!-- <![CDATA[ -->
@@ -196,7 +210,13 @@
 	
 	<select id="getPostId" resultType="post">
 	<![CDATA[
+<<<<<<< HEAD
+	SELECT last_number as post_id 
+	FROM user_sequences
+	WHERE sequence_name = 'SEQ_POST_ID'
+=======
 	SELECT SEQ_POST_ID.nextval AS post_id FROM dual
+>>>>>>> 3563ce4fda2884822ef20edc1f85094db8fca377
 	]]>
 	</select>
 

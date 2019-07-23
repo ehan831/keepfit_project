@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<<<<<<< HEAD
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>   
+=======
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+>>>>>>> 3563ce4fda2884822ef20edc1f85094db8fca377
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,6 +44,39 @@
     <!--    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>-->
     <!--    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
     <!--    <![endif]&ndash;&gt;-->
+
+<style>
+.modal-dialog.modal-80size {
+  width: 80%;
+  height: 80%;
+  margin: 0;
+  padding: 0;
+}
+
+.modal-content.modal-80size {
+  height: auto;
+  min-height: 80%;
+}
+
+.modal.modal-center {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .modal.modal-center:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog.modal-center {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+} 
+</style>
 
 </head>
 <body>
@@ -89,8 +128,35 @@
             <img name="likeIt" src="resources/img/heart.svg" style="margin-left: 10px">
             <a href="https://naver.com" style="margin-left: 5px;margin-right: 20px; color: #000;">좋아요</a>
             <img src="resources/img/comment.svg">
-            <a href="https://nate.com" style="margin-left: 5px; color: #000;">댓글</a>
+            <!-- <a href="comment.do" onclick="window.open(this.href,'댓글','width=640, height=480'); return false;" style="margin-left: 5px; color: #000;">댓글</a> -->
         </div>
+
+        
+<!-- modal 구동 버튼 (trigger) -->
+<button type="button" href="comment.do" class="btn btn-primary" data-toggle="modal" data-target="#my80sizeCenterModal">
+  댓글
+</button>
+
+<!-- 80%size Modal at Center -->
+<div class="modal modal-center fade" id="my80sizeCenterModal" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel">
+  <div class="modal-dialog modal-80size modal-center" role="document">
+    <div class="modal-content modal-80size">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div align='center' class="modal-body">
+          	<%@ include file="comment.jsp" %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>     
+
+
+
+        
         <div style="float: right">
             <img src="resources/img/share.svg">
             <a href="https://nate.com" style="margin-left: 5px;margin-right: 10px; color: #000;">공유</a>

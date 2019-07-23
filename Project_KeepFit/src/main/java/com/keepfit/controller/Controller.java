@@ -1,8 +1,10 @@
 package com.keepfit.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
@@ -47,13 +49,20 @@ public class Controller {
 
 	/**************************************************************************************************
 	 * [ANDROID] HANDLERS
-	 * @return 
 	 *************************************************************************************************/
 	@RequestMapping (value = {"picUpload.do"})
-	public ModelAndView picUpload() {
+	public ModelAndView picUpload(HttpServletRequest request) {
 		PostVO post = postService.getPostId();
-		mv.addObject("postId", post.getPost_id());
-		mv.setViewName("posting");
+
+		if (post != null) {
+			System.out.println("picUpload() 호출");
+			request.setAttribute("postId", post.getPost_id());
+			System.out.println(post.getPost_id());
+			mv.setViewName("posting");
+		} else {
+			System.out.println("picUpload() 호출 실패!");
+			mv.setViewName("feed");
+		}		
 		return mv;
 	}
 	

@@ -184,6 +184,14 @@
 	<!-- *************{{{{ QUERY }}}}**************** -->
 	<!-- ]]> -->
 	<!-- </select> -->
+	
+	<select id="getPostId" resultType="post">
+	<![CDATA[
+	SELECT last_number as post_id 
+	FROM user_sequences
+	WHERE sequence_name = 'SEQ_POST_ID'
+	]]>
+	</select>
 
 	<select id="countPost" parameterType="post" resultType="int">
 	<![CDATA[

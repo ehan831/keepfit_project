@@ -30,8 +30,6 @@
                 pagerType: 'full',
                 minSlides: 2,
             });
-            
-            
         });
     </script>
     <script src="resources/js/feed.js" type="text/javascript"></script>

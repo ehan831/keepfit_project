@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<<<<<<< HEAD
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>   
-=======
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
->>>>>>> 3563ce4fda2884822ef20edc1f85094db8fca377
 <!DOCTYPE html>
 <html>
 <head>
@@ -128,12 +124,12 @@
             <img name="likeIt" src="resources/img/heart.svg" style="margin-left: 10px">
             <a href="https://naver.com" style="margin-left: 5px;margin-right: 20px; color: #000;">좋아요</a>
             <img src="resources/img/comment.svg">
-            <!-- <a href="comment.do" onclick="window.open(this.href,'댓글','width=640, height=480'); return false;" style="margin-left: 5px; color: #000;">댓글</a> -->
+            <a href="comment2.do" onclick="window.open(this.href,'댓글','width=640, height=480'); return false;" style="margin-left: 5px; color: #000;">댓글</a>
         </div>
 
         
 <!-- modal 구동 버튼 (trigger) -->
-<button type="button" href="comment.do" class="btn btn-primary" data-toggle="modal" data-target="#my80sizeCenterModal">
+<button type="button" href="comment2.do" class="btn btn-primary" data-toggle="modal" data-target="#my80sizeCenterModal">
   댓글
 </button>
 
@@ -145,7 +141,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div align='center' class="modal-body">
-          	<%@ include file="comment.jsp" %>
+          	<%@ include file="comment2.jsp" %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>

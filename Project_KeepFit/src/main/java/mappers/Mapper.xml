@@ -227,7 +227,8 @@
 	<select id="getPostList" parameterType="post" resultType="post">
 	<![CDATA[
  	SELECT * FROM post
-	]]> 
+ 	ORDER BY post_date DESC
+	]]>
 	</select>
 
 	<!-- *********************************** END OF [ POST DB ] *********************************** -->
@@ -241,6 +242,4 @@
 	<!-- </select> -->
 
 	<!-- *********************************** END OF [ MOOD DB ] *********************************** -->
-
-
 </mapper>

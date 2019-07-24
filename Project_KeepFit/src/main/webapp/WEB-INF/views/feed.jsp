@@ -1,4 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
+<<<<<<< HEAD
+         pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<
+=======
     pageEncoding="UTF-8"%>
 <<<<<<< HEAD
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
@@ -7,6 +13,7 @@
 =======
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 >>>>>>> 3563ce4fda2884822ef20edc1f85094db8fca377
+>>>>>>> 6851d391a95655c86bc2e716163b221baddb1b8f
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,7 +94,6 @@
      style="background-color:#f9f9f9;height:40px;border-bottom:solid 1px #b2b2b2; width:100%; z-index:2; position: fixed">
     <h2 style="margin-top:9px; color:#00306a; font-size: 20px"><img src="resources/img/logo.PNG" width="15%"></h2>
 </div>
-
 
 
 <div class="container" style="overflow:hidden;">
@@ -213,26 +219,25 @@
     <div class="row" style="width:200%; height:5px; background-color: gainsboro"></div>
 </div>
 
-<div class="container">
-<table>
-   <c:forEach items="${postList}" var="postList">
-     <tr>
-       <td>${postList.post_id}</td>
-       <td>${postList.post_writer}</td>
-       <td>${postList.selected_date}</td>
-       <td>${postList.post_date}</td>
-       <td>${postList.post_mood}</td>
-       <td>${postList.member_tag}</td>
-       <td>${postList.privacy}</td>
-       <td>${postList.content}</td>
-       <td>${postList.path_pic}</td>
-
-     </tr>
-   </c:forEach>
-   </table>
-   </div>
+<div class="container" style="background-color: #b37400">
+    <table>
+        <c:forEach items="${postList}" var="aa">
+            <tr>
+                <td>${aa.post_id}</td>
+                <td>${aa.post_writer}</td>
+                <td>${aa.selected_date}</td>
+                <td>${aa.post_date}</td>
+                <td>${aa.post_mood}</td>
+                <td>${aa.member_tag}</td>
+                <td>${aa.privacy}</td>
+                <td>${aa.content}</td>
+                <td>${aa.path_pic}</td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
 
 <!-- 1 -->
-${postStatus } 
+${postStatus}
 </body>
 </html>

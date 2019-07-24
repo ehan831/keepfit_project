@@ -2,6 +2,10 @@
          pageEncoding="UTF-8" %>
 <% request.setCharacterEncoding( "utf-8" );%>
 
+<%
+    String post_id = request.getParameter( "post_id" );
+    String post_writer = request.getParameter( "post_writer" );
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,7 +98,7 @@
     글쓰기 화면
 </div>
 <div class="container">
-    <form class="form-group-lg" id="myForm" action="feed.jsp" method="post">
+    <form class="form-group-lg" id="myForm" action="feed_test.do" method="post">
         <!--데이트 픽커-->
         <div class="input-group">
             <input name="selected_date" type="text" class="form-control" id="selected_date" value="" maxlength="8">
@@ -114,7 +118,7 @@
             <span class="input-icon col-xs-1" style="text-align:center">
                 <i class="fas fa-user-tag" style="font-size: 200%"></i>
             </span>
-            <input name="member_tag" type="text" class="input-with-icon" id="member_tag" placeholder="사람 태그하기">
+            <input name="member_tag" type="text" class="input-with-icon" id="member_tag" placeholder="사람 태그하기 // 띄어쓰기로 구분">
         </div>
         <!--2 -->
         <div class="input-icon-wrap" style="margin: 1px 0px;">
@@ -144,6 +148,8 @@
         </div>
 
         <div>
+            <input type="hidden" name="post_id" value="<%=post_id%>">
+            <input type="hidden" name="post_writer" value="<%=post_writer%>">
             <input id="submit" class="btn btn-lg btn-primary" type="submit" value="글쓰기">
             <label class="checkbox-inline" style="float: right">
                 <span>공유 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>

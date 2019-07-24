@@ -1,8 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
+<<<<<<< HEAD
+         pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<
+=======
     pageEncoding="UTF-8"%>
+<<<<<<< HEAD
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>   
+=======
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+>>>>>>> 3563ce4fda2884822ef20edc1f85094db8fca377
+>>>>>>> 6851d391a95655c86bc2e716163b221baddb1b8f
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,7 +96,6 @@
 </div>
 
 
-
 <div class="container" style="overflow:hidden;">
     <!--    맨 위 간격 맞추기 -->
     <div class="row" style="margin-top: 53px"></div>
@@ -124,12 +134,12 @@
             <img name="likeIt" src="resources/img/heart.svg" style="margin-left: 10px">
             <a href="https://naver.com" style="margin-left: 5px;margin-right: 20px; color: #000;">좋아요</a>
             <img src="resources/img/comment.svg">
-            <a href="comment2.do" onclick="window.open(this.href,'댓글','width=640, height=480'); return false;" style="margin-left: 5px; color: #000;">댓글</a>
+            <!-- <a href="comment.do" onclick="window.open(this.href,'댓글','width=640, height=480'); return false;" style="margin-left: 5px; color: #000;">댓글</a> -->
         </div>
 
         
 <!-- modal 구동 버튼 (trigger) -->
-<button type="button" href="comment2.do" class="btn btn-primary" data-toggle="modal" data-target="#my80sizeCenterModal">
+<button type="button" href="comment.do" class="btn btn-primary" data-toggle="modal" data-target="#my80sizeCenterModal">
   댓글
 </button>
 
@@ -141,7 +151,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div align='center' class="modal-body">
-          	<%@ include file="comment2.jsp" %>
+          	<%@ include file="comment.jsp" %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
@@ -209,26 +219,25 @@
     <div class="row" style="width:200%; height:5px; background-color: gainsboro"></div>
 </div>
 
-<div class="container">
-<table>
-   <c:forEach items="${postList}" var="postList">
-     <tr>
-       <td>${postList.post_id}</td>
-       <td>${postList.post_writer}</td>
-       <td>${postList.selected_date}</td>
-       <td>${postList.post_date}</td>
-       <td>${postList.post_mood}</td>
-       <td>${postList.member_tag}</td>
-       <td>${postList.privacy}</td>
-       <td>${postList.content}</td>
-       <td>${postList.path_pic}</td>
-
-     </tr>
-   </c:forEach>
-   </table>
-   </div>
+<div class="container" style="background-color: #b37400">
+    <table>
+        <c:forEach items="${postList}" var="aa">
+            <tr>
+                <td>${aa.post_id}</td>
+                <td>${aa.post_writer}</td>
+                <td>${aa.selected_date}</td>
+                <td>${aa.post_date}</td>
+                <td>${aa.post_mood}</td>
+                <td>${aa.member_tag}</td>
+                <td>${aa.privacy}</td>
+                <td>${aa.content}</td>
+                <td>${aa.path_pic}</td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
 
 <!-- 1 -->
-${postStatus } 
+${postStatus}
 </body>
 </html>

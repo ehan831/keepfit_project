@@ -3,63 +3,99 @@
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="java.io.File"%>
+<%@page import="javax.imageio.ImageIO"%>
 <%@page import="org.apache.commons.io.FileUtils"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <%
-	// 생성될 post_id = [post_id] sequence.currval + 1
-	// path > project 안에
+	// 생성될 post_id = [post_id] sequence.nextval
 	int postId = (Integer) request.getAttribute("postId");
-	System.out.println(postId);
-	// 	int postId = Integer.valueOf(request.getParameter("postId")) +1;
+// 	int postId = 80;
+	System.out.println("posting.jsp: "+postId);
+
 
 	// post_id의 이름으로 폴더를 지정한다
-	String path = "C:/KeepPost/" + postId; //폴더 경로
+	String path = "C:/PostPics/" + postId; //폴더 경로
+	System.out.println(path);
 	File folder = new File(path);
+	File[] deleteFolderFiles = folder.listFiles();
 
 	
-	// 해당 디렉토리가 존재할 경우 해당 디렉토리 내용을 정리하여 삭제합니다.
-	if (folder.exists()) {
-		
-		File[] deleteFolderFiles = folder.listFiles();
-		for (int i = 0; i < deleteFolderFiles.length; i++) {
-			deleteFolderFiles[i].delete(); // 파일을 삭제합니다
-		}
-		System.out.println("이미 폴더가 존재하여 내용을 삭제합니다.");
 	// 해당 디렉토리가 존재하지 않을 경우 해당 디렉토리를 생성합니다.
-	} else {
+	if (!folder.exists()) {
 		try {
 			folder.mkdir(); //폴더 생성합니다.
 			System.out.println("폴더가 생성되었습니다.");
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
+
+	// 해당 디렉토리가 존재할 경우 해당 디렉토리 내용을 정리하여 삭제합니다.
+	} else {
+		for (int i = 0; i < deleteFolderFiles.length; i++) {
+			deleteFolderFiles[i].delete(); // 파일을 삭제합니다
+		}
+	System.out.println("이미 폴더가 존재하여 내용을 삭제합니다.");
+		
+		
 	}
 
-	String name = new String();
-	String fileName = new String();
-	int sizeLimit = 5 * 1024 * 1024; // 5메가까지 제한 넘어서면 예외발생
+	int sizeLimit = 30 * 1024 * 1024; // 5메가까지 제한 넘어서면 예외발생
 	int nameSeq = 0;
 	try {
 		// 생성된 폴더를 업로드 경로로 지정
-		MultipartRequest multi = new MultipartRequest(request, path, sizeLimit, "utf-8", new DefaultFileRenamePolicy());
-		Enumeration files = multi.getFileNames();
+		MultipartRequest multi = new MultipartRequest(request, path, sizeLimit, "UTF-8", new DefaultFileRenamePolicy());
+		Enumeration files = multi.getFileNames();		
+		
 
-		//파일 정보가 있다면
-		if (files.hasMoreElements()) {
-			name = (String) files.nextElement();
-			nameSeq++;
-			name = String.valueOf(nameSeq);
-			
-			fileName = multi.getFilesystemName(name);
-
+		// 파일 있다면
+		while (files.hasMoreElements()) {
+			String name = (String) files.nextElement();
+		
+		// post_id 경로안에 파일들 조회
+		File folder2 = new File(path);
+		File[] renameFolderFiles = folder2.listFiles();
+		
+		// 각 파일마다 이름을 "1"부터 바꾼다
+			int j = 0;
+		    for(File file:renameFolderFiles) {
+		        j++;
+		        String names = file.getName();
+		        String newName = j + ".jpg";
+		        String newPath = path + "\\" + newName;
+		        file.renameTo(new File(newPath));
+		        System.out.println(name + " changed to " + newName);
+		    }			 		
 		}
-		System.out.println("이미지를 저장하였습니다. : " + fileName);
 	} catch (IOException e) {
 		e.printStackTrace();
-		out.println("Exception: 안드로이드 부터 이미지가 전송되지 않았습니다.");
-	}
+		System.out.println("Exception: 안드로이드 부터 이미지가 전송되지 않았습니다.");
+	}	
+	
+	
+	String inputImagePath = path + "1.jpg";
+	String thumbPath = path + "thumb.jpg";
+	 
+	        try {
+	            // resize to a fixed width (not proportional)
+	            int scaledWidth = 1024;
+	            int scaledHeight = 768;
+	            ImageResizer.resize(inputImagePath, outputImagePath1, scaledWidth, scaledHeight);
+	 
+	            // resize smaller by 50%
+	            double percent = 0.5;
+	            ImageResizer.resize(inputImagePath, outputImagePath2, percent);
+	 
+	            // resize bigger by 50%
+	            percent = 1.5;
+	            ImageResizer.resize(inputImagePath, outputImagePath3, percent);
+	 
+	        } catch (IOException ex) {
+	            System.out.println("Error resizing the image.");
+	            ex.printStackTrace();
+	        }
+	
 %>
 
 

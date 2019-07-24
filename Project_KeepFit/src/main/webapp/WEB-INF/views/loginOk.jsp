@@ -26,7 +26,7 @@
 <hr/>
 <h6 align="center">메인 화면으로 이동합니다..</h6>
 <div id="counter">2</div>
-</div>
+
 
 </body>
 </html>

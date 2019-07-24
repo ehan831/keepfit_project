@@ -77,23 +77,34 @@
 
 
 	<!-- *********************************** [ LIKE DB ] *********************************** -->
-	<!-- <insert id="insertLike" parameterType="like"> -->
-	<!-- <![CDATA[ -->
-	<!-- *************{{{{ QUERY }}}}**************** -->
-	<!-- ]]> -->
-	<!-- </insert> -->
+	<select id="likeExists" parameterType="like" resultType="like">
+	<![CDATA[
+	SELECT * FROM lk WHERE like_user = #{like_user} AND post_id = #{post_id}
+	]]>
+	</select>
+	
+	<insert id="insertLike" parameterType="like">
+	<![CDATA[
+	INSERT INTO lk 
+  		(like_id, like_user, post_id) 
+  		VALUES (seq_lk_id.NEXTVAL, #{like_user}, #{post_id})
+	]]>
+	</insert>
 
-	<!-- <delete id="deleteLike" parameterType="like"> -->
-	<!-- <![CDATA[ -->
-	<!-- *************{{{{ QUERY }}}}**************** -->
-	<!-- ]]> -->
-	<!-- </delete> -->
+	<delete id="deleteLike" parameterType="like">
+	<![CDATA[
+	DELETE FROM lk 
+	WHERE post_id = #{post_id} AND like_user = #{like_user}
+	]]>
+	</delete>
 
-	<!-- <select id="getLike" parameterType="like" resultType="like"> -->
-	<!-- <![CDATA[ -->
-	<!-- *************{{{{ QUERY }}}}**************** -->
-	<!-- ]]> -->
-	<!-- </select> -->
+	<select id="getLikeList" parameterType="like" resultType="like">
+	<![CDATA[
+	SELECT * FROM lk
+	WHERE lk_user = #{like_user}
+	ORDER BY sysdate DESC
+	]]>
+	</select>
 
 	<!-- *********************************** END OF [ LIKE DB ] *********************************** -->
 
@@ -201,13 +212,7 @@
 	
 	<select id="getPostId" resultType="post">
 	<![CDATA[
-<<<<<<< HEAD
-	SELECT last_number as post_id 
-	FROM user_sequences
-	WHERE sequence_name = 'SEQ_POST_ID'
-=======
 	SELECT SEQ_POST_ID.nextval AS post_id FROM dual
->>>>>>> 3563ce4fda2884822ef20edc1f85094db8fca377
 	]]>
 	</select>
 
@@ -219,10 +224,11 @@
 	</select>
 
 
-	<select id="getPostList" parameterType="post" resultType="hashmap">
+	<select id="getPostList" parameterType="post" resultType="post">
 	<![CDATA[
  	SELECT * FROM post
-	]]> 
+ 	ORDER BY post_date DESC
+	]]>
 	</select>
 
 	<!-- *********************************** END OF [ POST DB ] *********************************** -->
@@ -236,6 +242,4 @@
 	<!-- </select> -->
 
 	<!-- *********************************** END OF [ MOOD DB ] *********************************** -->
-
-
 </mapper>

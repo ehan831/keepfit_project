@@ -1,14 +1,10 @@
 package com.keepfit.controller;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +13,11 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.keepfit.domain.CommentVO;
+import com.keepfit.domain.LikeVO;
 import com.keepfit.domain.MemberVO;
 import com.keepfit.domain.PostVO;
 import com.keepfit.service.CommentService;
+import com.keepfit.service.LikeService;
 import com.keepfit.service.MemberService;
 import com.keepfit.service.PostService;
 
@@ -29,6 +27,8 @@ public class Controller {
 	// Service 객체생성
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private LikeService likeService;
 	@Autowired
 	private CommentService commentService;
 	@Autowired
@@ -119,6 +119,28 @@ public class Controller {
 
 		return result;
 	}
+	
+	/**************************************************************************************************
+	 * [좋아요] HANDLERS
+	 *************************************************************************************************/
+	// post_id 에 좋아요 버튼 핸들러
+	// [LIKE DB] : IF EXISTS > DELETE, IF NOT EXISTS > INSERT 
+	// 인자: (LikeVO)
+	@RequestMapping(value = { "like.do" })
+	public ModelAndView like(LikeVO vo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		likeService.like(vo);
+		return mv;		
+	}
+	
+	// member_nick 관련 좋아요 조회
+	// 인자: (LikeVO)
+	@RequestMapping(value = { "getLikeList.do" })
+	public ModelAndView getLikeList(LikeVO vo) {
+		LikeVO likeUser = likeService.getLikeList(vo);
+		return mv;
+	}	
+	
 
 	/**************************************************************************************************
 	 * [댓글] HANDLERS
@@ -211,14 +233,7 @@ public class Controller {
 	// NEWS FEED > 전체 게시글 내용 조회 핸들러
 	// 인자: (PostVO)
 	@RequestMapping(value =  "getPostList.do" )
-	public ModelAndView post(PostVO vo, String posting) { // , WebRequest request
-//		System.out.println(posting);
-//		// 새 게시물 작성
-//		// 인자 (PostVO)
-//		if (posting.equals("1")) {
-//			System.out.println(postService.toString());
-//			postService.insertPost(vo);
-//		}
+	public ModelAndView post(PostVO vo) { // , WebRequest request
 		
 		// [POST DB]에서 게시글 모두 조회
 		List<PostVO> postList = postService.getPostList(vo);
@@ -358,16 +373,40 @@ public class Controller {
 		
 	} // end of search()
 
+	
 	/**************************************************************************************************
-	 * [글쓰기] test - han
-	 *************************************************************************************************/
-	@RequestMapping(value =  "posting_test.do" )
-	public ModelAndView posting(String post_id, String post_writer) { // , WebRequest request
-		// 두 개의 변수를 가지고 글쓰기 페이지 진입
-		System.out.println( "글쓰기 진입" );
-		mv.addObject( "post_id", post_id );
-		mv.addObject( "post_writer", post_writer );
-		mv.setViewName( "posting_test" ); // ****FRONT: view url 수정가능
-		return mv;
-	}
+     * [글쓰기] test - han
+     *************************************************************************************************/
+    @RequestMapping(value = "posting_test.do")
+    public ModelAndView posting(String post_id, String post_writer) { // , WebRequest request
+        // 두 개의 변수를 가지고 글쓰기 페이지 진입
+        System.out.println( "글쓰기 진입" );
+        mv.addObject( "post_id", post_id );
+        mv.addObject( "post_writer", post_writer );
+        mv.setViewName( "posting_test" ); // ****FRONT: view url 수정가능
+        return mv;
+    }
+
+    @RequestMapping(value = "feed_test.do")
+    public ModelAndView feed_test(PostVO vo) { // , WebRequest request
+
+        List<PostVO> postList = postService.getPostList( vo );
+
+        mv.addObject( "postList", postList ); // ****FRONT: parameter 수정가능
+        mv.addObject( "postStatus", "1" ); // ****FRONT: parameter 수정가능
+        System.out.println( "test" );
+        mv.setViewName( "feed" ); // ****FRONT: view url 수정가능
+        return mv;
+    }
+
+    @RequestMapping(value = "feed_test2.do")
+    public ModelAndView feed_test2(PostVO vo) { // , WebRequest request
+
+        List<PostVO> postList = postService.getPostList( vo );
+
+        mv.addObject( "postList", postList ); // ****FRONT: parameter 수정가능
+        System.out.println( "test2" );
+        mv.setViewName( "feed_test2" ); // ****FRONT: view url 수정가능
+        return mv;
+    }
 } // END OF Controller CLASS

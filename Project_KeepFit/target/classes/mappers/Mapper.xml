@@ -77,9 +77,9 @@
 
 
 	<!-- *********************************** [ LIKE DB ] *********************************** -->
-	<select id="getLike" parameterType="like" resultType="like">
+	<select id="likeExists" parameterType="like" resultType="like">
 	<![CDATA[
-	SELECT * FROM lk WHERE lk_user = #{like_user} AND post_id = #{post_id}
+	SELECT * FROM lk WHERE like_user = #{like_user} AND post_id = #{post_id}
 	]]>
 	</select>
 	
@@ -87,22 +87,24 @@
 	<![CDATA[
 	INSERT INTO lk 
   		(like_id, like_user, post_id) 
-  		VALUES (	seq.NEXTVAL, #{like_user}, #{post_id})
+  		VALUES (seq_lk_id.NEXTVAL, #{like_user}, #{post_id})
 	]]>
 	</insert>
 
 	<delete id="deleteLike" parameterType="like">
 	<![CDATA[
 	DELETE FROM lk 
-	WHERE post_id = #{post_id} AND lk_user = #{like_user}
+	WHERE post_id = #{post_id} AND like_user = #{like_user}
 	]]>
 	</delete>
 
-	<!-- <select id="getLike" parameterType="like" resultType="like"> -->
-	<!-- <![CDATA[ -->
-	<!-- *************{{{{ QUERY }}}}**************** -->
-	<!-- ]]> -->
-	<!-- </select> -->
+	<select id="getLikeList" parameterType="like" resultType="like">
+	<![CDATA[
+	SELECT * FROM lk
+	WHERE lk_user = #{like_user}
+	ORDER BY sysdate DESC
+	]]>
+	</select>
 
 	<!-- *********************************** END OF [ LIKE DB ] *********************************** -->
 
@@ -210,13 +212,7 @@
 	
 	<select id="getPostId" resultType="post">
 	<![CDATA[
-<<<<<<< HEAD
-	SELECT last_number as post_id 
-	FROM user_sequences
-	WHERE sequence_name = 'SEQ_POST_ID'
-=======
 	SELECT SEQ_POST_ID.nextval AS post_id FROM dual
->>>>>>> 3563ce4fda2884822ef20edc1f85094db8fca377
 	]]>
 	</select>
 
@@ -228,7 +224,7 @@
 	</select>
 
 
-	<select id="getPostList" parameterType="post" resultType="hashmap">
+	<select id="getPostList" parameterType="post" resultType="post">
 	<![CDATA[
  	SELECT * FROM post
 	]]> 

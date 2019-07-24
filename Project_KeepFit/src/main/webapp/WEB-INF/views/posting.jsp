@@ -3,6 +3,7 @@
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="java.io.File"%>
+<%@page import="javax.imageio.ImageIO"%>
 <%@page import="org.apache.commons.io.FileUtils"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -40,8 +41,6 @@
 		
 	}
 
-	String name = new String();
-// 	String fileName = new String();
 	int sizeLimit = 30 * 1024 * 1024; // 5메가까지 제한 넘어서면 예외발생
 	int nameSeq = 0;
 	try {
@@ -52,7 +51,7 @@
 
 		// 파일 있다면
 		while (files.hasMoreElements()) {
-			name = (String) files.nextElement();
+			String name = (String) files.nextElement();
 		
 		// post_id 경로안에 파일들 조회
 		File folder2 = new File(path);
@@ -72,8 +71,30 @@
 	} catch (IOException e) {
 		e.printStackTrace();
 		System.out.println("Exception: 안드로이드 부터 이미지가 전송되지 않았습니다.");
-
 	}	
+	
+	
+	String inputImagePath = path + "1.jpg";
+	String thumbPath = path + "thumb.jpg";
+	 
+	        try {
+	            // resize to a fixed width (not proportional)
+	            int scaledWidth = 1024;
+	            int scaledHeight = 768;
+	            ImageResizer.resize(inputImagePath, outputImagePath1, scaledWidth, scaledHeight);
+	 
+	            // resize smaller by 50%
+	            double percent = 0.5;
+	            ImageResizer.resize(inputImagePath, outputImagePath2, percent);
+	 
+	            // resize bigger by 50%
+	            percent = 1.5;
+	            ImageResizer.resize(inputImagePath, outputImagePath3, percent);
+	 
+	        } catch (IOException ex) {
+	            System.out.println("Error resizing the image.");
+	            ex.printStackTrace();
+	        }
 	
 %>
 

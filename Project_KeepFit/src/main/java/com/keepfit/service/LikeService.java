@@ -13,7 +13,7 @@ public interface LikeService {
 		// 좋아요 추가-삭제
 		void like(LikeVO vo);
 
-		// 좋아요 개수 조회
-		int getLike(LikeVO vo);
+		// like_user 좋아요 모두 조회
+		LikeVO getLikeList(LikeVO vo);
 
 }

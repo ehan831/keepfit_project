@@ -1,14 +1,10 @@
 package com.keepfit.controller;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -131,7 +127,8 @@ public class Controller {
 	// [LIKE DB] : IF EXISTS > DELETE, IF NOT EXISTS > INSERT 
 	// 인자: (LikeVO)
 	@RequestMapping(value = { "like.do" })
-	public ModelAndView like(LikeVO vo) {
+	public ModelAndView like(LikeVO vo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
 		likeService.like(vo);
 		return mv;		
 	}
@@ -140,7 +137,7 @@ public class Controller {
 	// 인자: (LikeVO)
 	@RequestMapping(value = { "getLikeList.do" })
 	public ModelAndView getLikeList(LikeVO vo) {
-		likeService.getLike(vo);
+		LikeVO likeUser = likeService.getLikeList(vo);
 		return mv;
 	}	
 	
@@ -376,16 +373,40 @@ public class Controller {
 		
 	} // end of search()
 
+	
 	/**************************************************************************************************
-	 * [글쓰기] test - han
-	 *************************************************************************************************/
-	@RequestMapping(value =  "posting_test.do" )
-	public ModelAndView posting(String post_id, String post_writer) { // , WebRequest request
-		// 두 개의 변수를 가지고 글쓰기 페이지 진입
-		System.out.println( "글쓰기 진입" );
-		mv.addObject( "post_id", post_id );
-		mv.addObject( "post_writer", post_writer );
-		mv.setViewName( "posting_test" ); // ****FRONT: view url 수정가능
-		return mv;
-	}
+     * [글쓰기] test - han
+     *************************************************************************************************/
+    @RequestMapping(value = "posting_test.do")
+    public ModelAndView posting(String post_id, String post_writer) { // , WebRequest request
+        // 두 개의 변수를 가지고 글쓰기 페이지 진입
+        System.out.println( "글쓰기 진입" );
+        mv.addObject( "post_id", post_id );
+        mv.addObject( "post_writer", post_writer );
+        mv.setViewName( "posting_test" ); // ****FRONT: view url 수정가능
+        return mv;
+    }
+
+    @RequestMapping(value = "feed_test.do")
+    public ModelAndView feed_test(PostVO vo) { // , WebRequest request
+
+        List<PostVO> postList = postService.getPostList( vo );
+
+        mv.addObject( "postList", postList ); // ****FRONT: parameter 수정가능
+        mv.addObject( "postStatus", "1" ); // ****FRONT: parameter 수정가능
+        System.out.println( "test" );
+        mv.setViewName( "feed" ); // ****FRONT: view url 수정가능
+        return mv;
+    }
+
+    @RequestMapping(value = "feed_test2.do")
+    public ModelAndView feed_test2(PostVO vo) { // , WebRequest request
+
+        List<PostVO> postList = postService.getPostList( vo );
+
+        mv.addObject( "postList", postList ); // ****FRONT: parameter 수정가능
+        System.out.println( "test2" );
+        mv.setViewName( "feed_test2" ); // ****FRONT: view url 수정가능
+        return mv;
+    }
 } // END OF Controller CLASS

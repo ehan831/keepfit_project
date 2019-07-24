@@ -25,12 +25,8 @@
 <h5 align="center">안녕하세요 <b>${member.member_nick}</b>님 로그인에 성공하셨습니다.</h5><br/>
 <hr/>
 <h6 align="center">메인 화면으로 이동합니다..</h6>
-<<<<<<< HEAD
 <div id="counter">2</div>
-=======
-<div id="counter">5</div>
->>>>>>> 3563ce4fda2884822ef20edc1f85094db8fca377
-</div>
+
 
 </body>
 </html>

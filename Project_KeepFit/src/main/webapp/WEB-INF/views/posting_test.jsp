@@ -2,13 +2,10 @@
          pageEncoding="UTF-8" %>
 <% request.setCharacterEncoding( "utf-8" );%>
 
-<%
-    String post_id = request.getParameter( "post_id" );
-    String post_writer = request.getParameter( "post_writer" );
-%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta charset="UTF-8">
     <title>posting</title>
 
@@ -53,6 +50,11 @@
         .input-icon, .input-with-icon {
             padding: 10px;
         }
+
+        .effect img {
+            border-radius: 20px;
+            padding: 2px;
+        }
     </style>
 
     <!--    https://jskimmail.blog.me/221586960416-->
@@ -94,69 +96,140 @@
 </head>
 <body>
 
-<div style="font-size:30px; height: 150px; line-height: 150px; text-align: center;">
-    글쓰기 화면
-</div>
 <div class="container">
-    <form class="form-group-lg" id="myForm" action="feed_test.do" method="post">
-        <!--데이트 픽커-->
-        <div class="input-group">
-            <input name="selected_date" type="text" class="form-control" id="selected_date" value="" maxlength="8">
-            <div class="input-group-addon">
-                <a href="#" id="btnSearchDate"><i class="far fa-calendar-alt" style="font-size: 200%; color: #000;"></i></a>
+    <form class="form-group-lg" id="myForm" action="feed_test.do" method="get">
+        <!-- 썸네일 -->
+        <div class="row effect" style="margin: 10px">
+            <p style="margin: 5px"><b>선택된 사진</b></p>
+            <div class="col-xs-4" style="border: solid 1px #fffdff; padding:0;">
+                <img src="https://via.placeholder.com/100" width="100%" style="margin:0px;">
+            </div>
+            <div class="col-xs-4" style="border: solid 1px #fffdff;padding:0;">
+                <img src="https://via.placeholder.com/100" width="100%" style="margin:0px;">
+            </div>
+            <div class="col-xs-4" style="border: solid 1px #fffdff;padding:0;">
+                <img src="https://via.placeholder.com/100" width="100%" style="margin:0px;">
             </div>
         </div>
-        <!-- 썸네일 -->
-        <div class="input-group" style="float: right; align-content: baseline">
-            <img id="img" src="//via.placeholder.com/150x200" alt="150x200" class="img-thumbnail">
-            <input type="hidden" id="path_thumb" name="path_thumb" value="">
-            <input type="hidden" id="path_pic" name="path_pic" value="">
-        </div>
+        <!--데이트 픽커-->
+        <hr>
+        <div class="row" style="margin: 10px">
+            <p style="margin: 5px"><b>정보 입력</b></p>
+            <div class="input-group">
+                <input name="textDate" type="text" class="form-control" id="txtDate" value="" maxlength="8"
+                       placeholder="날짜 선택">
+                <div class="input-group-addon">
+                    <a href="#" id="btnSearchDate"><i class="far fa-calendar-alt"
+                                                      style="font-size: 200%; color: #000;"></i></a>
+                </div>
+            </div>
 
-        <!-- 1번 태그 -->
-        <div class="input-icon-wrap" style="margin: 1px 0px;">
-            <span class="input-icon col-xs-1" style="text-align:center">
+            <div class="input-icon-wrap" style="margin: 1px 0px;">
+            <span class="input-icon col-xs-2" style="text-align:center">
                 <i class="fas fa-user-tag" style="font-size: 200%"></i>
             </span>
-            <input name="member_tag" type="text" class="input-with-icon" id="member_tag" placeholder="사람 태그하기 // 띄어쓰기로 구분">
-        </div>
-        <!--2 -->
-        <div class="input-icon-wrap" style="margin: 1px 0px;">
-            <span class="input-icon col-xs-1" style="text-align: center">
+                <input name="text1" type="text" class="input-with-icon col-xs-10" id="form-name1" placeholder="사람 태그하기">
+            </div>
+
+            <div class="input-icon-wrap" style="margin: 1px 0px;">
+            <span class="input-icon col-xs-2" style="text-align: center">
                 <i class="fas fa-cloud-sun-rain" style="font-size: 200%"></i>
             </span>
-            <input name="post_mood" type="text" class="input-with-icon" id="post_mood" placeholder="기분 선택하기">
-        </div>
+                <input name="text2" type="text" class="input-with-icon" id="form-name2" placeholder="기분 선택하기">
+            </div>
 
-        <div class="input-icon-wrap" style="margin: 1px 0px;">
-            <span class="input-icon col-xs-1" style="text-align: center">
+            <div class="input-icon-wrap" style="margin: 1px 0px;">
+            <span class="input-icon col-xs-2" style="text-align: center">
                 <i class="fas fa-biking" style="font-size: 200%"></i>
             </span>
-            <input name="sport_name" type="text" class="input-with-icon" id="sport_name" placeholder="운동 선택하기">
-        </div>
+                <input name="text3" type="text" class="input-with-icon" id="form-name3" placeholder="운동 선택하기">
+            </div>
 
-        <div class="input-icon-wrap" style="margin: 1px 0px;">
-            <span class="input-icon col-xs-1" style="text-align: center">
+            <div class="input-icon-wrap" style="margin: 1px 0px;">
+            <span class="input-icon col-xs-2" style="text-align: center">
                 <i class="fas fa-map-marked-alt" style="font-size: 200%"></i>
             </span>
-            <input name="place_tag" type="text" class="input-with-icon" id="place_tag" placeholder="위치 추가하기">
-        </div>
+                <input name="text4" type="text" class="input-with-icon" id="form-name4" placeholder="위치 추가하기">
+            </div>
 
-        <div class="input-icon-wrap" style="clear: both;">
-            <textarea name="content" id="content" class="text-justify" placeholder="내용을 입력해주세요." rows="10"
+            <div class="input-icon-wrap" style="clear: both;">
+            <textarea name="text5" class="text-justify" placeholder="내용을 입력해주세요." rows="5"
                       style="width: 100%;"></textarea>
-        </div>
-
-        <div>
-            <input type="hidden" name="post_id" value="<%=post_id%>">
-            <input type="hidden" name="post_writer" value="<%=post_writer%>">
-            <input id="submit" class="btn btn-lg btn-primary" type="submit" value="글쓰기">
-            <label class="checkbox-inline" style="float: right">
-                <span>공유 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <input name="privacy" type="checkbox" checked data-toggle="toggle">
-            </label>
+            </div>
+            <hr style="margin: 5px">
+            <div>
+                <input id="submit" class="btn btn-primary" type="submit" name="submit" value="글쓰기">
+                <label class="checkbox-inline" style="float: right">
+                    <span>공유 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <input name="checkbox" type="checkbox" checked data-toggle="toggle">
+                </label>
+            </div>
+            <hr style="margin: 10px">
         </div>
     </form>
 </div>
+
+    <%--    old ver--%>
+    <%--<div class="container">--%>
+    <%--    <form class="form-group-lg" id="myForm" action="feed_test.do" method="post">--%>
+    <%--        <!--데이트 픽커-->--%>
+    <%--        <div class="input-group">--%>
+    <%--            <input name="selected_date" type="text" class="form-control" id="selected_date" value="" maxlength="8">--%>
+    <%--            <div class="input-group-addon">--%>
+    <%--                <a href="#" id="btnSearchDate"><i class="far fa-calendar-alt" style="font-size: 200%; color: #000;"></i></a>--%>
+    <%--            </div>--%>
+    <%--        </div>--%>
+    <%--        <!-- 썸네일 -->--%>
+    <%--        <div class="input-group" style="float: right; align-content: baseline">--%>
+    <%--            <img id="img" src="//via.placeholder.com/150x200" alt="150x200" class="img-thumbnail">--%>
+    <%--            <input type="hidden" id="path_thumb" name="path_thumb" value="">--%>
+    <%--            <input type="hidden" id="path_pic" name="path_pic" value="">--%>
+    <%--        </div>--%>
+
+    <%--        <!-- 1번 태그 -->--%>
+    <%--        <div class="input-icon-wrap" style="margin: 1px 0px;">--%>
+    <%--            <span class="input-icon col-xs-1" style="text-align:center">--%>
+    <%--                <i class="fas fa-user-tag" style="font-size: 200%"></i>--%>
+    <%--            </span>--%>
+    <%--            <input name="member_tag" type="text" class="input-with-icon" id="member_tag" placeholder="사람 태그하기 // 띄어쓰기로 구분">--%>
+    <%--        </div>--%>
+    <%--        <!--2 -->--%>
+    <%--        <div class="input-icon-wrap" style="margin: 1px 0px;">--%>
+    <%--            <span class="input-icon col-xs-1" style="text-align: center">--%>
+    <%--                <i class="fas fa-cloud-sun-rain" style="font-size: 200%"></i>--%>
+    <%--            </span>--%>
+    <%--            <input name="post_mood" type="text" class="input-with-icon" id="post_mood" placeholder="기분 선택하기">--%>
+    <%--        </div>--%>
+
+    <%--        <div class="input-icon-wrap" style="margin: 1px 0px;">--%>
+    <%--            <span class="input-icon col-xs-1" style="text-align: center">--%>
+    <%--                <i class="fas fa-biking" style="font-size: 200%"></i>--%>
+    <%--            </span>--%>
+    <%--            <input name="sport_name" type="text" class="input-with-icon" id="sport_name" placeholder="운동 선택하기">--%>
+    <%--        </div>--%>
+
+    <%--        <div class="input-icon-wrap" style="margin: 1px 0px;">--%>
+    <%--            <span class="input-icon col-xs-1" style="text-align: center">--%>
+    <%--                <i class="fas fa-map-marked-alt" style="font-size: 200%"></i>--%>
+    <%--            </span>--%>
+    <%--            <input name="place_tag" type="text" class="input-with-icon" id="place_tag" placeholder="위치 추가하기">--%>
+    <%--        </div>--%>
+
+    <%--        <div class="input-icon-wrap" style="clear: both;">--%>
+    <%--            <textarea name="content" id="content" class="text-justify" placeholder="내용을 입력해주세요." rows="10"--%>
+    <%--                      style="width: 100%;"></textarea>--%>
+    <%--        </div>--%>
+
+    <%--        <div>--%>
+    <%--            <input type="hidden" name="post_id" value="<%=post_id%>">--%>
+    <%--            <input type="hidden" name="post_writer" value="<%=post_writer%>">--%>
+    <%--            <input id="submit" class="btn btn-lg btn-primary" type="submit" value="글쓰기">--%>
+    <%--            <label class="checkbox-inline" style="float: right">--%>
+    <%--                <span>공유 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>--%>
+    <%--                <input name="privacy" type="checkbox" checked data-toggle="toggle">--%>
+    <%--            </label>--%>
+    <%--        </div>--%>
+    <%--    </form>--%>
+    <%--</div>--%>
 </body>
 </html>

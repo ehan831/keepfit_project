@@ -242,7 +242,8 @@ public class Controller {
 			mv.addObject("postList", postList); // ****FRONT: parameter 수정가능
 			mv.addObject("postStatus", "1"); // ****FRONT: parameter 수정가능
 			System.out.println("게시글 조회");
-			mv.setViewName("feed"); // ****FRONT: view url 수정가능
+//			mv.setViewName("feed"); // ****FRONT: view url 수정가능
+			mv.setViewName("feed_test2"); // ****FRONT: view url 수정가능
 			return mv;
 		} else {
 			mv.addObject("postStatus", "0"); // ****FRONT: parameter 수정가능

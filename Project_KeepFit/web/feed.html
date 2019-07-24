@@ -36,6 +36,13 @@
     <!--    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
     <!--    <![endif]&ndash;&gt;-->
 
+    <style>
+        .bx-viewport {
+            /*fix other elements on the page moving (on Chrome)*/
+            -webkit-transform: translatez(0);
+            max-height: 400px;
+        }
+    </style>
 </head>
 <body>
 
@@ -68,7 +75,7 @@
         </div>
     </div>
     <!--    사진 -->
-    <div class="bxslider">
+    <div class="bxslider" style="height: 400px">
         <div>
             <img src="img/2.jpg" alt="이미지 로딩 중">
         </div>

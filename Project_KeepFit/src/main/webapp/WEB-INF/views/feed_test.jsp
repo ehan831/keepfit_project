@@ -1,8 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+<%
+    String selected_date = request.getParameter( "selected_date" );
+    String member_tag = request.getParameter( "member_tag" );
+    String post_mood = request.getParameter( "post_mood" );
+    String sport_name = request.getParameter( "sport_name" );
+    String place_tag = request.getParameter( "place_tag" );
+    String content = request.getParameter( "content" );
+    String post_id = request.getParameter( "post_id" );
+    String post_writer = request.getParameter( "post_writer" );
+    String privacy = request.getParameter( "privacy" );
+%>
 
-<
+<%-- 이름 태그 토커나이즈 --%>
+<c:set var="member_tag" value="<%=member_tag%>"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +27,7 @@
     <script
             src="https://code.jquery.com/jquery-2.2.4.js"
             integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
-            crossorigin="anonymous">
+            crossorigin="anonymous">d
     </script>
 
     <!--bx slider-->
@@ -36,6 +49,30 @@
     </script>
     <script src="resources/js/feed.js" type="text/javascript"></script>
 
+    <style>
+        .txt_post {
+            padding: 1px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* 라인수 */
+            -webkit-box-orient: vertical;
+            word-wrap:break-word;
+            line-height: 1.2em;
+            max-height: 3.6em; /* line-height 가 1.2em 이고 3라인을 자르기 때문에 height는 1.2em * 3 = 3.6em */
+        }
+        .txt_post_single {
+            padding: 1px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1; /* 라인수 */
+            -webkit-box-orient: vertical;
+            word-wrap:break-word;
+            word-break: normal;
+            line-height: 1.2em;
+        }
+    </style>
     <!--    &lt;!&ndash;[if lt IE 9]>-->
     <!--    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>-->
     <!--    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
@@ -52,6 +89,8 @@
 </div>
 
 
+
+
 <div class="container" style="overflow:hidden;">
     <!--    맨 위 간격 맞추기 -->
     <div class="row" style="margin-top: 53px"></div>
@@ -63,10 +102,12 @@
         </div>
         <div class="col-xs-8" style="padding-left: 0;">
             <div class="col-xs-12" style="padding-left: 0;">
-                <b><p style="margin-bottom:5px; text-align: left"></p>SpongeBob</b>
+                <p style="margin-bottom:5px; text-align: left"><b><%=post_writer%></b></p>
             </div>
             <div class="col-xs-12" style="padding-left: 0;font-size: 11px;">
-                <p style="">#강남 #양재 #1.45km</p>
+                <p style="">
+                    #<%=post_mood%> #<%=sport_name%> #<%=place_tag%>
+                </p>
             </div>
         </div>
         <div class="col-xs-1" style="padding-left:0; padding-top: 11px">
@@ -74,7 +115,7 @@
         </div>
     </div>
     <!--    사진 -->
-    <div class="bxslider">
+    <div class="bxslider" style="overflow: hidden; width: 100%;">
         <div>
             <img src="resources/img/2.jpg" alt="이미지 로딩 중">
         </div>
@@ -83,6 +124,22 @@
         </div>
         <div>
             <img src="resources/img/4.jpg" alt="이미지 로딩 중">
+        </div>
+    </div>
+    <div class="row" style="margin-right: 0px; margin-left: 0px; background-color: #ffffff">
+        <div class="col-sm-8" style="display: inline-block">
+            <div class="txt_post_single">
+            <c:forTokens items="${member_tag}" delims=" " var="token">
+                <b style="color: #0961de;">@${token}</b>
+            </c:forTokens>
+            </div>
+            <div class="txt_post">
+                <%=content%>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <p style="color:grey;float: right; font-size: 80%"><%=selected_date%>
+            </p>
         </div>
     </div>
     <div class="row" style="padding: 15px 10px; ">
@@ -97,76 +154,7 @@
             <a href="https://nate.com" style="margin-left: 5px;margin-right: 10px; color: #000;">공유</a>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <p style="color:grey;">30분 전</p>
-        </div>
-    </div>
-    <!--    포스팅 끝 -->
-    <div class="row" style="width:200%; height:5px; background-color: gainsboro"></div>
-    <!--    새 포스트 시작-->
-    <!--포스팅 글2-->
-    <div class="row" style="margin-top: 10px; margin-bottom: 8px">
-        <!--        프로필 사진 -->
-        <div class="col-xs-2" style="width: 20%">
-            <img width="100%" class="img-circle" src="resources/img/profile.png" alt="profile">
-        </div>
-        <div class="col-xs-8" style="padding-left: 0;">
-            <div class="col-xs-12" style="padding-left: 0;">
-                <b><p style="margin-bottom:5px; text-align: left"></p>SpongeBob</b>
-            </div>
-            <div class="col-xs-12" style="padding-left: 0;font-size: 11px;">
-                <p style="">#강남 #양재 #1.45km</p>
-            </div>
-        </div>
-        <div class="col-xs-1" style="padding-left:0; padding-top: 11px">
-            <img src="resources/img/images2.png" width="100%">
-        </div>
-    </div>
-    <!--    사진 -->
-    <div class="bxslider">
-        <div>
-            <img src="resources/img/1.jpg" alt="이미지 로딩 중">
-        </div>
-    </div>
-    <div class="row" style="padding: 15px 10px; ">
-        <div style="float: left">
-            <img name="likeIt" src="resources/img/heart.svg" style="margin-left: 10px"><a
-                style="margin-left: 5px;margin-right: 20px; color: #000;">좋아요</a>
-            <img src="resources/img/comment.svg"><a style="margin-left: 5px; color: #000;">댓글</a>
-        </div>
-        <div style="float: right">
-            <img src="resources/img/share.svg"><a style="margin-left: 5px;margin-right: 10px; color: #000;">공유</a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <p style="color:grey;">2시간 전</p>
-        </div>
-    </div>
     <!--    포스팅 끝 -->
     <div class="row" style="width:200%; height:5px; background-color: gainsboro"></div>
 </div>
-
-<div class="container" style="background-color: #b37400">
-    <table>
-        <c:forEach items="${postList}" var="aa">
-            <tr>
-                <td>${aa.post_id}</td>
-                <td>${aa.post_writer}</td>
-                <td>${aa.selected_date}</td>
-                <td>${aa.post_date}</td>
-                <td>${aa.post_mood}</td>
-                <td>${aa.member_tag}</td>
-                <td>${aa.privacy}</td>
-                <td>${aa.content}</td>
-                <td>${aa.path_pic}</td>
-            </tr>
-        </c:forEach>
-    </table>
-</div>
-
-<!-- 1 -->
-${postStatus}
-</body>
 </html>

@@ -26,183 +26,183 @@ import com.keepfit.service.PostService;
 @org.springframework.stereotype.Controller
 public class Controller {
 
-	// Service 객체생성
-	@Autowired
-	private MemberService memberService;
-	@Autowired
-	private CommentService commentService;
-	@Autowired
-	private PostService postService;
+    // Service 객체생성
+    @Autowired
+    private MemberService memberService;
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private PostService postService;
 
-	// Servlet ModelAndView 생성
-	ModelAndView mv = new ModelAndView();
+    // Servlet ModelAndView 생성
+    ModelAndView mv = new ModelAndView( );
 
-	/**************************************************************************************************
-	 * BASIC REQUEST HANDLERS
-	 *************************************************************************************************/
-	// DB 갖다오지 않는 함수 일괄 처리하는 (request = response)
-	@RequestMapping(value = "{url}.do")
-	public String common(@PathVariable String url) {
-		System.out.println("common 호출!");
-		return url;
-	}
+    /**************************************************************************************************
+     * BASIC REQUEST HANDLERS
+     *************************************************************************************************/
+    // DB 갖다오지 않는 함수 일괄 처리하는 (request = response)
+    @RequestMapping(value = "{url}.do")
+    public String common(@PathVariable String url) {
+        System.out.println( "common 호출!" );
+        return url;
+    }
 
-	/**************************************************************************************************
-	 * [ANDROID] HANDLERS
-	 *************************************************************************************************/
-	@RequestMapping (value = {"picUpload.do"})
-	public ModelAndView picUpload(HttpServletRequest request) {
-		PostVO post = postService.getPostId();
+    /**************************************************************************************************
+     * [ANDROID] HANDLERS
+     *************************************************************************************************/
+    @RequestMapping(value = {"picUpload.do"})
+    public ModelAndView picUpload(HttpServletRequest request) {
+        PostVO post = postService.getPostId( );
 
-		if (post != null) {
-			System.out.println("picUpload() 호출");
-			request.setAttribute("postId", post.getPost_id());
-			System.out.println(post.getPost_id());
-			mv.setViewName("posting");
-		} else {
-			System.out.println("picUpload() 호출 실패!");
-			mv.setViewName("feed");
-		}		
-		return mv;
-	}
-	
-	/**************************************************************************************************
-	 * [로그인] HANDLERS
-	 *************************************************************************************************/
-	@RequestMapping(value = { "login.do" })
-	public ModelAndView login(MemberVO vo, HttpServletRequest request, HttpSession session) {
-		// [MEMBER DB] 에서 [email]과 [password] 확인
-		MemberVO logUser = memberService.loginMember(vo);
+        if (post != null) {
+            System.out.println( "picUpload() 호출" );
+            request.setAttribute( "postId", post.getPost_id( ) );
+            System.out.println( post.getPost_id( ) );
+            mv.setViewName( "posting" );
+        } else {
+            System.out.println( "picUpload() 호출 실패!" );
+            mv.setViewName( "feed" );
+        }
+        return mv;
+    }
 
-		if (logUser != null) {
-			if (vo.getMember_email().equals(logUser.getMember_email())
-					&& vo.getMember_pass().equals(logUser.getMember_pass())) {
-				session.setAttribute("logUser",logUser.getMember_nick());
-				mv.addObject("logged", "1"); // ****TEAM-FRONT: view url 수정가능
-				mv.addObject("member", logUser); // ****TEAM-FRONT: view url 수정가능
-				System.out.println("성공 ");
-				mv.setViewName("loginOk");
-			}
-		} else {
-			mv.addObject("logged", "0"); // ****TEAM-FRONT: view url 수정가능
-			System.out.println("실패 ");
-			mv.setViewName("signUpExtra");
-		}
-		mv.addObject("member", vo); // 사용자 입력 값이 들어있음 : EMAIL / PW
+    /**************************************************************************************************
+     * [로그인] HANDLERS
+     *************************************************************************************************/
+    @RequestMapping(value = {"login.do"})
+    public ModelAndView login(MemberVO vo, HttpServletRequest request, HttpSession session) {
+        // [MEMBER DB] 에서 [email]과 [password] 확인
+        MemberVO logUser = memberService.loginMember( vo );
 
-		return mv;
-	}
+        if (logUser != null) {
+            if (vo.getMember_email( ).equals( logUser.getMember_email( ) )
+                    && vo.getMember_pass( ).equals( logUser.getMember_pass( ) )) {
+                session.setAttribute( "logUser", logUser.getMember_nick( ) );
+                mv.addObject( "logged", "1" ); // ****TEAM-FRONT: view url 수정가능
+                mv.addObject( "member", logUser ); // ****TEAM-FRONT: view url 수정가능
+                System.out.println( "성공 " );
+                mv.setViewName( "loginOk" );
+            }
+        } else {
+            mv.addObject( "logged", "0" ); // ****TEAM-FRONT: view url 수정가능
+            System.out.println( "실패 " );
+            mv.setViewName( "signUpExtra" );
+        }
+        mv.addObject( "member", vo ); // 사용자 입력 값이 들어있음 : EMAIL / PW
 
-	/**************************************************************************************************
-	 * [회원가입] HANDLERS
-	 *************************************************************************************************/
-	@RequestMapping(value = { "signup.do" })
-	public ModelAndView test(MemberVO vo) {
-		System.out.println(vo.toString());
-		memberService.insertMember(vo); // 지금은 vo가 비어있는 상태
+        return mv;
+    }
 
-		// (1) Model
-		// (2) ModelAndView
-		// (3) 함수위에 @ModelAttribute
-		mv.setViewName("feed");
-		return mv;
-	}
+    /**************************************************************************************************
+     * [회원가입] HANDLERS
+     *************************************************************************************************/
+    @RequestMapping(value = {"signup.do"})
+    public ModelAndView test(MemberVO vo) {
+        System.out.println( vo.toString( ) );
+        memberService.insertMember( vo ); // 지금은 vo가 비어있는 상태
 
-	@RequestMapping(value = "idCheck.do", produces = "application/text; charset=UTF-8")
-	@ResponseBody // ajax인 경우 반드시 @ResponseBody를 추가해줘야 비동기 통신 가능
-	public String idCheck(MemberVO vo) {
-		// String userId를 인자로 받아도 됨
-		MemberVO memberVO = memberService.idCheck_Login(vo);
-		String result = "ID 사용 가능합니다.";
-		if (memberVO != null)
-			result = "중복된 ID입니다.";
+        // (1) Model
+        // (2) ModelAndView
+        // (3) 함수위에 @ModelAttribute
+        mv.setViewName( "feed" );
+        return mv;
+    }
 
-		return result;
-	}
+    @RequestMapping(value = "idCheck.do", produces = "application/text; charset=UTF-8")
+    @ResponseBody // ajax인 경우 반드시 @ResponseBody를 추가해줘야 비동기 통신 가능
+    public String idCheck(MemberVO vo) {
+        // String userId를 인자로 받아도 됨
+        MemberVO memberVO = memberService.idCheck_Login( vo );
+        String result = "ID 사용 가능합니다.";
+        if (memberVO != null)
+            result = "중복된 ID입니다.";
 
-	/**************************************************************************************************
-	 * [댓글] HANDLERS
-	 *************************************************************************************************/
-	// post_id 관련 전체 댓글 내용 조회 핸들러
-	// 인자: (CommentVO : post_id)
-	@RequestMapping(value = { "getCommentList.do" })
-	public ModelAndView comment(CommentVO vo, WebRequest request) {
-		// [COMMENT DB]에 [post_id]의 댓글을 모두 조회
-		List<CommentVO> commentList = commentService.getCommentList(vo);
+        return result;
+    }
 
-		if (commentList != null) {
-			mv.addObject("commentList", commentList); // ****FRONT: parameter 수정가능
-			mv.addObject("commentStatus", "1"); // ****FRONT: parameter 수정가능
-			System.out.println("댓글 조회");
-			mv.setViewName("TEST-comment"); // ****FRONT: view url 수정가능
-			return mv;
-		} else {
-			mv.addObject("commentStatus", "0"); // ****FRONT: parameter 수정가능
-			System.out.println("댓글 없음");
-			return mv;
-		}
-	}
+    /**************************************************************************************************
+     * [댓글] HANDLERS
+     *************************************************************************************************/
+    // post_id 관련 전체 댓글 내용 조회 핸들러
+    // 인자: (CommentVO : post_id)
+    @RequestMapping(value = {"getCommentList.do"})
+    public ModelAndView comment(CommentVO vo, WebRequest request) {
+        // [COMMENT DB]에 [post_id]의 댓글을 모두 조회
+        List<CommentVO> commentList = commentService.getCommentList( vo );
 
-	// post_id 에 댓글 작성 버튼 핸들러
-	// 인자: (CommentVO : comment_content, comment_writer, post_id)
-	@RequestMapping(value = { "insertComment.do" })
-	public ModelAndView insertComment(CommentVO vo) {
-		// insertComment() 댓글입력 후 return 값: 댓글 개수 증가
-		int countComment = commentService.insertComment(vo);
+        if (commentList != null) {
+            mv.addObject( "commentList", commentList ); // ****FRONT: parameter 수정가능
+            mv.addObject( "commentStatus", "1" ); // ****FRONT: parameter 수정가능
+            System.out.println( "댓글 조회" );
+            mv.setViewName( "TEST-comment" ); // ****FRONT: view url 수정가능
+            return mv;
+        } else {
+            mv.addObject( "commentStatus", "0" ); // ****FRONT: parameter 수정가능
+            System.out.println( "댓글 없음" );
+            return mv;
+        }
+    }
 
-		if (countComment != 0) {
-			System.out.println("현재 댓글 : " + countComment);
-			mv.addObject("countComment", countComment);
-			mv.addObject("commentStatus", "insert1"); // ****FRONT: parameter 수정가능
-			mv.setViewName("TEST-comment"); // ****FRONT: view url 수정가능
-			System.out.println("댓글 작성!");
-		} else {
-			mv.addObject("commentStatus", "insert0"); // ****FRONT: parameter 수정가능
-			mv.setViewName("feed");
-			System.out.println("댓글 실패!");
-		}
+    // post_id 에 댓글 작성 버튼 핸들러
+    // 인자: (CommentVO : comment_content, comment_writer, post_id)
+    @RequestMapping(value = {"insertComment.do"})
+    public ModelAndView insertComment(CommentVO vo) {
+        // insertComment() 댓글입력 후 return 값: 댓글 개수 증가
+        int countComment = commentService.insertComment( vo );
 
-		return mv;
-	}
+        if (countComment != 0) {
+            System.out.println( "현재 댓글 : " + countComment );
+            mv.addObject( "countComment", countComment );
+            mv.addObject( "commentStatus", "insert1" ); // ****FRONT: parameter 수정가능
+            mv.setViewName( "TEST-comment" ); // ****FRONT: view url 수정가능
+            System.out.println( "댓글 작성!" );
+        } else {
+            mv.addObject( "commentStatus", "insert0" ); // ****FRONT: parameter 수정가능
+            mv.setViewName( "feed" );
+            System.out.println( "댓글 실패!" );
+        }
 
-	// 댓글 상세 조회 핸들러 (작성자일때만 접근 가능)
-	// 인자: (CommentVO : post_id, comment_writer)
-	@RequestMapping(value = { "getComment.do" })
-	public ModelAndView getComment(CommentVO vo) {
-		commentService.getComment(vo);
-		mv.setViewName("TEST-comment"); // ****TEAM-FRONT: view url 수정가능
+        return mv;
+    }
 
-		return mv;
-	}
+    // 댓글 상세 조회 핸들러 (작성자일때만 접근 가능)
+    // 인자: (CommentVO : post_id, comment_writer)
+    @RequestMapping(value = {"getComment.do"})
+    public ModelAndView getComment(CommentVO vo) {
+        commentService.getComment( vo );
+        mv.setViewName( "TEST-comment" ); // ****TEAM-FRONT: view url 수정가능
 
-	// 댓글 삭제 핸들러
-	// 인자: (CommentVO : post_id, comment_writer)
-	@RequestMapping(value = { "deleteComment.do" })
-	public ModelAndView deleteComment(CommentVO vo) {
-		commentService.deleteComment(vo);
-		mv.setViewName("TEST-comment"); // ****TEAM-FRONT: view url 수정가능
+        return mv;
+    }
 
-		return mv;
-	}
+    // 댓글 삭제 핸들러
+    // 인자: (CommentVO : post_id, comment_writer)
+    @RequestMapping(value = {"deleteComment.do"})
+    public ModelAndView deleteComment(CommentVO vo) {
+        commentService.deleteComment( vo );
+        mv.setViewName( "TEST-comment" ); // ****TEAM-FRONT: view url 수정가능
 
-	// 댓글에 내용 수정 핸들러
-	// 보내는 인자 (CommentVO : post_id, comment_writer)
-	@RequestMapping(value = { "updateComment.do" })
-	public ModelAndView updateComment(CommentVO vo) {
-		commentService.updateComment(vo);
-		mv.setViewName("TEST-comment"); // ****TEAM-FRONT: view url 수정가능
+        return mv;
+    }
 
-		return mv;
-	}
+    // 댓글에 내용 수정 핸들러
+    // 보내는 인자 (CommentVO : post_id, comment_writer)
+    @RequestMapping(value = {"updateComment.do"})
+    public ModelAndView updateComment(CommentVO vo) {
+        commentService.updateComment( vo );
+        mv.setViewName( "TEST-comment" ); // ****TEAM-FRONT: view url 수정가능
 
-	/**************************************************************************************************
-	 * [글쓰기] HANDLERS
-	 *************************************************************************************************/
-	
-	// NEWS FEED > 전체 게시글 내용 조회 핸들러
-	// 인자: (PostVO)
-	@RequestMapping(value =  "getPostList.do" )
-	public ModelAndView post(PostVO vo, String posting) { // , WebRequest request
+        return mv;
+    }
+
+    /**************************************************************************************************
+     * [글쓰기] HANDLERS
+     *************************************************************************************************/
+
+    // NEWS FEED > 전체 게시글 내용 조회 핸들러
+    // 인자: (PostVO)
+    @RequestMapping(value = "getPostList.do")
+    public ModelAndView post(PostVO vo, String posting) { // , WebRequest request
 //		System.out.println(posting);
 //		// 새 게시물 작성
 //		// 인자 (PostVO)
@@ -210,24 +210,25 @@ public class Controller {
 //			System.out.println(postService.toString());
 //			postService.insertPost(vo);
 //		}
-		
-		// [POST DB]에서 게시글 모두 조회
-		List<PostVO> postList = postService.getPostList(vo);
 
-		if (postList != null) {
-			mv.addObject("postList", postList); // ****FRONT: parameter 수정가능
-			mv.addObject("postStatus", "1"); // ****FRONT: parameter 수정가능
-			System.out.println("게시글 조회");
-			mv.setViewName("feed"); // ****FRONT: view url 수정가능
-			return mv;
-		} else {
-			mv.addObject("postStatus", "0"); // ****FRONT: parameter 수정가능
-			System.out.println("게시글 없음");
-			return mv;
-		}
-	}
+        // [POST DB]에서 게시글 모두 조회
+        List<PostVO> postList = postService.getPostList( vo );
 
-	
+        if (postList != null) {
+            mv.addObject( "postList", postList ); // ****FRONT: parameter 수정가능
+            mv.addObject( "postStatus", "1" ); // ****FRONT: parameter 수정가능
+            System.out.println( "게시글 조회" );
+//            mv.setViewName( "feed" ); // ****FRONT: view url 수정가능
+            mv.setViewName( "feed_test2" ); // ****FRONT: view url 수정가능
+            return mv;
+        } else {
+            mv.addObject( "postStatus", "0" ); // ****FRONT: parameter 수정가능
+            System.out.println( "게시글 없음" );
+            return mv;
+        }
+    }
+
+
 //	@RequestMapping(value = {"insertPost.do"})
 //	public ModelAndView insertPost(PostVO vo) {
 //		System.out.println(postService.toString());
@@ -237,128 +238,150 @@ public class Controller {
 //		return mv;
 //	}
 
-	// 기존 게시물 상세 조회 핸들러 (작성자일때만 접근 가능)
-	// 인자: (CommentVO : post_id, comment_writer)
-	@RequestMapping(value = { "getPost.do" })
-	public ModelAndView getPost(PostVO vo) {
-		postService.getPost(vo);
-		mv.setViewName("postDetail"); // ****TEAM-FRONT: view url 수정가능
+    // 기존 게시물 상세 조회 핸들러 (작성자일때만 접근 가능)
+    // 인자: (CommentVO : post_id, comment_writer)
+    @RequestMapping(value = {"getPost.do"})
+    public ModelAndView getPost(PostVO vo) {
+        postService.getPost( vo );
+        mv.setViewName( "postDetail" ); // ****TEAM-FRONT: view url 수정가능
 
-		return mv;
-	}
+        return mv;
+    }
 
-	// 기존 게시물 수정
-	// 인자 (PostVO : post_id, post_writer)
-	@RequestMapping(value = { "updatePost.do" })
-	public ModelAndView updatePost(PostVO vo) {
-		postService.updatePost(vo);
-		mv.setViewName("postDetail"); // ****TEAM-FRONT: view url 수정가능
+    // 기존 게시물 수정
+    // 인자 (PostVO : post_id, post_writer)
+    @RequestMapping(value = {"updatePost.do"})
+    public ModelAndView updatePost(PostVO vo) {
+        postService.updatePost( vo );
+        mv.setViewName( "postDetail" ); // ****TEAM-FRONT: view url 수정가능
 
-		return mv;
-	}
+        return mv;
+    }
 
-	// 기존 게시물 삭제
-	// 인자 (PostVO : post_id, post_writer)
-	@RequestMapping(value = { "deletePost.do" })
-	public ModelAndView deletePost(PostVO vo) {
-		postService.deletePost(vo);
-		mv.setViewName("feed"); // ****TEAM-FRONT: view url 수정가능
+    // 기존 게시물 삭제
+    // 인자 (PostVO : post_id, post_writer)
+    @RequestMapping(value = {"deletePost.do"})
+    public ModelAndView deletePost(PostVO vo) {
+        postService.deletePost( vo );
+        mv.setViewName( "feed" ); // ****TEAM-FRONT: view url 수정가능
 
-		return mv;
-	}
+        return mv;
+    }
 
-	/**************************************************************************************************
-	 * [검색] HANDLERS
-	 *************************************************************************************************/
-	// SEARCH RESULT > keyword 기준으로 검색
-	// 인자: (PostVO, MemberVO, CommentVO)
-	@RequestMapping(value = { "getSearchList.do" })
+    /**************************************************************************************************
+     * [검색] HANDLERS
+     *************************************************************************************************/
+    // SEARCH RESULT > keyword 기준으로 검색
+    // 인자: (PostVO, MemberVO, CommentVO)
+    @RequestMapping(value = {"getSearchList.do"})
 
-	public ModelAndView search(PostVO post, MemberVO member, CommentVO comment, WebRequest request) {
-		// [Search parameter]에 따라 관련 결과 조회
-		String searchParameter = request.getParameter("searchParameter");
-		// 0 > users [MEMBER DB]
-		// 1 > comments [COMMENT DB]
-		// 2 > sports [POST DB]
-		// 3 > places [POST DB]
+    public ModelAndView search(PostVO post, MemberVO member, CommentVO comment, WebRequest request) {
+        // [Search parameter]에 따라 관련 결과 조회
+        String searchParameter = request.getParameter( "searchParameter" );
+        // 0 > users [MEMBER DB]
+        // 1 > comments [COMMENT DB]
+        // 2 > sports [POST DB]
+        // 3 > places [POST DB]
 
-		String searchKeyword = request.getParameter("searchKeyword");
+        String searchKeyword = request.getParameter( "searchKeyword" );
 
-		switch (searchParameter) {
-		case "0":
-			// [MEMBER DB]에 keyword: %[member_nick]% 관련된 모든 user 조회
-			List<MemberVO> memberList = memberService.getMemberList(member);
+        switch (searchParameter) {
+            case "0":
+                // [MEMBER DB]에 keyword: %[member_nick]% 관련된 모든 user 조회
+                List<MemberVO> memberList = memberService.getMemberList( member );
 
-			if (memberList != null) {
-				mv.addObject("memberList", memberList); // ****FRONT: parameter 수정가능
-				mv.addObject("memberStatus", "1"); // ****FRONT: parameter 수정가능
-				System.out.println("[MEMBER DB]: "+ searchKeyword+ " 조회");
-			} else {
-				mv.addObject("memberStatus", "0"); // ****FRONT: parameter 수정가능
-				System.out.println("[MEMBER DB]: "+ searchKeyword+ " 없음");
-			}
-			break;
+                if (memberList != null) {
+                    mv.addObject( "memberList", memberList ); // ****FRONT: parameter 수정가능
+                    mv.addObject( "memberStatus", "1" ); // ****FRONT: parameter 수정가능
+                    System.out.println( "[MEMBER DB]: " + searchKeyword + " 조회" );
+                } else {
+                    mv.addObject( "memberStatus", "0" ); // ****FRONT: parameter 수정가능
+                    System.out.println( "[MEMBER DB]: " + searchKeyword + " 없음" );
+                }
+                break;
 
-		case "1":
-			// [COMMENT DB]에 %[post_writer]% 관련된 모든 댓글 조회
-			List<CommentVO> commentList = commentService.getCommentList(comment);
+            case "1":
+                // [COMMENT DB]에 %[post_writer]% 관련된 모든 댓글 조회
+                List<CommentVO> commentList = commentService.getCommentList( comment );
 
-			if (commentList != null) {
-				mv.addObject("commentList", commentList); // ****FRONT: parameter 수정가능
-				mv.addObject("commentStatus", "1"); // ****FRONT: parameter 수정가능
-				System.out.println("[COMMENT DB]: "+ searchKeyword+ " 조회");
-			} else {
-				mv.addObject("commentStatus", "0"); // ****FRONT: parameter 수정가능
-				System.out.println("[COMMENT DB]: "+ searchKeyword+ " 없음");
-			}
-			break;
-			
-		case "2":
-			// [POST DB]에 %[sport_name]% 관련된 모든 게시물 조회
-			List<PostVO> sportPostList = postService.getPostList(post);
+                if (commentList != null) {
+                    mv.addObject( "commentList", commentList ); // ****FRONT: parameter 수정가능
+                    mv.addObject( "commentStatus", "1" ); // ****FRONT: parameter 수정가능
+                    System.out.println( "[COMMENT DB]: " + searchKeyword + " 조회" );
+                } else {
+                    mv.addObject( "commentStatus", "0" ); // ****FRONT: parameter 수정가능
+                    System.out.println( "[COMMENT DB]: " + searchKeyword + " 없음" );
+                }
+                break;
 
-			if (sportPostList != null) {
-				mv.addObject("postList", sportPostList); // ****FRONT: parameter 수정가능
-				mv.addObject("postStatus", "1"); // ****FRONT: parameter 수정가능
-				System.out.println("[POST DB]: "+ searchKeyword+ " 조회");
-			} else {
-				mv.addObject("postStatus", "0"); // ****FRONT: parameter 수정가능
-				System.out.println("[POST DB]: "+ searchKeyword+ " 없음");
-			}
-			break;
-			
-		case "3":
-			// [POST DB]에 %[place_tag]% 관련된 모든 게시물 조회
-			List<PostVO> placePostList = postService.getPostList(post);
-			
-			if (placePostList != null) {
-				mv.addObject("postList", placePostList); // ****FRONT: parameter 수정가능
-				mv.addObject("postStatus", "1"); // ****FRONT: parameter 수정가능
-				System.out.println("[POST DB]: "+ searchKeyword+ " 조회");
-			} else {
-				mv.addObject("postStatus", "0"); // ****FRONT: parameter 수정가능
-				System.out.println("[POST DB]: "+ searchKeyword+ " 없음");
-			}
-			break;
-			
-			
-			
-		} // end of switch statements
-		mv.setViewName("searchResult"); // ****FRONT: view url 수정가능
-		return mv;
-		
-	} // end of search()
+            case "2":
+                // [POST DB]에 %[sport_name]% 관련된 모든 게시물 조회
+                List<PostVO> sportPostList = postService.getPostList( post );
 
-	/**************************************************************************************************
-	 * [글쓰기] test - han
-	 *************************************************************************************************/
-	@RequestMapping(value =  "posting_test.do" )
-	public ModelAndView posting(String post_id, String post_writer) { // , WebRequest request
-		// 두 개의 변수를 가지고 글쓰기 페이지 진입
-		System.out.println( "글쓰기 진입" );
-		mv.addObject( "post_id", post_id );
-		mv.addObject( "post_writer", post_writer );
-		mv.setViewName( "posting_test" ); // ****FRONT: view url 수정가능
-		return mv;
-	}
+                if (sportPostList != null) {
+                    mv.addObject( "postList", sportPostList ); // ****FRONT: parameter 수정가능
+                    mv.addObject( "postStatus", "1" ); // ****FRONT: parameter 수정가능
+                    System.out.println( "[POST DB]: " + searchKeyword + " 조회" );
+                } else {
+                    mv.addObject( "postStatus", "0" ); // ****FRONT: parameter 수정가능
+                    System.out.println( "[POST DB]: " + searchKeyword + " 없음" );
+                }
+                break;
+
+            case "3":
+                // [POST DB]에 %[place_tag]% 관련된 모든 게시물 조회
+                List<PostVO> placePostList = postService.getPostList( post );
+
+                if (placePostList != null) {
+                    mv.addObject( "postList", placePostList ); // ****FRONT: parameter 수정가능
+                    mv.addObject( "postStatus", "1" ); // ****FRONT: parameter 수정가능
+                    System.out.println( "[POST DB]: " + searchKeyword + " 조회" );
+                } else {
+                    mv.addObject( "postStatus", "0" ); // ****FRONT: parameter 수정가능
+                    System.out.println( "[POST DB]: " + searchKeyword + " 없음" );
+                }
+                break;
+
+
+        } // end of switch statements
+        mv.setViewName( "searchResult" ); // ****FRONT: view url 수정가능
+        return mv;
+
+    } // end of search()
+
+    /**************************************************************************************************
+     * [글쓰기] test - han
+     *************************************************************************************************/
+    @RequestMapping(value = "posting_test.do")
+    public ModelAndView posting(String post_id, String post_writer) { // , WebRequest request
+        // 두 개의 변수를 가지고 글쓰기 페이지 진입
+        System.out.println( "글쓰기 진입" );
+        mv.addObject( "post_id", post_id );
+        mv.addObject( "post_writer", post_writer );
+        mv.setViewName( "posting_test" ); // ****FRONT: view url 수정가능
+        return mv;
+    }
+
+    @RequestMapping(value = "feed_test.do")
+    public ModelAndView feed_test(PostVO vo) { // , WebRequest request
+
+        List<PostVO> postList = postService.getPostList( vo );
+
+        mv.addObject( "postList", postList ); // ****FRONT: parameter 수정가능
+        mv.addObject( "postStatus", "1" ); // ****FRONT: parameter 수정가능
+        System.out.println( "test" );
+        mv.setViewName( "feed" ); // ****FRONT: view url 수정가능
+        return mv;
+    }
+
+    @RequestMapping(value = "feed_test2.do")
+    public ModelAndView feed_test2(PostVO vo) { // , WebRequest request
+
+        List<PostVO> postList = postService.getPostList( vo );
+
+        mv.addObject( "postList", postList ); // ****FRONT: parameter 수정가능
+        System.out.println( "test2" );
+        mv.setViewName( "feed_test2" ); // ****FRONT: view url 수정가능
+        return mv;
+    }
 } // END OF Controller CLASS

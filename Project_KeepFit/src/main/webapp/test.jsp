@@ -34,5 +34,9 @@
 		<input id="post_writer" name="post_writer" class="text-primary" placeholder="멤버 아이디를 입력해주세요" type="text">
 		<input id="submit" class="btn btn-lg btn-primary" type="submit" value="글쓰러 가기">
 	</form>
+
+	<form action="getPostList.do" method="post">
+		<input id="submit2" class="btn btn-lg btn-danger" type="submit" value="피드 보러 가기">
+	</form>
 </body>
 </html>

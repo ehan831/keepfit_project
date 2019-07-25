@@ -133,7 +133,7 @@
             </p>
 
             <!-- ******************************[ KeepFit 로그인 ] ******************************-->
-            <form action="login.do" method="get">
+            <form class="form-group-lg" action="login.do" method="get">
                 <div class="form-group input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>

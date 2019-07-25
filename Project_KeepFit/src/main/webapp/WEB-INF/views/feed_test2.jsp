@@ -159,7 +159,7 @@
                 <p style="color:grey;float: right; font-size: 80%">
 <%--                    ${aa.selected_date}--%>
                     <fmt:parseDate value="${aa.selected_date}" var="selected_date" pattern="yyyy-MM-dd HH:mm:ss"></fmt:parseDate>
-                    <fmt:formatDate value="${selected_date}" pattern="yy-MM-dd" type="date"></fmt:formatDate>
+                    <fmt:formatDate value="${selected_date}" pattern="MM-dd" type="date"></fmt:formatDate>
                 </p>
             </div>
         </div>

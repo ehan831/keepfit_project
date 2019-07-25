@@ -22,4 +22,7 @@ public interface PostDAO {
 
 	// id별 총 게시물 조회
 	public List<PostVO> getPostList(PostVO vo);
+	
+	// 현재 게시물 번호 조회 (currval)
+	public PostVO getPostId();
 }

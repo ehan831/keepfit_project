@@ -2,7 +2,6 @@ package com.keepfit.domain;
 
 import java.util.Date;
 
-
 // 댓글 관련 VO (Value Object)
 public class CommentVO {
 
@@ -10,7 +9,7 @@ public class CommentVO {
 	private int 	comment_writer;	 // 댓글 작성자
 	private String 	comment_content; // 댓글 내용
 	private int 	post_id;		 // 게시글 코드
-
+	private Date 	regDate;		 // 댓글 작성일
 	
 	public int getComment_id() {
 		return comment_id;
@@ -36,6 +35,11 @@ public class CommentVO {
 	public void setPost_id(int post_id) {
 		this.post_id = post_id;
 	}
+	public Date getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
+	}
 	
-
 }

@@ -25,5 +25,5 @@ public interface CommentService {
 	CommentVO getComment(CommentVO vo);
 	
 	// 게시물의 댓글 list 조회
-	List<CommentVO> getCommentList(CommentVO vo);
+	List<CommentVO> getCommentList(CommentVO vo, String post_id);
 }

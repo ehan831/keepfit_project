@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>    
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
 <script
             src="https://code.jquery.com/jquery-2.2.4.js"
             integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
@@ -22,7 +25,7 @@
     <script src="resources/js/bootstrap.js"></script>
 
 <script>
-var post_id = '${comment.post_id}'; //게시글 번호
+var post_id = 1; //게시글 번호
  
 $('#commentInsertBtn').click(function(){ //댓글 등록 버튼 클릭시 
     var insertData = $('#commentInsertForm').serialize(); //commentInsertForm의 내용을 가져옴
@@ -32,7 +35,7 @@ $('#commentInsertBtn').click(function(){ //댓글 등록 버튼 클릭시
 //댓글 목록 
 function commentList(){
     $.ajax({
-        url : 'getCommentList.do',
+        url : 'comment3.do',
         type : 'get',
         data : {'post_id':post_id},
         success : function(data){

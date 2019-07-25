@@ -49,7 +49,7 @@
 	<update id="updateComment" parameterType="comment">
 		<![CDATA[
 		UPDATE cmt SET comment_content = #{comment_content} 
-		WHERE post_id = #{post_id} AND comment_writer = #{comment_writer}
+		WHERE post_id = #{post_id} AND cmt_writer = #{comment_writer}
  		]]>
 	</update>
 
@@ -63,9 +63,18 @@
 	<select id="getCommentList" resultType="comment" resultMap="commentResult">
 	<![CDATA[
 	SELECT *
-	FROM cmt ORDER BY post_id ASC, cmt_id
+	FROM cmt 
+	ORDER BY post_id asc, cmt_id
 	]]>
 	</select>
+	<!-- <select id="getCommentList" parameterType="string" resultType="comment">
+	<![CDATA[
+	SELECT *
+	FROM cmt 
+	WHERE post_id = #{post_id}
+	ORDER BY cmt_id
+	]]>
+	</select> -->
 
 	<!-- <select id="getCommentList" parameterType="comment" resultMap="comment"> -->
 	<!-- <![CDATA[ -->

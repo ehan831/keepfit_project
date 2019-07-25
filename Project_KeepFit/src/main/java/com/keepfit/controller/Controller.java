@@ -165,14 +165,33 @@ public class Controller {
 //		}
 //	}
 
+//	@RequestMapping(value = { "comment.do" })
+//	public ModelAndView getCommentList(CommentVO vo) {	
+//		ModelAndView mv = new ModelAndView();
+//		mv.addObject("commentList", commentService.getCommentList(vo));
+//		System.out.println("댓글 조회");
+//		mv.setViewName("comment");
+//		return mv;
+//	}
+	
 	@RequestMapping(value = { "comment.do" })
-	public ModelAndView getCommentList(CommentVO vo) {	// 현재는 필요없음
+	public ModelAndView getCommentList(CommentVO vo, String post_id) {	
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("commentList", commentService.getCommentList(vo));
-		System.out.println("댓글 조회");
-		mv.setViewName("comment");
+		List<CommentVO> commentList = commentService.getCommentList(vo, post_id);
+
+		if(commentList != null) {
+			mv.addObject("commentList", commentList);
+			System.out.println(post_id);
+			System.out.println("댓글 조회");
+			mv.setViewName("comment");
+			return mv;
+		}
+		else {
+			mv.setViewName("feed");
+		}
 		return mv;
 	}
+	
 	
 	// post_id 에 댓글 작성 버튼 핸들러
 	// 인자: (CommentVO : comment_content, comment_writer, post_id)
@@ -212,7 +231,7 @@ public class Controller {
 	public ModelAndView deleteComment(CommentVO vo) {
 		commentService.deleteComment(vo);
 		mv.setViewName("comment"); // ****TEAM-FRONT: view url 수정가능
-
+		System.out.println("댓글 삭제!");
 		return mv;
 	}
 
@@ -222,7 +241,7 @@ public class Controller {
 	public ModelAndView updateComment(CommentVO vo) {
 		commentService.updateComment(vo);
 		mv.setViewName("comment"); // ****TEAM-FRONT: view url 수정가능
-
+		System.out.println("댓글 수정!");
 		return mv;
 	}
 
@@ -325,7 +344,7 @@ public class Controller {
 
 		case "1":
 			// [COMMENT DB]에 %[post_writer]% 관련된 모든 댓글 조회
-			List<CommentVO> commentList = commentService.getCommentList(comment);
+			List<CommentVO> commentList = commentService.getCommentList(comment, searchKeyword);
 
 			if (commentList != null) {
 				mv.addObject("commentList", commentList); // ****FRONT: parameter 수정가능

@@ -8,10 +8,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.keepfit.android.androidHdlr;
 import com.keepfit.domain.CommentVO;
 import com.keepfit.domain.LikeVO;
 import com.keepfit.domain.MemberVO;
@@ -33,7 +35,8 @@ public class Controller {
 	private CommentService commentService;
 	@Autowired
 	private PostService postService;
-
+	
+	
 	// Servlet ModelAndView 생성
 	ModelAndView mv = new ModelAndView();
 
@@ -49,21 +52,46 @@ public class Controller {
 
 	/**************************************************************************************************
 	 * [ANDROID] HANDLERS
+	 * @throws Exception 
 	 *************************************************************************************************/
+	// [POST DB] post_id 시퀀스 받고
+	// 안드로이드에서 업로드한 사진 저장 및 썸네일 생성
+	// 새 게시물 페이지로 이동
+	
+	String pathPic;	// case 1: 업로드로 생성된 사진 폴더경로
+	int postId;		// case 1: 만들어질 post_id
 	@RequestMapping (value = {"picUpload.do"})
-	public ModelAndView picUpload(HttpServletRequest request) {
-		PostVO post = postService.getPostId();
-
-		if (post != null) {
-			System.out.println("picUpload() 호출");
-			request.setAttribute("postId", post.getPost_id());
-			System.out.println(post.getPost_id());
+	public ModelAndView picUpload(HttpServletRequest request, @RequestParam String upload, PostVO vo) throws Exception {
+		switch (upload) {
+		case "0":
+			System.out.println("upload: "+upload);
+			vo.setPath_pic(pathPic);
+			System.out.println("Path: "+vo.getPath_pic());
+			vo.setPost_id(postId);
+			System.out.println("Post ID: "+vo.getPost_id());
+			
+			mv.addObject("post", vo);
 			mv.setViewName("posting");
-		} else {
-			System.out.println("picUpload() 호출 실패!");
-			mv.setViewName("feed");
-		}		
+
+			break;
+			
+		case "1":
+			PostVO post = postService.getPostId();
+
+			if (post != null) {
+				System.out.println("picUpload() 호출");
+				androidHdlr android = new androidHdlr();
+				pathPic = android.uploadAndResize(post, request);
+				postId = post.getPost_id();
+				System.out.println(post.getPost_id());
+			} else {
+				System.out.println("picUpload() 호출 실패!");
+				mv.setViewName("feed");
+			}			
+			break;
+		}
 		return mv;
+		
 	}
 	
 	/**************************************************************************************************
@@ -166,11 +194,18 @@ public class Controller {
 //	}
 
 	@RequestMapping(value = { "comment.do" })
-	public ModelAndView getCommentList(CommentVO vo) {	// 현재는 필요없음
+	public ModelAndView getCommentList(CommentVO vo, String post_id) {	// 현재는 필요없음
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("commentList", commentService.getCommentList(vo));
-		System.out.println("댓글 조회");
-		mv.setViewName("comment");
+		List <CommentVO> commentList = commentService.getCommentList(vo, post_id);
+		
+		if (commentList != null) {
+			mv.addObject("commentList", commentList);
+			System.out.println(post_id);
+			System.out.println("댓글 조회");
+			mv.setViewName("commentList");
+		} else {
+			mv.setViewName("feed");
+		}		
 		return mv;
 	}
 	
@@ -179,16 +214,16 @@ public class Controller {
 	@RequestMapping(value = { "insertComment.do" })
 	public ModelAndView insertComment(CommentVO vo) {
 		// insertComment() 댓글입력 후 return 값: 댓글 개수 증가
-		int countComment = commentService.insertComment(vo);
+		int countComment = 	commentService.insertComment(vo);
 
 		if (countComment != 0) {
 			System.out.println("현재 댓글 : " + countComment);
 			mv.addObject("countComment", countComment);
-			mv.addObject("commentStatus", "insert1"); // ****FRONT: parameter 수정가능
+			mv.addObject("commentStatus", "1"); // ****FRONT: parameter 수정가능
 			mv.setViewName("TEST-comment"); // ****FRONT: view url 수정가능
 			System.out.println("댓글 작성!");
 		} else {
-			mv.addObject("commentStatus", "insert0"); // ****FRONT: parameter 수정가능
+			mv.addObject("commentStatus", "0"); // ****FRONT: parameter 수정가능
 			mv.setViewName("feed");
 			System.out.println("댓글 실패!");
 		}
@@ -204,7 +239,7 @@ public class Controller {
 		mv.setViewName("TEST-comment"); // ****TEAM-FRONT: view url 수정가능
 
 		return mv;
-	}
+	} 
 
 	// 댓글 삭제 핸들러
 	// 인자: (CommentVO : post_id, comment_writer)
@@ -237,7 +272,7 @@ public class Controller {
 		
 		// [POST DB]에서 게시글 모두 조회
 		List<PostVO> postList = postService.getPostList(vo);
-
+	
 		if (postList != null) {
 			mv.addObject("postList", postList); // ****FRONT: parameter 수정가능
 			mv.addObject("postStatus", "1"); // ****FRONT: parameter 수정가능
@@ -325,7 +360,7 @@ public class Controller {
 
 		case "1":
 			// [COMMENT DB]에 %[post_writer]% 관련된 모든 댓글 조회
-			List<CommentVO> commentList = commentService.getCommentList(comment);
+			List<CommentVO> commentList = commentService.getCommentList(comment, searchKeyword);
 
 			if (commentList != null) {
 				mv.addObject("commentList", commentList); // ****FRONT: parameter 수정가능

@@ -50,10 +50,9 @@ public class CommentDAOImpl implements CommentDAO{
 	}
 
 	// 총 댓글 조회
-	@Override
-	public List<CommentVO> getCommentList(CommentVO vo) {
+	public List<CommentVO> getCommentList(CommentVO vo, String post_id) {
 		System.out.println("===> Mybatis getCommentList() 호출");
-		return mybatis.selectList("db.getCommentList", vo);
+		return mybatis.selectList("db.getCommentList", post_id);
 	}
 	
 	

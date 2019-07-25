@@ -27,8 +27,7 @@ public class LikeDAOImpl implements LikeDAO{
 		} else {
 			mybatis.insert("db.insertLike", vo);
 			System.out.println(vo.getLike_user() + ": 좋아요 +1");
-		}
-		
+		}		
 	}
 
 	// like_user 좋아요 모두 조회

@@ -1,19 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-<<<<<<< HEAD
-         pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-<
-=======
-    pageEncoding="UTF-8"%>
-<<<<<<< HEAD
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>   
-=======
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
->>>>>>> 3563ce4fda2884822ef20edc1f85094db8fca377
->>>>>>> 6851d391a95655c86bc2e716163b221baddb1b8f
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -204,7 +193,7 @@
         <div style="float: left">
             <img name="likeIt" src="resources/img/heart.svg" style="margin-left: 10px"><a
                 style="margin-left: 5px;margin-right: 20px; color: #000;">좋아요</a>
-            <img src="resources/img/comment.svg"><a style="margin-left: 5px; color: #000;">댓글</a>
+            <a href="comment.do" style="margin-left: 5px; color: #000;"><img src="resources/img/comment.svg"> 댓글</a>
         </div>
         <div style="float: right">
             <img src="resources/img/share.svg"><a style="margin-left: 5px;margin-right: 10px; color: #000;">공유</a>
@@ -232,6 +221,20 @@
                 <td>${aa.privacy}</td>
                 <td>${aa.content}</td>
                 <td>${aa.path_pic}</td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
+
+<div class="container" style="background-color: #b37400">
+    <table>
+        <c:forEach items="${commentList}" var="cmt">
+            <tr>
+                <td>${cmt.post_id}</td>
+                <td>${cmt.post_id}</td>
+                <td>${cmt.post_id}</td>
+                <td>${cmt.post_id}</td>
+                <td>${cmt.post_id}</td>
             </tr>
         </c:forEach>
     </table>

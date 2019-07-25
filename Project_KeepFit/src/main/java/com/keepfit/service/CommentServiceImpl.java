@@ -42,8 +42,8 @@ public class CommentServiceImpl implements CommentService {
 	
 	// 댓글 모두 조회
 	@Override
-	public List<CommentVO> getCommentList(CommentVO vo) {
-		return commentDAO.getCommentList(vo);
+	public List<CommentVO> getCommentList(CommentVO vo, String post_id) {
+		return commentDAO.getCommentList(vo, post_id);
 	}
 	
 }	// end of CommentServiceImpl

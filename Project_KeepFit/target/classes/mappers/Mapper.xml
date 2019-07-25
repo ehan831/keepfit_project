@@ -64,12 +64,7 @@
 	<![CDATA[
 	SELECT *
 	FROM cmt 
-<<<<<<< HEAD
 	ORDER BY post_id asc, cmt_id
-=======
-	WHERE post_id = #{post_id}
-	ORDER BY regdate asc
->>>>>>> fed21b0b8e4d81057e3f386f2498f2eb053adc03
 	]]>
 	</select>
 	<!-- <select id="getCommentList" parameterType="string" resultType="comment">

@@ -61,5 +61,21 @@
   //]]>
 </script> 
 
+<a href="javascript:shareStory()">
+<img src="https://developers.kakao.com/sdk/js/resources/story/icon_small.png"/>
+</a>
+<script type='text/javascript'>
+  //<![CDATA[
+    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('36d740d660cec30564912475ed6d3109');
+    function shareStory() {
+      Kakao.Story.share({
+        url: 'https://developers.kakao.com',
+        text: '카카오 개발자 사이트로 놀러오세요! #개발자 #카카오 :)'
+      });
+    }
+  //]]>
+</script>
+
 </body>
 </html>

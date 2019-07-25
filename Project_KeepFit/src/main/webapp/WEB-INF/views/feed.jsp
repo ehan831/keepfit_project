@@ -1,16 +1,9 @@
-<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>   
-=======
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
->>>>>>> fed21b0b8e4d81057e3f386f2498f2eb053adc03
 <!DOCTYPE html>
 <html>
 <head>

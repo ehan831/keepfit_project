@@ -203,7 +203,6 @@ public class Controller {
 //	}
 	
 	@RequestMapping(value = { "comment.do" })
-<<<<<<< HEAD
 	public ModelAndView getCommentList(CommentVO vo, String post_id) {	
 		ModelAndView mv = new ModelAndView();
 		List<CommentVO> commentList = commentService.getCommentList(vo, post_id);
@@ -218,20 +217,6 @@ public class Controller {
 		else {
 			mv.setViewName("feed");
 		}
-=======
-	public ModelAndView getCommentList(CommentVO vo, String post_id) {	// 현재는 필요없음
-		ModelAndView mv = new ModelAndView();
-		List <CommentVO> commentList = commentService.getCommentList(vo, post_id);
-		
-		if (commentList != null) {
-			mv.addObject("commentList", commentList);
-			System.out.println(post_id);
-			System.out.println("댓글 조회");
-			mv.setViewName("commentList");
-		} else {
-			mv.setViewName("feed");
-		}		
->>>>>>> fed21b0b8e4d81057e3f386f2498f2eb053adc03
 		return mv;
 	}
 	
@@ -304,8 +289,8 @@ public class Controller {
 			mv.addObject("postList", postList); // ****FRONT: parameter 수정가능
 			mv.addObject("postStatus", "1"); // ****FRONT: parameter 수정가능
 			System.out.println("게시글 조회");
-//			mv.setViewName("feed"); // ****FRONT: view url 수정가능
-			mv.setViewName("feed_test2"); // ****FRONT: view url 수정가능
+			mv.setViewName("feed"); // ****FRONT: view url 수정가능
+//			mv.setViewName("feed_test2"); // ****FRONT: view url 수정가능
 			return mv;
 		} else {
 			mv.addObject("postStatus", "0"); // ****FRONT: parameter 수정가능

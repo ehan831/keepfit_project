@@ -2,102 +2,13 @@
 <%@page import="java.util.Enumeration"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
-<%@page import="java.io.File"%>
-<%@page import="javax.imageio.ImageIO"%>
+<%@page import="java.io.*"%>
+<%@page import="javax.imageio.*"%>
+<%@page import="java.awt.*"%>
+<%@page import="java.awt.image.BufferedImage"%>
 <%@page import="org.apache.commons.io.FileUtils"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<%
-	// 생성될 post_id = [post_id] sequence.nextval
-	int postId = (Integer) request.getAttribute("postId");
-// 	int postId = 80;
-	System.out.println("posting.jsp: "+postId);
-
-
-	// post_id의 이름으로 폴더를 지정한다
-	String path = "C:/PostPics/" + postId; //폴더 경로
-	System.out.println(path);
-	File folder = new File(path);
-	File[] deleteFolderFiles = folder.listFiles();
-
-	
-	// 해당 디렉토리가 존재하지 않을 경우 해당 디렉토리를 생성합니다.
-	if (!folder.exists()) {
-		try {
-			folder.mkdir(); //폴더 생성합니다.
-			System.out.println("폴더가 생성되었습니다.");
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
-
-	// 해당 디렉토리가 존재할 경우 해당 디렉토리 내용을 정리하여 삭제합니다.
-	} else {
-		for (int i = 0; i < deleteFolderFiles.length; i++) {
-			deleteFolderFiles[i].delete(); // 파일을 삭제합니다
-		}
-	System.out.println("이미 폴더가 존재하여 내용을 삭제합니다.");
-		
-		
-	}
-
-	int sizeLimit = 30 * 1024 * 1024; // 5메가까지 제한 넘어서면 예외발생
-	int nameSeq = 0;
-	try {
-		// 생성된 폴더를 업로드 경로로 지정
-		MultipartRequest multi = new MultipartRequest(request, path, sizeLimit, "UTF-8", new DefaultFileRenamePolicy());
-		Enumeration files = multi.getFileNames();		
-		
-
-		// 파일 있다면
-		while (files.hasMoreElements()) {
-			String name = (String) files.nextElement();
-		
-		// post_id 경로안에 파일들 조회
-		File folder2 = new File(path);
-		File[] renameFolderFiles = folder2.listFiles();
-		
-		// 각 파일마다 이름을 "1"부터 바꾼다
-			int j = 0;
-		    for(File file:renameFolderFiles) {
-		        j++;
-		        String names = file.getName();
-		        String newName = j + ".jpg";
-		        String newPath = path + "\\" + newName;
-		        file.renameTo(new File(newPath));
-		        System.out.println(name + " changed to " + newName);
-		    }			 		
-		}
-	} catch (IOException e) {
-		e.printStackTrace();
-		System.out.println("Exception: 안드로이드 부터 이미지가 전송되지 않았습니다.");
-	}	
-	
-	
-	String inputImagePath = path + "1.jpg";
-	String thumbPath = path + "thumb.jpg";
-	 
-	        try {
-	            // resize to a fixed width (not proportional)
-	            int scaledWidth = 1024;
-	            int scaledHeight = 768;
-	            ImageResizer.resize(inputImagePath, outputImagePath1, scaledWidth, scaledHeight);
-	 
-	            // resize smaller by 50%
-	            double percent = 0.5;
-	            ImageResizer.resize(inputImagePath, outputImagePath2, percent);
-	 
-	            // resize bigger by 50%
-	            percent = 1.5;
-	            ImageResizer.resize(inputImagePath, outputImagePath3, percent);
-	 
-	        } catch (IOException ex) {
-	            System.out.println("Error resizing the image.");
-	            ex.printStackTrace();
-	        }
-	
-%>
-
 
 
 <!DOCTYPE html>
@@ -105,6 +16,9 @@
 <head>
 <meta charset="UTF-8">
 <title>새 게시물|KeepFit</title>
+
+<!-- KAKAO 지도 API -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 넣으시면 됩니다."></script>
 
 <!-- 아이콘 제공 사이트, https://fontawesome.com-->
 <script src="https://kit.fontawesome.com/0c46a3b816.js"></script>
@@ -185,6 +99,13 @@
 			var imgSrc = $('#img').attr('src');
 			console.log(imgSrc);
 			alert(imgSrc);
+			
+// 			android으로 메시지 보내기
+			var broswerInfo = navigator.userAgent;
+			if(broswerInfo.indexOf("Android")>-1) {
+			window.MyTestApp.AlertMsg("웹뷰에서 호출된 메시지입니다");
+			}
+			
 		})
 	});
 </script>

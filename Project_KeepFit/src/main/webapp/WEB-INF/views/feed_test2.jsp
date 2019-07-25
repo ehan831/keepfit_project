@@ -82,7 +82,7 @@
 
 <div class="container" style="overflow:hidden;">
     <!--    맨 위 간격 맞추기 -->
-    <div class="row" style="margin-top: 53px"></div>
+    <div class="row" style="margin-top: 45px"></div>
 
 <%--    데이터 확인 차 --%>
     <%--    <div class="container" style="background-color: #b37400">--%>
@@ -111,7 +111,7 @@
 
     <!--포스팅 글-->
     <c:forEach var="aa" items="${postList}">
-        <div class="row" style="margin-bottom: 8px">
+        <div class="row" style="margin-bottom: 8px; margin-top: 8px">
             <!--        프로필 사진 -->
             <div class="col-xs-2" style="width: 20%">
                 <img width="100%" class="img-circle" src="resources/img/profile.png" alt="profile">
@@ -176,7 +176,7 @@
             </div>
         </div>
         <!-- 포스팅 끝 -->
-        <div class="row" style="width:200%; height:5px; background-color: gainsboro"></div>
+        <div class="row" style="width:200%; height:5px; background-color: gainsboro;"></div>
     </c:forEach>
 </div>
 </body>

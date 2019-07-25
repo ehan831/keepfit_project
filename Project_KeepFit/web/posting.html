@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>posting</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
     <!-- 아이콘 제공 사이트, https://fontawesome.com-->
     <script src="https://kit.fontawesome.com/0c46a3b816.js"></script>
 
@@ -44,6 +47,11 @@
 
         .input-icon, .input-with-icon {
             padding: 10px;
+        }
+
+        .effect img {
+            border-radius: 20px;
+            padding: 2px;
         }
     </style>
 
@@ -86,48 +94,55 @@
 </head>
 <body>
 
-<div style="font-size:30px; height: 150px; line-height: 150px; text-align: center;">
-    글쓰기 화면
-</div>
-
 <div class="container">
     <form class="form-group-lg" id="myForm" action="okPage.html" method="get">
+        <!-- 썸네일 -->
+        <div class="row effect" style="margin: 10px">
+            <p style="margin: 5px"><b>선택된 사진</b></p>
+            <div class="col-xs-4" style="border: solid 1px #fffdff; padding:0;">
+                <img src="img/1.jpg" width="100%" style="margin:0px;">
+            </div>
+            <div class="col-xs-4" style="border: solid 1px #fffdff;padding:0;">
+                <img src="img/2.jpg" width="100%" style="margin:0px;">
+            </div>
+            <div class="col-xs-4" style="border: solid 1px #fffdff;padding:0;">
+                <img src="img/3.jpg" width="100%" style="margin:0px;">
+            </div>
+        </div>
         <!--데이트 픽커-->
+        <hr>
+        <p style="margin: 5px"><b>정보 입력</b></p>
         <div class="input-group">
-            <input name="textDate" type="text" class="form-control" id="txtDate" value="" maxlength="8">
+            <input name="textDate" type="text" class="form-control" id="txtDate" value="" maxlength="8"
+            placeholder="날짜 선택">
             <div class="input-group-addon">
                 <a href="#" id="btnSearchDate"><i class="far fa-calendar-alt" style="font-size: 200%; color: #000;"></i></a>
             </div>
         </div>
-        <!-- 썸네일 -->
-        <div class="input-group" style="float: right; align-content: baseline">
-            <img id="img" src="//via.placeholder.com/150x200" alt="150x200" class="img-thumbnail">
-            <input type="hidden" id="imgSrc" name="imgSrc" value="">
-        </div>
 
         <div class="input-icon-wrap" style="margin: 1px 0px;">
-            <span class="input-icon col-xs-1" style="text-align:center">
+            <span class="input-icon col-xs-2" style="text-align:center">
                 <i class="fas fa-user-tag" style="font-size: 200%"></i>
             </span>
-            <input name="text1" type="text" class="input-with-icon" id="form-name1" placeholder="사람 태그하기">
+            <input name="text1" type="text" class="input-with-icon col-xs-10" id="form-name1" placeholder="사람 태그하기">
         </div>
 
         <div class="input-icon-wrap" style="margin: 1px 0px;">
-            <span class="input-icon col-xs-1" style="text-align: center">
+            <span class="input-icon col-xs-2" style="text-align: center">
                 <i class="fas fa-cloud-sun-rain" style="font-size: 200%"></i>
             </span>
             <input name="text2" type="text" class="input-with-icon" id="form-name2" placeholder="기분 선택하기">
         </div>
 
         <div class="input-icon-wrap" style="margin: 1px 0px;">
-            <span class="input-icon col-xs-1" style="text-align: center">
+            <span class="input-icon col-xs-2" style="text-align: center">
                 <i class="fas fa-biking" style="font-size: 200%"></i>
             </span>
             <input name="text3" type="text" class="input-with-icon" id="form-name3" placeholder="운동 선택하기">
         </div>
 
         <div class="input-icon-wrap" style="margin: 1px 0px;">
-            <span class="input-icon col-xs-1" style="text-align: center">
+            <span class="input-icon col-xs-2" style="text-align: center">
                 <i class="fas fa-map-marked-alt" style="font-size: 200%"></i>
             </span>
             <input name="text4" type="text" class="input-with-icon" id="form-name4" placeholder="위치 추가하기">
@@ -137,18 +152,16 @@
             <textarea name="text5" class="text-justify" placeholder="내용을 입력해주세요." rows="10"
                       style="width: 100%;"></textarea>
         </div>
-
+        <hr style="margin: 5px">
         <div>
-            <input id="submit" class="btn btn-lg btn-primary" type="submit" name="submit" value="글쓰기">
+            <input id="submit" class="btn btn-primary" type="submit" name="submit" value="글쓰기">
             <label class="checkbox-inline" style="float: right">
                 <span>공유 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <input name="checkbox" type="checkbox" checked data-toggle="toggle">
             </label>
         </div>
-
+        <hr style="margin: 10px">
     </form>
-
-
 </div>
 
 </body>

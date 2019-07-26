@@ -234,5 +234,6 @@
         <div class="row" style="width:200%; height:5px; background-color: gainsboro;"></div>
     </c:forEach>
 </div>
+
 </body>
 </html>

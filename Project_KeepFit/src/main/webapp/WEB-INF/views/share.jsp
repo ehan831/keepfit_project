@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>     
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +16,7 @@
             crossorigin="anonymous">
     </script>
 
-<!-- Bootstrap -->
+	<!-- Bootstrap -->
     <link href="resources/css/bootstrap.css" rel="stylesheet">
     <script src="resources/js/bootstrap.js"></script>
     
@@ -22,9 +24,12 @@
 
 <script type="text/javascript">
 
-//// 사용할 앱의 JavaScript 키를 설정해 주세요.
+//포스팅 url 주소값 가져오기
+var postURL = document.referrer;
+
+////사용할 앱의 JavaScript 키를 설정해 주세요.
 Kakao.init('36d740d660cec30564912475ed6d3109');
-// // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+//// 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
 function sendLink() {
   Kakao.Link.sendDefault({
     objectType: 'feed',
@@ -33,8 +38,8 @@ function sendLink() {
       description: '#강남 #양재 #1.45km',
       imageUrl: 'http://mud-kage.kakao.co.kr/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
       link: {
-        mobileWebUrl: 'http://localhost:8080/Project_KeepFit/getPostList.do',
-        webUrl: 'http://localhost:8080/Project_KeepFit/getPostList.do'
+        mobileWebUrl: postURL,
+        webUrl: postURL
       }
     },
     social: {
@@ -44,87 +49,74 @@ function sendLink() {
     },
     buttons: [
       {
-        title: '웹으로 보기',
+        title: '피드 확인하기',
         link: {
-          mobileWebUrl: 'http://localhost:8080/Project_KeepFit/getPostList.do',
-          webUrl: 'http://localhost:8080/Project_KeepFit/getPostList.do'
-        }
-      },
-      {
-        title: '앱으로 보기',
-        link: {
-          mobileWebUrl: 'http://localhost:8080/Project_KeepFit/getPostList.do',
-          webUrl: 'http://localhost:8080/Project_KeepFit/getPostList.do'
+          mobileWebUrl: postURL,
+          webUrl: postURL
         }
       }
     ]
   });
-}
-
-function shareStory() {
-    Kakao.Story.share({
-      url: 'https://developers.kakao.com',
-      text: '카카오 개발자 사이트로 놀러오세요! #개발자 #카카오 :)'
-    });
-  }
-
-// send to SNS
-function toSNS(sns, strTitle, strURL) {
-    var snsArray = new Array();
-    var strMsg = strTitle + " " + strURL;
-	var image = "이미지경로";
-
-    snsArray['twitter'] = "http://twitter.com/home?status=" + encodeURIComponent(strTitle) + ' ' + encodeURIComponent(strURL);
-    snsArray['facebook'] = "http://www.facebook.com/share.php?u=" + encodeURIComponent(strURL);
-	snsArray['pinterest'] = "http://www.pinterest.com/pin/create/button/?url=" + encodeURIComponent(strURL) + "&media=" + image + "&description=" + encodeURIComponent(strTitle);
-	snsArray['band'] = "http://band.us/plugin/share?body=" + encodeURIComponent(strTitle) + "  " + encodeURIComponent(strURL) + "&route=" + encodeURIComponent(strURL);
-    snsArray['blog'] = "http://blog.naver.com/openapi/share?url=" + encodeURIComponent(strURL) + "&title=" + encodeURIComponent(strTitle);
-    snsArray['line'] = "http://line.me/R/msg/text/?" + encodeURIComponent(strTitle) + " " + encodeURIComponent(strURL);
-	snsArray['pholar'] = "http://www.pholar.co/spi/rephol?url=" + encodeURIComponent(strURL) + "&title=" + encodeURIComponent(strTitle);
-	snsArray['google'] = "https://plus.google.com/share?url=" + encodeURIComponent(strURL) + "&t=" + encodeURIComponent(strTitle);
-    window.open(snsArray[sns]);
-}
-
-function copy_clip(url) {
-    var IE = (document.all) ? true : false;
-    if (IE) {
-        window.clipboardData.setData("Text", url);
-        alert("이 글의 url이 클립보드에 복사되었습니다.");
-    } else {
-        temp = prompt("이 글의 url입니다. Ctrl+C를 눌러 클립보드로 복사하세요", url);
-    }
 }
 </script>
 </head>
 <body style="overflow:hidden;background-color:#ffffff;">
 
 <hr />
-	<div style="font-size: 30px; height: 120px; line-height: 150px; text-align: center;">
+	<div style="font-size: 40px; height: 120px; line-height: 150px; text-align: center;">
 		SNS 공유</div>
 
 <div class="sns_wrap" align="center">
 
-<a href="javascript:toSNS('facebook','공유제목!','http://localhost:8080/Project_KeepFit/getPostList.do')" title="Facebook"><img src="resources/img/facebook.png"></a>
-<a href="javascript:toSNS('twitter','공유제목!','http://localhost:8080/Project_KeepFit/getPostList.do')" title="Twitter"><img src="resources/img/twitter.png"></a>
-<a href="javascript:toSNS('line','공유제목!','http://localhost:8080/Project_KeepFit/getPostList.do')" title="Line"><img src="resources/img/line.png"></a>
-<a href="javascript:sendLink();" title="KakaoTalk"><img src="resources/img/kakaotalk.png"></a>
-<a href="javascript:shareStory();" title="KakaoStory"><img src="resources/img/kakaostory.png"></a>
+<a href="javascript:sendLink();" title="KakaoTalk">
+<img src="resources/img/kakaotalk.png">
+</a>
+<a href="#" onclick="javascript:window.open('https://story.kakao.com/s/share?url=' +encodeURIComponent(postURL), 'kakaostorysharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes, height=500,width=600');return false;" title="KakaoStory" target="_blank" alt="Share on kakaostory"> 
+<img src="resources/img/kakaostory.png">
+</a>
+<a href="#" onclick="javascript:window.open('http://share.naver.com/web/shareView.nhn?url=' +encodeURIComponent(postURL)+'&title='+encodeURIComponent(document.title), 'naversharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=600');return false;" title="Naver" target="_blank" alt="Share on Naver" >
+<img src="resources/img/blog.png">
+</a>
+<a href="#" onclick="javascript:window.open('http://line.me/R/msg/text/?' +encodeURIComponent(postURL), 'pinterestsharedialog','menubar=no,toolbar=no,resizable=yes, scrollbars=yes,height=500,width=600');return false;" title="Line" target="_blank" alt="Share on Line">
+<img src="resources/img/line.png">
+</a>
 <br>
-
-<a href="javascript:toSNS('pholar','공유제목!','http://localhost:8080/Project_KeepFit/getPostList.do')" title="Pholar"><img src="resources/img/pholar.png"></a>
-<a href="javascript:toSNS('pinterest','공유제목!','http://localhost:8080/Project_KeepFit/getPostList.do')" title="Pinterest"><img src="resources/img/pinterest.png"></a>
-<a href="javascript:toSNS('band','공유제목!','http://localhost:8080/Project_KeepFit/getPostList.do')" title="NaverBand"><img src="resources/img/band.png"></a>
-<a href="javascript:toSNS('google','공유제목!','http://localhost:8080/Project_KeepFit/getPostList.do')" title="Google+"><img src="resources/img/google.png"></a>
-<a href="javascript:toSNS('blog','공유제목!','http://localhost:8080/Project_KeepFit/getPostList.do')" title="NaverBlog"><img src="resources/img/blog.png"></a>
+<a href="#" onclick="javascript:window.open('https://twitter.com/intent/tweet?text=[%EA%B3%B5%EC%9C%A0]%20' +encodeURIComponent(postURL)+'%20-%20'+encodeURIComponent(document.title), 'twittersharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=600');return false;" title="Twitter" target="_blank" alt="Share on Twitter" >
+<img src="resources/img/twitter.png">
+</a>
+<a href="#" onclick="javascript:window.open('https://www.facebook.com/sharer/sharer.php?u=' +encodeURIComponent(postURL)+'&t='+encodeURIComponent(document.title), 'facebooksharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=600');return false;" title="Facebook" target="_blank" alt="Share on Facebook" >
+<img src="resources/img/facebook.png">
+</a>
+<a href="#" onclick="javascript:window.open('https://plus.google.com/share?url=' +encodeURIComponent(postURL), 'googleplussharedialog','menubar=no,toolbar=no,resizable=yes, scrollbars=yes,height=500,width=600');return false;" title="Google+" target="_blank" alt="Share on Google+">
+<img src="resources/img/google.png">
+</a>
+<a href="#" onclick="javascript:window.open('https://www.pinterest.com/pin/create/button/?url=' +encodeURIComponent(postURL), 'pinterestsharedialog','menubar=no,toolbar=no,resizable=yes, scrollbars=yes,height=500,width=600');return false;" title="Pinterest" target="_blank" alt="Share on Pinterest">
+<img src="resources/img/pinterest.png">
+</a>
 <br><br><br>
 
-<input type="text" value="http://localhost:8080/Project_KeepFit/getPostList.do" size="50" readonly>
-<a href="javascript:copy_clip('http://localhost:8080/Project_KeepFit/getPostList.do')">
-<button type="button" class="btn btn-primary">
-링크복사
-</button>
-</a>
-</div>
+<input type="text" id='url' size=50 readonly>
+<button type="button" id='btn1' class="btn btn-primary" align='center'>링크복사</button>
+<script>
+function copyToClipboard(val) {
+	  var t = document.createElement("textarea");
+	  document.body.appendChild(t);
+	  t.value = val;
+	  t.select();
+	  document.execCommand('copy');
+	  document.body.removeChild(t);
+	}
+	$('#btn1').click(function() {
+	  var postURL = document.referrer;
+	  copyToClipboard(postURL);
+	  alert('링크가 복사되었습니다!');
+	});
+	$(document).ready(function() {
+        $('#url').val(postURL);
+    });
+	
+</script>
 
+</div>
 </body>
 </html>

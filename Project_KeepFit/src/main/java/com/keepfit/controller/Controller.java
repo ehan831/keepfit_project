@@ -72,7 +72,6 @@ public class Controller {
 			
 			mv.addObject("post", vo);
 			mv.setViewName("posting");
-
 			break;
 			
 		case "1":
@@ -99,13 +98,15 @@ public class Controller {
 	 *************************************************************************************************/
 	@RequestMapping(value = { "login.do" })
 	public ModelAndView login(MemberVO vo, HttpServletRequest request, HttpSession session) {
+
 		// [MEMBER DB] 에서 [email]과 [password] 확인
 		MemberVO logUser = memberService.loginMember(vo);
 
 		if (logUser != null) {
 			if (vo.getMember_email().equals(logUser.getMember_email())
 					&& vo.getMember_pass().equals(logUser.getMember_pass())) {
-				session.setAttribute("logUser",logUser.getMember_nick());
+				request.getSession();
+				session.setAttribute("userLogged", logUser.getMember_nick());
 				mv.addObject("logged", "1"); // ****TEAM-FRONT: view url 수정가능
 				mv.addObject("member", logUser); // ****TEAM-FRONT: view url 수정가능
 				System.out.println("성공 ");
@@ -115,9 +116,8 @@ public class Controller {
 			mv.addObject("logged", "0"); // ****TEAM-FRONT: view url 수정가능
 			System.out.println("실패 ");
 			mv.setViewName("signUpExtra");
-		}
-		mv.addObject("member", vo); // 사용자 입력 값이 들어있음 : EMAIL / PW
-
+			mv.addObject("member", vo); // 사용자 입력 값이 들어있음 : EMAIL / PW / CHANNEL
+		}		
 		return mv;
 	}
 
@@ -166,6 +166,7 @@ public class Controller {
 	@RequestMapping(value = { "getLikeList.do" })
 	public ModelAndView getLikeList(LikeVO vo) {
 		LikeVO likeUser = likeService.getLikeList(vo);
+		
 		return mv;
 	}	
 	

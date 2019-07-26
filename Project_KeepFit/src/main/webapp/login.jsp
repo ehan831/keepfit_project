@@ -5,18 +5,22 @@
 <head>
 
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
-<meta name="google-signin-client_id" content="772327138445-78pbueovgk0989d6mbrfeu2plpks2t96.apps.googleusercontent.com">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
+<meta name="google-signin-client_id"
+	content="772327138445-78pbueovgk0989d6mbrfeu2plpks2t96.apps.googleusercontent.com">
 <title>로그인|KeepFit</title>
 
-<link rel="stylesheet" href="resources/style/stylecss.css" type="text/css">
+<link rel="stylesheet" href="resources/style/stylecss.css"
+	type="text/css">
 <script type="text/javascript" src="resources/js/jquery-1.7.1.js"></script>
-<script  src="resources/js/userInsert.js"></script>
+<script src="resources/js/userInsert.js"></script>
 
 <script src="https://code.jquery.com/jquery-2.2.4.js"
 	integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
-	crossorigin="anonymous">	
+	crossorigin="anonymous">
+	
 </script>
 
 
@@ -24,34 +28,42 @@
 <!-- [KAKAO]계정 로그인 API -->
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type='text/javascript'>
-window.onload = function() {
+	window.onload = function() {
+	<%
+	String userLogged = (String) session.getAttribute("userLogged"); // session을 가져온다
+			if (userLogged != null) { // id가 Null 아닐경우 
+				response.sendRedirect("getPostList.do"); // feed 페이지로 리다이렉트 한다.
+	}%>
+	
 	// 사용할 앱의 JavaScript 키를 설정해 주세요.
-	Kakao.init('36d740d660cec30564912475ed6d3109');
-	// 카카오 로그인 버튼을 생성합니다.
-	Kakao.Auth.createLoginButton({
-		container : '#kakao-login-btn',
-		success : function(authObj) {
-			// 로그인 성공시, API를 호출합니다.
-			Kakao.API.request({
-				url : '/v1/user/me',
-				success : function(res) {
-					console.log(res);
-					var userID = res.id; //유저의 카카오톡 고유 id
-					var userEmail = res.kaccount_email; //유저의 이메일
-					var userNickName = res.properties.nickname; //유저가 등록한 별명
-					
-					location.href = "login.do?member_email="+userEmail+"&member_pass="+userID+"&member_channel=1";					
-				},
-				fail : function(err) {
-					alert(JSON.stringify(err));
-				}
-			});
-		},
-		fail : function(err) {
-			alert(JSON.stringify(err));
-		}
-	});
-};
+		Kakao.init('36d740d660cec30564912475ed6d3109');
+		// 카카오 로그인 버튼을 생성합니다.
+		Kakao.Auth.createLoginButton({
+			container : '#kakao-login-btn',
+			success : function(authObj) {
+				// 로그인 성공시, API를 호출합니다.
+				Kakao.API.request({
+					url : '/v1/user/me',
+					success : function(res) {
+						console.log(res);
+						var userID = res.id; //유저의 카카오톡 고유 id
+						var userEmail = res.kaccount_email; //유저의 이메일
+						var userNickName = res.properties.nickname; //유저가 등록한 별명
+
+						location.href = "login.do?member_email=" + userEmail
+								+ "&member_pass=" + userID
+								+ "&member_channel=1";
+					},
+					fail : function(err) {
+						alert(JSON.stringify(err));
+					}
+				});
+			},
+			fail : function(err) {
+				alert(JSON.stringify(err));
+			}
+		});
+	};
 </script>
 
 <!-- 구글계정 로그인 API -->
@@ -63,8 +75,9 @@ window.onload = function() {
 		console.log('Name: ' + profile.getName());
 		console.log('Image URL: ' + profile.getImageUrl());
 		console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-		
-		location.href = "login.do?member_email="+profile.getEmail()+"&member_pass="+profile.getId()+"&member_channel=2";
+
+		location.href = "login.do?member_email=" + profile.getEmail()
+				+ "&member_pass=" + profile.getId() + "&member_channel=2";
 	}
 </script>
 
@@ -77,7 +90,8 @@ window.onload = function() {
 
 <body>
 	<hr />
-	<div style="font-size: 30px; height: 150px; line-height: 150px; text-align: center;">
+	<div
+		style="font-size: 30px; height: 150px; line-height: 150px; text-align: center;">
 		로그인 화면</div>
 	<!-- ******************************[ 기존회원 로그인 ] ******************************-->
 	<hr />
@@ -92,14 +106,16 @@ window.onload = function() {
 					placeholder="비밀번호">
 			</div>
 			<div class="checkbox">
-				<input type="checkbox" name="rm" value="Remember-me">Remember me
+				<input type="checkbox" name="rm" value="Remember-me">Remember
+				me
 			</div>
 			<div>
-				<input class="btn btn-lg btn-primary" type="submit" name="submit" value="로그인"><br> <br>
+				<input class="btn btn-lg btn-primary" type="submit" name="submit"
+					value="로그인"><br> <br>
 			</div>
 		</form>
 	</div>
-	
+
 
 
 	<!-- ******************************[ kakao 로그인 ] ******************************-->

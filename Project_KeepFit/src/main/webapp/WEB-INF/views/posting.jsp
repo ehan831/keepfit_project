@@ -18,7 +18,8 @@
 <title>새 게시물|KeepFit</title>
 
 <!-- KAKAO 지도 API -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 넣으시면 됩니다."></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 넣으시면 됩니다."></script>
 
 <!-- 아이콘 제공 사이트, https://fontawesome.com-->
 <script src="https://kit.fontawesome.com/0c46a3b816.js"></script>
@@ -95,19 +96,20 @@
 			//return false;
 		};
 
-		$('#submit').click(function() {
-			var imgSrc = $('#img').attr('src');
-			console.log(imgSrc);
-			alert(imgSrc);
-			
-// 			android으로 메시지 보내기
-			var broswerInfo = navigator.userAgent;
-			if(broswerInfo.indexOf("Android")>-1) {
-			window.MyTestApp.AlertMsg("웹뷰에서 호출된 메시지입니다");
-			}
-			
-		})
 	});
+
+	//		android으로 메시지 보내기
+	function CallAndroid() {
+		var broswerInfo = navigator.userAgent;
+		if (broswerInfo.indexOf("Android") > -1) {
+			window.MyTestApp.AlertMsg("웹뷰에서 호출된 메시지입니다");
+		}
+
+		var imgSrc = $('#img').attr('src');
+		console.log(imgSrc);
+		$('#submit').submit();
+	}
+	
 </script>
 </head>
 <body>
@@ -117,8 +119,7 @@
 		글쓰기 화면</div>
 
 	<div class="container">
-		<form class="form-group-lg" id="myForm" action="getPostList.do"
-			method="post">
+		<form class="form-group-lg" id="myForm" action="getPostList.do" method="post">
 			<!--     게시물 작성 status-->
 			<input name="posting" type="hidden" value="1" />
 			<!--     게시물 작성자 nickname -->
@@ -177,8 +178,8 @@
 			</div>
 
 			<div>
-				<input id="submit" class="btn btn-lg btn-primary" type="submit"
-					name="submit" value="글쓰기">
+				<input type="button" id="submit" onclick="javascript:CallAndroid()"
+					class="btn btn-lg btn-primary" name="submit" value="글쓰기">
 
 				<!-- 					privacy 레벨 toggle -->
 				<label class="checkbox-inline" style="float: right"> <span>공유

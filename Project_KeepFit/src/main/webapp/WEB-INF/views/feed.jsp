@@ -28,6 +28,7 @@
 
     <script>
         $(document).ready(function () {
+        	
             $('.bxslider').bxSlider({
                 infiniteLoop: false,
                 pagerType: 'full',
@@ -142,7 +143,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div align='center' class="modal-body">
-          <%@ include file="comment.jsp" %>
+<%--           <%@ include file="comment.jsp" %> --%>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>

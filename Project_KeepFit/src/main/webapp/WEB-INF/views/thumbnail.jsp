@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +18,12 @@
     <link href="resources/css/thumbnail.css" rel="stylesheet">
 </head>
 <body>
+
+<c:forEach var="lk" items="${likeUser}">
+    <img src="${lk.post_id}/thumb.jpg">
+    <div>${lk.like_id}</div>
+    <div>${lk.like_date}</div>
+</c:forEach>
 
 <div class="container text-left"
      style="background-color:#f9f9f9;height:40px;border-bottom:solid 1px #b2b2b2; top:22px; width:100%; z-index:2;">

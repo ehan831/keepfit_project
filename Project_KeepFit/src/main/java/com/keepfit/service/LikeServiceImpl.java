@@ -24,7 +24,7 @@ public class LikeServiceImpl implements LikeService {
 	}
 
 	@Override
-	public LikeVO getLikeList(LikeVO vo) {		
+	public List<LikeVO> getLikeList(LikeVO vo) {
 		return likeDAO.getLikeList(vo);
 	}
 	

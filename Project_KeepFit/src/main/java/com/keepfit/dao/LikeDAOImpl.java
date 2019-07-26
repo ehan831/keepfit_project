@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.keepfit.domain.LikeVO;
 
+import java.util.List;
 
 
 @Repository("likeDAO")
@@ -32,9 +33,9 @@ public class LikeDAOImpl implements LikeDAO{
 
 	// like_user 좋아요 모두 조회
 	@Override
-	public LikeVO getLikeList(LikeVO vo) {
+	public List<LikeVO> getLikeList(LikeVO vo) {
 		System.out.println("===> Mybatis getLike() 호출");
-		return (LikeVO) mybatis.selectList("db.getLikeList", vo);
+		return mybatis.selectList("db.getLikeList", vo);
 	}
 	
 	

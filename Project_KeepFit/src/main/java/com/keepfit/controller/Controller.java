@@ -208,7 +208,7 @@ public class Controller {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("commentList", commentService.getCommentList(vo));
 		System.out.println("댓글 조회");
-		mv.setViewName("comment3");
+		mv.setViewName("comment1");
 		return mv;
 	}
 	
@@ -305,8 +305,9 @@ public class Controller {
 	// 인자: (CommentVO : post_id, comment_writer)
 	@RequestMapping(value = { "getPost.do" })
 	public ModelAndView getPost(PostVO vo) {
-		postService.getPost(vo);
-		mv.setViewName("postDetail"); // ****TEAM-FRONT: view url 수정가능
+		PostVO thisPost = postService.getPost(vo);
+		mv.addObject("thisPost", thisPost); // ****FRONT: parameter 수정가능
+		mv.setViewName("zz_feed_detail"); // ****TEAM-FRONT: view url 수정가능
 
 		return mv;
 	}

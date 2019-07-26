@@ -203,11 +203,12 @@
 	<!-- ]]> -->
 	<!-- </delete> -->
 
-	<!-- <select id="getPost" parameterType="post" resultType="post"> -->
-	<!-- <![CDATA[ -->
-	<!-- *************{{{{ QUERY }}}}**************** -->
-	<!-- ]]> -->
-	<!-- </select> -->
+	<select id="getPost" parameterType="post" resultType="post">
+	<![CDATA[
+	SELECT * FROM post
+	WHERE post_id = #{post_id}
+	]]>
+	</select>
 	
 	<select id="getPostId" resultType="post">
 	<![CDATA[

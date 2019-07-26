@@ -156,7 +156,7 @@
                                    pattern="yyyy-MM-dd HH:mm:ss"></fmt:parseDate>
                     <fmt:formatDate value="${selected_date}" pattern="M월 dd일" type="date"></fmt:formatDate>
                 </p>
-                <p style="color:grey; float:right; font-size:80%;"><a href="">...더 보기</a></p>
+                <p style="color:grey; float:right; font-size:80%;"><a href="getPost.do?post_id=${aa.post_id}">...더 보기</a></p>
             </div>
         </div>
         <%--        좋아요, 댓글, 공유--%>

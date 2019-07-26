@@ -107,7 +107,6 @@
    <!-- 맨 위 간격 맞추기 -->
    <div class="row" style="margin-top: 45px"></div>
    <!--포스팅 글-->
-   <c:forEach var="aa" items="${postList}">
        <div class="row" style="margin-bottom: 8px; margin-top: 8px">
            <!--        프로필 사진 -->
            <div class="col-xs-2" style="width: 20%">
@@ -115,16 +114,15 @@
            </div>
            <div class="col-xs-8" style="padding-left: 0;">
                <div class="col-xs-12" style="padding-left: 0;">
-                   <p style="margin-bottom:5px; text-align: left"><b>${aa.post_writer}
+                   <p style="margin-bottom:5px; text-align: left"><b>${thisPost.post_writer}
                    </b></p>
                </div>
                <div class="col-xs-12" style="padding-left: 0;font-size: 11px;">
                    <p style="">
-                       #${aa.post_mood}&nbsp;#${aa.sport_name}&nbsp;#${aa.place_tag}
+                       #${thisPost.post_mood}&nbsp;#${thisPost.sport_name}&nbsp;#${thisPost.place_tag}
                    </p>
                </div>
            </div>
-               &lt;%&ndash;            ... 아이콘 &ndash;%&gt;
            <div class="col-xs-1" style="padding-left:0; padding-top: 11px">
                <img src="resources/img/images2.png" width="100%">
            </div>
@@ -132,61 +130,47 @@
        <!-- 사진 -->
        <div class="bxslider">
            <div>
-               <img src="resources/img/${aa.post_id}/1.jpg" alt="이미지 로딩 중">
+               <img src="resources/postImgs/${thisPost.post_id}/1.jpg" alt="이미지 로딩 중">
            </div>
        </div>
        <div class="row" style="margin-right: 0px; margin-left: 0px; background-color: #ffffff">
            <div class="col-sm-8" style="display: inline-block">
                <div class="txt_post_single">
-                   <c:set var="m_tag" value="${aa.member_tag}"></c:set>
+                   <c:set var="m_tag" value="${thisPost.member_tag}"></c:set>
                    <c:forTokens items="${m_tag}" delims=" " var="token">
                        <b style="color: #0961de">@${token}</b>
                    </c:forTokens>
                </div>
-               <div class="txt_post">
-                       ${aa.content}
+               <div>
+                       ${thisPost.content}
                </div>
            </div>
            <div class="col-sm-2" style="margin-top: 10px">
                <p style="color:grey;float: left; font-size: 80%">
-                       &lt;%&ndash;                    ${aa.selected_date}&ndash;%&gt;
-                   <fmt:parseDate value="${aa.selected_date}" var="selected_date"
+                   <fmt:parseDate value="${thisPost.selected_date}" var="selected_date"
                                   pattern="yyyy-MM-dd HH:mm:ss"></fmt:parseDate>
                    <fmt:formatDate value="${selected_date}" pattern="M월 dd일" type="date"></fmt:formatDate>
                </p>
-               <p style="color:grey; float:right; font-size:80%;"><a href="">...더 보기</a></p>
            </div>
        </div>
-       &lt;%&ndash;        좋아요, 댓글, 공유&ndash;%&gt;
-       <div class="row" style="padding: 15px 10px; ">
-           <div style="float: left; font-size: 120% ">
-               <b><i name="likeIt" class="far fa-heart" style="margin-left: 10px;"></i></b>
-               <a href="https://naver.com" style="margin-left: 1px;margin-right: 20px; color: #000;">좋아요</a>
+       <%--        좋아요, 댓글, 공유--%>
+        <div class="row" style="padding: 15px 10px; ">
+            <div style="float: left; font-size: 120% ">
+                <b><i name="likeIt" class="far fa-heart" style="margin-left: 10px;"></i></b>
+                <a href="getLikeList.do?post_id=${aa.post_id}" style="margin-left: 1px;margin-right: 20px; color: #000;">좋아요</a>
 
-               <b><i class="far fa-comment-alt" style="margin-left: 1px;"></i></b>
-               <a href="https://naver.com" style="margin-left: 1px;margin-right: 20px; color: #000;">댓글</a>
-           </div>
-           <div style="float: right; font-size: 120%">
-               <b><i class="far fa-share-square" style="margin-left: 10px;"></i></b>
-               <a href="https://naver.com" style="margin-left: 1px;margin-right: 20px; color: #000;">공유</a>
-           </div>
-       </div>
-       &lt;%&ndash;        구버전 아이콘들&ndash;%&gt;
-       &lt;%&ndash;        <div class="row" style="padding: 15px 10px; ">&ndash;%&gt;
-       &lt;%&ndash;            <div style="float: left">&ndash;%&gt;
-       &lt;%&ndash;                <img name="likeIt" src="resources/img/heart.svg" style="margin-left: 10px">&ndash;%&gt;
-       &lt;%&ndash;                <a href="https://naver.com" style="margin-left: 5px;margin-right: 20px; color: #000;">좋아요</a>&ndash;%&gt;
-       &lt;%&ndash;                <img src="resources/img/comment.svg">&ndash;%&gt;
-       &lt;%&ndash;                <a href="https://nate.com" style="margin-left: 5px; color: #000;">댓글</a>&ndash;%&gt;
-       &lt;%&ndash;            </div>&ndash;%&gt;
-       &lt;%&ndash;            <div style="float: right">&ndash;%&gt;
-       &lt;%&ndash;                <img src="resources/img/share.svg">&ndash;%&gt;
-       &lt;%&ndash;                <a href="https://nate.com" style="margin-left: 5px;margin-right: 10px; color: #000;">공유</a>&ndash;%&gt;
-       &lt;%&ndash;            </div>&ndash;%&gt;
-       &lt;%&ndash;        </div>&ndash;%&gt;
+                <b><i class="far fa-comment-alt" style="margin-left: 1px;"></i></b>
+                <a href="getCommentList.do?post_id=${aa.post_id}" style="margin-left: 1px;margin-right: 20px; color: #000;">댓글</a>
+            </div>
+            <div style="float: right; font-size: 120%">
+                <b><i class="far fa-share-square" style="margin-left: 10px;"></i></b>
+                <a href="share.do" style="margin-left: 1px;margin-right: 20px; color: #000;">공유</a>
+            </div>
+        </div>
+       
        <!-- 포스팅 끝 -->
        <div class="row" style="width:200%; height:5px; background-color: gainsboro;"></div>
-   </c:forEach>
+
 </div>
 </body>
 </html>

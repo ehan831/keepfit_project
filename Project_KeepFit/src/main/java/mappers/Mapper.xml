@@ -64,12 +64,9 @@
 	<![CDATA[
 	SELECT *
 	FROM cmt 
-<<<<<<< HEAD
 	ORDER BY post_id asc, cmt_id
-=======
 	WHERE post_id = #{post_id}
 	ORDER BY regdate asc
->>>>>>> fed21b0b8e4d81057e3f386f2498f2eb053adc03
 	]]>
 	</select>
 	<!-- <select id="getCommentList" parameterType="string" resultType="comment">
@@ -93,22 +90,22 @@
 	<!-- *********************************** [ LIKE DB ] *********************************** -->
 	<select id="likeExists" parameterType="like" resultType="like">
 	<![CDATA[
-	SELECT * FROM lk 
+	SELECT * FROM lk
 	WHERE like_user = #{like_user} AND post_id = #{post_id}
 	]]>
 	</select>
 	
 	<insert id="insertLike" parameterType="like">
 	<![CDATA[
-	INSERT INTO lk 
+	INSERT INTO lk
   		(like_id, like_user, post_id) 
-  		VALUES (seq_lk_id.NEXTVAL, #{like_user}, #{post_id})
+  		VALUES (seq_like_id.NEXTVAL, #{like_user}, #{post_id})
 	]]>
 	</insert>
 
 	<delete id="deleteLike" parameterType="like">
 	<![CDATA[
-	DELETE FROM lk 
+	DELETE FROM lk
 	WHERE post_id = #{post_id} AND like_user = #{like_user}
 	]]>
 	</delete>
@@ -116,8 +113,8 @@
 	<select id="getLikeList" parameterType="like" resultType="like">
 	<![CDATA[
 	SELECT * FROM lk
-	WHERE lk_user = #{like_user}
-	ORDER BY sysdate DESC
+	WHERE like_user = #{like_user}
+	ORDER BY like_date DESC
 	]]>
 	</select>
 

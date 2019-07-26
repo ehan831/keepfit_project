@@ -14,6 +14,6 @@ public interface LikeService {
 		void like(LikeVO vo);
 
 		// like_user 좋아요 모두 조회
-		LikeVO getLikeList(LikeVO vo);
+		List<LikeVO> getLikeList(LikeVO vo);
 
 }

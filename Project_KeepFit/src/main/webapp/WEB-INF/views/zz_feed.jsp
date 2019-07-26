@@ -134,7 +134,7 @@
         <!-- 사진 -->
         <div class="bxslider">
             <div>
-                <img src="resources/img/${aa.post_id}/1.jpg" alt="이미지 로딩 중">
+                <img src="resources/postImgs/${aa.post_id}/1.jpg" alt="이미지 로딩 중">
             </div>
         </div>
         <div class="row" style="margin-right: 0px; margin-left: 0px; background-color: #ffffff">
@@ -163,14 +163,14 @@
         <div class="row" style="padding: 15px 10px; ">
             <div style="float: left; font-size: 120% ">
                 <b><i name="likeIt" class="far fa-heart" style="margin-left: 10px;"></i></b>
-                <a href="https://naver.com" style="margin-left: 1px;margin-right: 20px; color: #000;">좋아요</a>
+                <a href="getLikeList.do?post_id=${aa.post_id}" style="margin-left: 1px;margin-right: 20px; color: #000;">좋아요</a>
 
                 <b><i class="far fa-comment-alt" style="margin-left: 1px;"></i></b>
-                <a href="https://naver.com" style="margin-left: 1px;margin-right: 20px; color: #000;">댓글</a>
+                <a href="getCommentList.do?post_id=${aa.post_id}" style="margin-left: 1px;margin-right: 20px; color: #000;">댓글</a>
             </div>
             <div style="float: right; font-size: 120%">
                 <b><i class="far fa-share-square" style="margin-left: 10px;"></i></b>
-                <a href="https://naver.com" style="margin-left: 1px;margin-right: 20px; color: #000;">공유</a>
+                <a href="share.do" style="margin-left: 1px;margin-right: 20px; color: #000;">공유</a>
             </div>
         </div>
         <%--        구버전 아이콘들--%>

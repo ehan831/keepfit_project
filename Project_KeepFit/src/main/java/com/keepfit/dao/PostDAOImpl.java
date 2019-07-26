@@ -22,8 +22,13 @@ public class PostDAOImpl implements PostDAO{
 	@Override
 	public int insertPost(PostVO vo) {
 		System.out.println("===> Mybatis insertPost() 호출");
-		mybatis.insert("db.insertPost", vo);			
-		return mybatis.selectOne("db.countPost", vo);			
+		if (vo.getPost_writer() != null) {
+			mybatis.insert("db.insertPost", vo);			
+		} else {
+			System.out.println("작성자가 없습니다! = " + vo.getPost_writer());
+		}			
+		return 1;
+				
 	}
 	
 	// 게시물 수정

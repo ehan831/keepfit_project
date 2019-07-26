@@ -21,5 +21,5 @@ public interface CommentDAO {
 	public CommentVO getComment(CommentVO vo);
 	
 	// 총 댓글 조회
-	public List<CommentVO> getCommentList(CommentVO vo, String post_id);
+	public List<CommentVO> getCommentList(CommentVO vo);
 }

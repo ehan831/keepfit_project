@@ -20,9 +20,9 @@
 </head>
 <body>
 
-<div style="font-size: 30px; line-height: 10px; text-align: center;">
+<div style="font-size: 30px; line-height: 10px; text-align: center; width:100%;">
 <hr/>
-<h5 align="center">안녕하세요 <b>${member.member_nick}</b>님 로그인에 성공하셨습니다.</h5><br/>
+<h5 align="center">안녕하세요 <b><%=session.getAttribute("userLogged")%></b>님 로그인에 성공하셨습니다.</h5><br/>
 <hr/>
 <h6 align="center">메인 화면으로 이동합니다..</h6>
 <div id="counter">2</div>

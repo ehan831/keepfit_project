@@ -118,7 +118,7 @@ function copy_clip(url) {
 <a href="javascript:toSNS('blog','공유제목!','http://localhost:8080/Project_KeepFit/getPostList.do')" title="NaverBlog"><img src="resources/img/blog.png"></a>
 <br><br><br>
 
-<input type="text" value="http://localhost:8080/Project_KeepFit/getPostList.do" size="50" readonly>
+<input type="text" value="http://localhost:8080/Project_KeepFit/index.jsp" size="50" readonly>
 <a href="javascript:copy_clip('http://localhost:8080/Project_KeepFit/getPostList.do')">
 <button type="button" class="btn btn-primary">
 링크복사

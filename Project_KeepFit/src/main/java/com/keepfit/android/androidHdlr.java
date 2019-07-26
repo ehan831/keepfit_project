@@ -30,7 +30,7 @@ public class androidHdlr {
 		System.out.println("posting.jsp: "+postId);
 
 		// post_id의 이름으로 폴더를 지정한다
-		String path = "C:/PostPics/" + postId; //폴더 경로
+		String path = "C:/Users/Daniel Son/Documents/Github_KeepFit/Project_KeepFit/src/main/webapp/resources/postImgs/" + postId; //폴더 경로
 		System.out.println(path);
 		File folder = new File(path);
 		File[] deleteFolderFiles = folder.listFiles();

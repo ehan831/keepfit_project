@@ -36,7 +36,7 @@
 <div class="container" style="margin: 2px">
     <c:forEach var="lk" items="${likeUser}">
         <div class="col-xs-4" style="border: solid 1px #fffdff; padding:0;">
-            <img src="resources/img/${lk.post_id}/thumb.jpg" width="100%" style="margin:0;">
+            <img src="resources/postImgs/${lk.post_id}/thumb.jpg" width="100%" style="margin:0;">
                 <%--                포스트 디테일로 가는 화면 만들기 --%>
         </div>
     </c:forEach>

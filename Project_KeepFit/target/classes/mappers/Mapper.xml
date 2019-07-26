@@ -60,27 +60,14 @@
  		]]>
 	</delete>
 
-	<select id="getCommentList" parameterType="string" resultType="comment">
+	<select id="getCommentList" parameterType="comment" resultType="comment">
 	<![CDATA[
 	SELECT *
 	FROM cmt 
+	WHERE post_id = #{post_id} 
 	ORDER BY post_id asc, cmt_id
 	]]>
 	</select>
-	<!-- <select id="getCommentList" parameterType="string" resultType="comment">
-	<![CDATA[
-	SELECT *
-	FROM cmt 
-	WHERE post_id = #{post_id}
-	ORDER BY cmt_id
-	]]>
-	</select> -->
-
-	<!-- <select id="getCommentList" parameterType="comment" resultMap="comment"> -->
-	<!-- <![CDATA[ -->
-	<!-- *************{{{{ QUERY }}}}**************** -->
-	<!-- ]]> -->
-	<!-- </select> -->
 
 	<!-- *********************************** END OF [ COMMENT DB ] *********************************** -->
 
@@ -111,7 +98,7 @@
 	<select id="getLikeList" parameterType="like" resultType="like">
 	<![CDATA[
 	SELECT * FROM lk
-	WHERE lk_user = #{like_user}
+	WHERE post_id = #{post_id}
 	ORDER BY sysdate DESC
 	]]>
 	</select>
@@ -151,10 +138,12 @@
 
 	<!-- 회원가입 시 ID(이메일) 사용가능여부 체크하는 쿼리 -->
 	<select id="idCheck" parameterType="member" resultType="member">
+		<![CDATA[
 		SELECT * FROM member
-		WHERE member_email = #{member_email}
+		WHERE member_email = #{member_email}]]>
 		<if test="member_pass != null">
-			AND member_pass = #{member_pass}
+			<![CDATA[
+			AND member_pass = #{member_pass}]]>
 		</if>
 	</select>		
 
@@ -194,11 +183,11 @@
 	INSERT INTO post
 	(post_id, post_writer, selected_date, post_date, post_mood, 
 	member_tag, sport_name, place_tag, pic_count, 
-	privacy, content, total_calories, path_pic)
+	content, total_calories, path_pic, privacy)
 	
 	VALUES (#{post_id}, #{post_writer}, #{selected_date}, sysdate, #{post_mood}, 
 	#{member_tag}, #{sport_name}, #{place_tag}, #{pic_count}, 
-	#{privacy}, #{content}, #{total_calories}, #{path_pic})
+	#{content}, #{total_calories}, #{path_pic}, #{privacy})
 	]]>
 	</insert>
 

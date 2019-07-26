@@ -84,7 +84,7 @@
     회원가입 화면
 </div>
 <div class="container">
-    <form class="form-group-lg" id="myForm" action="zz_signUpExtra.do">
+    <form class="form-group-lg" id="myForm" action="login.do">
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>

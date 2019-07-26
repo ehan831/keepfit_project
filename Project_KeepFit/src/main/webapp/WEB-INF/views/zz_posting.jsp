@@ -87,36 +87,49 @@
                 //return false;
             };
 
-            $('#submit').click(function () {
-                var imgSrc = $('#img').attr('src');
-                $('#imgSrc').val(imgSrc);
-            })
+        	//		android으로 메시지 보내기
+        	$("#submit").click(function () {
+//             	function () {
+        		var broswerInfo = navigator.userAgent;
+        		if (broswerInfo.indexOf("Android") > -1) {
+        			window.MyTestApp.AlertMsg("웹뷰에서 호출된 메시지입니다");
+        		}
+
+//         		var imgSrc = $('#img').attr('src');
+//                 $('#imgSrc').val(imgSrc);
+//         		$('#submit').submit();
+        	});
+        	
+            
         });
     </script>
 </head>
 <body>
 
 <div class="container">
-    <form class="form-group-lg" id="myForm" action="feed_test.do" method="get">
+    <form class="form-group-lg" id="myForm" action="insertPost.do" method="get">
+    <input type="hidden" name="post_id" value="${post.post_id }">
+    <input type="hidden" name="path_pic" value="${post.path_pic }">
+    <input type="hidden" name="post_writer" value="<%=session.getAttribute("userLogged")%>">
         <!-- 썸네일 -->
         <div class="row effect" style="margin: 10px">
             <p style="margin: 5px"><b>선택된 사진</b></p>
             <div class="col-xs-4" style="border: solid 1px #fffdff; padding:0;">
-                <img src="https://via.placeholder.com/100" width="100%" style="margin:0px;">
+                <img src="resources/postImgs/${post.post_id }/thumb.jpg" width="100%" style="margin:0px;">
             </div>
-            <div class="col-xs-4" style="border: solid 1px #fffdff;padding:0;">
-                <img src="https://via.placeholder.com/100" width="100%" style="margin:0px;">
-            </div>
-            <div class="col-xs-4" style="border: solid 1px #fffdff;padding:0;">
-                <img src="https://via.placeholder.com/100" width="100%" style="margin:0px;">
-            </div>
+<!--             <div class="col-xs-4" style="border: solid 1px #fffdff;padding:0;"> -->
+<!--                 <img src="https://via.placeholder.com/100" width="100%" style="margin:0px;"> -->
+<!--             </div> -->
+<!--             <div class="col-xs-4" style="border: solid 1px #fffdff;padding:0;"> -->
+<!--                 <img src="https://via.placeholder.com/100" width="100%" style="margin:0px;"> -->
+<!--             </div> -->
         </div>
         <!--데이트 픽커-->
         <hr>
         <div class="row" style="margin: 10px">
             <p style="margin: 5px"><b>정보 입력</b></p>
             <div class="input-group">
-                <input name="textDate" type="text" class="form-control" id="txtDate" value="" maxlength="8"
+                <input name="selected_date" type="text" class="form-control" id="txtDate" maxlength="8"
                        placeholder="날짜 선택">
                 <div class="input-group-addon">
                     <a href="#" id="btnSearchDate"><i class="far fa-calendar-alt"
@@ -128,32 +141,32 @@
             <span class="input-icon col-xs-2" style="text-align:center">
                 <i class="fas fa-user-tag" style="font-size: 200%"></i>
             </span>
-                <input name="text1" type="text" class="input-with-icon col-xs-10" id="form-name1" placeholder="사람 태그하기">
+                <input name="member_tag" type="text" class="input-with-icon col-xs-10" id="form-name1" placeholder="사람 태그하기">
             </div>
 
             <div class="input-icon-wrap" style="margin: 1px 0px;">
             <span class="input-icon col-xs-2" style="text-align: center">
                 <i class="fas fa-cloud-sun-rain" style="font-size: 200%"></i>
             </span>
-                <input name="text2" type="text" class="input-with-icon" id="form-name2" placeholder="기분 선택하기">
+                <input name="post_mood" type="text" class="input-with-icon" id="form-name2" placeholder="기분 선택하기">
             </div>
 
             <div class="input-icon-wrap" style="margin: 1px 0px;">
             <span class="input-icon col-xs-2" style="text-align: center">
                 <i class="fas fa-biking" style="font-size: 200%"></i>
             </span>
-                <input name="text3" type="text" class="input-with-icon" id="form-name3" placeholder="운동 선택하기">
+                <input name="sport_name" type="text" class="input-with-icon" id="form-name3" placeholder="운동 선택하기">
             </div>
 
             <div class="input-icon-wrap" style="margin: 1px 0px;">
             <span class="input-icon col-xs-2" style="text-align: center">
                 <i class="fas fa-map-marked-alt" style="font-size: 200%"></i>
             </span>
-                <input name="text4" type="text" class="input-with-icon" id="form-name4" placeholder="위치 추가하기">
+                <input name="place_tag" type="text" class="input-with-icon" id="form-name4" placeholder="위치 추가하기">
             </div>
 
             <div class="input-icon-wrap" style="clear: both;">
-            <textarea name="text5" class="text-justify" placeholder="내용을 입력해주세요." rows="5"
+            <textarea name="content" class="text-justify" placeholder="내용을 입력해주세요." rows="5"
                       style="width: 100%;"></textarea>
             </div>
             <hr style="margin: 5px">
@@ -161,7 +174,7 @@
                 <input id="submit" class="btn btn-primary" type="submit" name="submit" value="글쓰기">
                 <label class="checkbox-inline" style="float: right">
                     <span>공유 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <input name="checkbox" type="checkbox" checked data-toggle="toggle">
+                    <input name="privacy" type="checkbox" checked data-toggle="toggle">
                 </label>
             </div>
             <hr style="margin: 10px">
@@ -182,8 +195,7 @@
     <%--        <!-- 썸네일 -->--%>
     <%--        <div class="input-group" style="float: right; align-content: baseline">--%>
     <%--            <img id="img" src="//via.placeholder.com/150x200" alt="150x200" class="img-thumbnail">--%>
-    <%--            <input type="hidden" id="path_thumb" name="path_thumb" value="">--%>
-    <%--            <input type="hidden" id="path_pic" name="path_pic" value="">--%>
+    <%--            
     <%--        </div>--%>
 
     <%--        <!-- 1번 태그 -->--%>

@@ -85,7 +85,7 @@
         .bx-viewport {
             /*fix other elements on the page moving (on Chrome)*/
             -webkit-transform: translatez(0);
-            max-height: 400px;
+            max-height: 450px;
         }
     </style>
 </head>
@@ -197,6 +197,52 @@
         <!-- 포스팅 끝 -->
         <div class="row" style="width:200%; height:5px; background-color: gainsboro;"></div>
     </c:forEach>
+    <!--포스팅 글-->
+    <div class="row" style="margin-bottom: 8px">
+        <!--        프로필 사진 -->
+        <div class="col-xs-2" style="width: 20%">
+            <img width="100%" class="img-circle" src="resources/img/profile.png" alt="profile">
+        </div>
+        <div class="col-xs-8" style="padding-left: 0;">
+            <div class="col-xs-12" style="padding-left: 0;">
+                <b><p style="margin-bottom:5px; text-align: left"></p>SpongeBob</b>
+            </div>
+            <div class="col-xs-12" style="padding-left: 0;font-size: 11px;">
+                <p style="">#하늘이맑음 #자전거 #양재천</p>
+            </div>
+        </div>
+        <div class="col-xs-1" style="padding-left:0; padding-top: 11px">
+            <img src="resources/img/images2.png" width="100%">
+        </div>
+    </div>
+    <!--    사진 -->
+    <div class="bxslider">
+        <div>
+            <img src="resources/img/2.jpg" alt="이미지 로딩 중">
+        </div>
+        <div>
+            <img src="resources/img/3.jpg" alt="이미지 로딩 중">
+        </div>
+        <div>
+            <img src="resources/img/4.jpg" alt="이미지 로딩 중">
+        </div>
+    </div>
+    <%--        좋아요, 댓글, 공유--%>
+    <div class="row" style="padding: 15px 10px; ">
+        <div style="float: left">
+            <img class="likeIt" src="resources/img/heart.svg" style="margin-left: 10px;width: 24px; height: 24px;"><a
+                style="margin-left: 5px;margin-right: 20px; color: #000;">좋아요</a>
+            <img src="resources/img/comment.svg"><a style="margin-left: 5px; color: #000;">댓글</a>
+        </div>
+        <div style="float: right">
+            <img src="resources/img/share.svg"><a style="margin-left: 5px;margin-right: 10px; color: #000;">공유</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <p style="color:grey;">6월 30일</p>
+        </div>
+    </div>
 </div>
 
 </body>

@@ -39,17 +39,14 @@
                 pagerType: 'full',
                 minSlides: 2,
             });
-        });
-        //
         // 좋아요 클릭 시, 하트 이미지 변경되는 메소드
-        $('i[name=likeIt]').click(function () {
-            if ($(this).classList.contains('fa-heartbeat')) {
-               $(this).removeClass('fa-heartbeat');
-               $(this).addClass('fa-heart');
-            } else {
-                $(this).removeClass('fa-heart');
-                $(this).addClass('fa-heartbeat');
-            }
+            $('.likeIt').click(function () {
+                // alert("click");
+                // alert($(this).attr('src')); // resources/img/heart.svg
+                if ($(this).attr('src') == 'resources/img/heart.svg') {
+                    $(this).attr('src', 'resources/img/heart_filled.svg');
+                } else $(this).attr('src', 'resources/img/heart.svg');
+            })
         });
 
     </script>
@@ -161,18 +158,29 @@
         </div>
         <%--        좋아요, 댓글, 공유--%>
         <div class="row" style="padding: 15px 10px; ">
-            <div style="float: left; font-size: 120% ">
-                <b><i name="likeIt" class="far fa-heart" style="margin-left: 10px;"></i></b>
-                <a href="getLikeList.do?post_id=${aa.post_id}" style="margin-left: 1px;margin-right: 20px; color: #000;">좋아요</a>
-
-                <b><i class="far fa-comment-alt" style="margin-left: 1px;"></i></b>
-                <a href="getCommentList.do?post_id=${aa.post_id}" style="margin-left: 1px;margin-right: 20px; color: #000;">댓글</a>
+            <div style="float: left">
+                <img class="likeIt" src="resources/img/heart.svg" style="margin-left: 10px;width: 24px; height: 24px;"><a
+                    style="margin-left: 5px;margin-right: 20px; color: #000;">좋아요</a>
+                <img src="resources/img/comment.svg"><a style="margin-left: 5px; color: #000;">댓글</a>
             </div>
-            <div style="float: right; font-size: 120%">
-                <b><i class="far fa-share-square" style="margin-left: 10px;"></i></b>
-                <a href="share.do" style="margin-left: 1px;margin-right: 20px; color: #000;">공유</a>
+            <div style="float: right">
+                <img src="resources/img/share.svg"><a style="margin-left: 5px;margin-right: 10px; color: #000;">공유</a>
             </div>
         </div>
+
+<%--        <div class="row" style="padding: 15px 10px; ">--%>
+<%--            <div style="float: left; font-size: 120% ">--%>
+<%--                <b><i name="likeIt" class="far fa-heart" style="margin-left: 10px;"></i></b>--%>
+<%--                <a href="getLikeList.do?post_id=${aa.post_id}" style="margin-left: 1px;margin-right: 20px; color: #000;">좋아요</a>--%>
+
+<%--                <b><i class="far fa-comment-alt" style="margin-left: 1px;"></i></b>--%>
+<%--                <a href="getCommentList.do?post_id=${aa.post_id}" style="margin-left: 1px;margin-right: 20px; color: #000;">댓글</a>--%>
+<%--            </div>--%>
+<%--            <div style="float: right; font-size: 120%">--%>
+<%--                <b><i class="far fa-share-square" style="margin-left: 10px;"></i></b>--%>
+<%--                <a href="share.do" style="margin-left: 1px;margin-right: 20px; color: #000;">공유</a>--%>
+<%--            </div>--%>
+<%--        </div>--%>
         <%--        구버전 아이콘들--%>
         <%--        <div class="row" style="padding: 15px 10px; ">--%>
         <%--            <div style="float: left">--%>

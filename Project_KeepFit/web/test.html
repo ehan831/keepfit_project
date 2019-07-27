@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FEED</title>
+
+    <script
+            src="https://code.jquery.com/jquery-2.2.4.js"
+            integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+            crossorigin="anonymous">
+    </script>
+
+    <!-- 아이콘 제공 사이트, https://fontawesome.com-->
+    <script src="https://kit.fontawesome.com/0c46a3b816.js"></script>
+
+    <!--bx slider-->
+    <link rel="stylesheet" href="resources/css/jquery.bxslider.css">
+    <script src="resources/js/jquery.bxslider.js"></script>
+
+    <!-- Bootstrap -->
+    <link href="resources/css/bootstrap.css" rel="stylesheet">
+    <script src="resources/js/bootstrap.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        .fa {
+            font-size: 50px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .fa:hover {
+            color: darkblue;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $('.bxslider').bxSlider({
+                infiniteLoop: false,
+                pagerType: 'full',
+                minSlides: 2,
+            });
+            // 좋아요 클릭 시, 하트 이미지 변경되는 메소드
+            // $('a[name = "likeIt"]').click(function () {
+            //     alert("클릭");
+            //     var icon = $(this).parent().find('span');
+            //     alert(icon.html());
+            //     if(icon.html() !=('<i class="fa fa-heart" style="margin-left: 10px;"></i>')) {
+            //         alert("eq");
+            //         icon.html('<i class="fa fa-heartbeat" style="margin-left: 10px;"></i>)');
+            //     } else {
+            //         alert("!eq");
+            //         icon.html('<i class="fa fa-heartbeat" style="margin-left: 10px;"></i>)');
+            //     }
+            // });
+            $('.likeIt').click(function () {
+                // alert("click");
+                alert($(this).attr('src')); // resources/img/heart.svg
+                if ($(this).attr('src') == 'resources/img/heart.svg') {
+                    $(this).attr('src', 'resources/img/heart_filled.svg');
+                } else $(this).attr('src', 'resources/img/heart.svg');
+            })
+        });
+        // function myFunction(x) {
+        //     x.classList.toggle("fa-heartbeat");
+        // }
+        // 좋아요 클릭 시, 하트 이미지 변경되는 메소드
+
+    </script>
+    <script src="resources/js/feed.js" type="text/javascript"></script>
+
+    <style>
+        .bx-viewport {
+            /*fix other elements on the page moving (on Chrome)*/
+            -webkit-transform: translatez(0);
+            max-height: 400px;
+        }
+    </style>
+</head>
+<body>
+
+
+<!-- app bar -->
+<div class="container text-left"
+     style="background-color:#001b2a;height:40px;border-bottom:solid 1px #b2b2b2; width:100%; z-index:2; position: fixed;
+        display: block; overflow: hidden">
+    <div class="row" style="height: 40px">
+        <img src="resources/img/logo.PNG" height="100%">
+    </div>
+    <div class="row" style="margin-top: 53px"></div>
+</div>
+
+<div class="container" style="overflow:hidden;">
+    <!--    맨 위 간격 맞추기 -->
+    <div class="row" style="margin-top: 53px"></div>
+    <!--포스팅 글-->
+    <%-- 좋아요, 댓글, 공유--%>
+    <div class="row" style="padding: 15px 10px; ">
+        <div style="float: left">
+            <img class="likeIt" src="resources/img/heart.svg" style="margin-left: 10px;width: 24px; height: 24px;"><a
+                style="margin-left: 5px;margin-right: 20px; color: #000;">좋아요</a>
+            <img src="resources/img/comment.svg"><a style="margin-left: 5px; color: #000;">댓글</a>
+        </div>
+        <div style="float: right">
+            <img src="resources/img/share.svg"><a style="margin-left: 5px;margin-right: 10px; color: #000;">공유</a>
+        </div>
+    </div>
+    <!--    <div class="row" style="padding: 15px 10px; ">-->
+    <!--        <div style="float: left; font-size: 120% ">-->
+    <!--            <span><i class='far fa-heart' style='margin-left: 10px;'></i></span>-->
+    <!--            <a name="likeIt" href="" style="margin-left: 1px;margin-right: 20px; color: #000;">좋아요</a>-->
+    <!--        </div>-->
+    <!--        <div style="float: left; font-size: 120% ">-->
+    <!--        <b><i class="far fa-comment-alt" style="margin-left: 1px;"></i></b>-->
+    <!--            <a href="https://naver.com" style="margin-left: 1px;margin-right: 20px; color: #000;">댓글</a>-->
+    <!--        </div>-->
+    <!--        <div style="float: right; font-size: 120%">-->
+    <!--            <b><i class="far fa-share-square" style="margin-left: 10px;"></i></b>-->
+    <!--            <a href="https://naver.com" style="margin-left: 1px;margin-right: 20px; color: #000;">공유</a>-->
+    <!--        </div>-->
+    <!--        <div>-->
+    <!--            <b><i onclick="myFunction(this)" class="far fa-heartbeat" style="font-size: 300%"></i>-->
+    <!--            </b>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--    포스팅 끝 -->
+    <div class="row" style="width:200%; height:5px; background-color: gainsboro"></div>
+</div>
+</body>
+</html>

@@ -317,6 +317,87 @@ public class Controller {
 
 		return mv;
 	}
+	
+	/**************************************************************************************************
+	 * [검색] HANDLERS
+	 *************************************************************************************************/
+	// SEARCH RESULT > keyword 기준으로 검색
+	// 인자: (PostVO, MemberVO, CommentVO)
+	@RequestMapping(value = { "getSearchList.do" })
+
+	public ModelAndView search(PostVO post, MemberVO member, CommentVO comment,  
+			@RequestParam String searchParameter, String searchKeyword) {
+		// [Search parameter]에 따라 관련 결과 조회
+//		String searchParameter = request.getParameter("searchParameter");
+		// 0 > users [MEMBER DB]
+		// 1 > comments [COMMENT DB]
+		// 2 > sports [POST DB]
+		// 3 > places [POST DB]
+//		String searchKeyword = request.getParameter("searchKeyword");
+
+		switch (searchParameter) {
+		case "0":
+			// [MEMBER DB]에 keyword: %[member_nick]% 관련된 모든 user 조회
+			List<MemberVO> memberList = memberService.getMemberList(member);
+
+			if (memberList != null) {
+				mv.addObject("memberList", memberList); // ****FRONT: parameter 수정가능
+				mv.addObject("memberStatus", "1"); // ****FRONT: parameter 수정가능
+				System.out.println("[MEMBER DB]: "+ searchKeyword+ " 조회");
+			} else {
+				mv.addObject("memberStatus", "0"); // ****FRONT: parameter 수정가능
+				System.out.println("[MEMBER DB]: "+ searchKeyword+ " 없음");
+			}
+			break;
+
+		case "1":
+			// [COMMENT DB]에 %[post_writer]% 관련된 모든 댓글 조회
+			List<CommentVO> commentList = commentService.getCommentList(comment);
+
+			if (commentList != null) {
+				mv.addObject("commentList", commentList); // ****FRONT: parameter 수정가능
+				mv.addObject("commentStatus", "1"); // ****FRONT: parameter 수정가능
+				System.out.println("[COMMENT DB]: "+ searchKeyword+ " 조회");
+			} else {
+				mv.addObject("commentStatus", "0"); // ****FRONT: parameter 수정가능
+				System.out.println("[COMMENT DB]: "+ searchKeyword+ " 없음");
+			}
+			break;
+			
+		case "2":
+			// [POST DB]에 %[sport_name]% 관련된 모든 게시물 조회
+			List<PostVO> sportPostList = postService.getPostList(post);
+
+			if (sportPostList != null) {
+				mv.addObject("postList", sportPostList); // ****FRONT: parameter 수정가능
+				mv.addObject("postStatus", "1"); // ****FRONT: parameter 수정가능
+				System.out.println("[POST DB]: "+ searchKeyword+ " 조회");
+			} else {
+				mv.addObject("postStatus", "0"); // ****FRONT: parameter 수정가능
+				System.out.println("[POST DB]: "+ searchKeyword+ " 없음");
+			}
+			break;
+			
+		case "3":
+			// [POST DB]에 %[place_tag]% 관련된 모든 게시물 조회
+			List<PostVO> placePostList = postService.getPostList(post);
+			
+			if (placePostList != null) {
+				mv.addObject("postList", placePostList); // ****FRONT: parameter 수정가능
+				mv.addObject("postStatus", "1"); // ****FRONT: parameter 수정가능
+				System.out.println("[POST DB]: "+ searchKeyword+ " 조회");
+			} else {
+				mv.addObject("postStatus", "0"); // ****FRONT: parameter 수정가능
+				System.out.println("[POST DB]: "+ searchKeyword+ " 없음");
+			}
+			break;
+			
+			
+		} // end of switch statements
+		mv.setViewName("searchResult"); // ****FRONT: view url 수정가능
+		return mv;
+		
+	} // end of search()
 
 	/**************************************************************************************************
 	 * [글쓰기] test - han

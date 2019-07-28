@@ -155,13 +155,14 @@
 	<!-- ]]> -->
 	<!-- </select> -->
 
-	<select id="loginMember" parameterType="member"
-		resultType="member">
+	<select id="loginMember" parameterType="member"	resultType="member">
 		<![CDATA[
   		SELECT * FROM member 
-  		WHERE (member_email = #{member_email})
-  			AND (member_pass = #{member_pass})
-  		]]>
+  		WHERE member_email = #{member_email}]]>
+  		<if test="#{member_pass} != null">
+			<![CDATA[
+			AND member_pass = #{member_pass}]]>
+		</if>
 	</select>
 
 	<!-- *********************************** END OF [ MEMBER DB ] *********************************** -->

@@ -63,7 +63,6 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public MemberVO loginMember(MemberVO vo) {
 		System.out.println("===> Mybatis getMember() 호출");
-		MemberVO login = new MemberVO();
 		return (MemberVO) mybatis.selectOne("db.loginMember", vo);
 	}
 	

@@ -19,19 +19,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void insertMember(MemberVO vo) {
 		memberDAO.insertMember(vo);
-		
 	}
 
 	@Override
 	public void updateMember(MemberVO vo) {
 		memberDAO.updateMember(vo);
-		
 	}
 
 	@Override
 	public void deleteMember(MemberVO vo) {
 		memberDAO.deleteMember(vo);
-		
 	}
 
 	@Override

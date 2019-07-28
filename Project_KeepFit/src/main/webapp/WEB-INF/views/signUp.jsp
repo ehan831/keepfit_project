@@ -22,12 +22,12 @@
     회원가입 화면
 </div>
 <div class="container">
-    <form class="form-group-lg" id="myForm" action="signUpExtra.do">
+    <form class="form-group-lg" id="myForm" action="login.do" method="get">
         <div>
             <input class="form-control" type="email" name="member_email" placeholder="이메일을 입력해주세요" required autofocus>
         </div>
         <div>
-            <input class=form-control id="pass" type="password" name="member_pass" placeholder="비밀번호">
+            <input class=form-control type="password" name="member_pass" id="pass" placeholder="비밀번호">
         </div>
         <div>
             <input class=form-control id="pass2" type="password" placeholder="비밀번호 확인">

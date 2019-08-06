@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <RelativeLayout
+        android:id="@+id/rel1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/img12" >
+           </ImageView>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/gallery_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/photo2"
+            android:adjustViewBounds="true"
+            android:layout_alignBottom="@+id/imageView"
+            android:layout_marginBottom="10dp"
+            android:layout_alignRight="@+id/imageView"
+            android:layout_marginRight="10dp"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rel1">
+
+        <GridView
+            android:id="@+id/myGrid"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:columnWidth="100dp"
+            android:horizontalSpacing="5dp"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="5dp"></GridView>
+
+   <!--     <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/myGrid"
+            android:layout_marginBottom="8dp"
+            android:text="사진 전송" />-->
+    </RelativeLayout>
+
+
+</RelativeLayout>

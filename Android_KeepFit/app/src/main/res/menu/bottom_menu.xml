@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_home"
+        android:enabled="true"
+        android:icon="@drawable/ic_iconfinder_sed_04_2232319"
+        android:title=""/>
+
+    <item
+        android:id="@+id/action_search"
+        android:enabled="true"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title=""/>
+
+    <item
+        android:id="@+id/action_add"
+        android:enabled="true"
+        android:icon="@drawable/ic_add_circle_outline_black_24dp"
+        android:title=""/>
+
+    <item
+        android:id="@+id/action_call"
+        android:enabled="true"
+        android:icon="@drawable/ic_iconfinder_sed_06_2232333"
+        android:title=""/>
+
+    <item
+        android:id="@+id/action_run"
+        android:enabled="true"
+        android:icon="@drawable/ic_iconfinder_sed_09_2232326"
+        android:title=""/>
+</menu>
